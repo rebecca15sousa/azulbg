@@ -3,6 +3,9 @@ let circuloMaster = [];
 let mesa = [];
 let discard = [];
 let megaDiv = document.querySelector("#mainBoardArea");
+let buttons;
+let playerTileSel = [];
+let numPlayers = 2;
 
 //array que contem todos os tiles do jogo
 let tipoTiles = [
@@ -26,8 +29,8 @@ function createBag() {
 function createCirculos(numPlayers) {
   let numCirculos = (numPlayers * 2) + 1;
   for(let i = 0; i < numCirculos; i++) {
-    let circulo = [];
-    circuloMaster.push(circulo);
+    let factDisplay = [];
+    circuloMaster.push(factDisplay);
     let div = document.createElement('div');
     div.setAttribute('id', 'factory' + i);
     div.setAttribute('class', 'factoriesDisplay');
@@ -50,15 +53,53 @@ function distributeTiles() {
       let randomIndex = Math.floor(Math.random() * bag.length);
       circuloMaster[i].push(bag[randomIndex]);
       bag.splice(randomIndex, 1);
-      let variavelzinha = "<input type='image' src='assets/" + circuloMaster[i][j] + ".jpg' class='tilesImage'>"
+      let variavelzinha = "<input type='image' src='assets/" + circuloMaster[i][j] + ".jpg' class='tilesImage' id='" + circuloMaster[i][j] + randomIndex + "'>"
       document.getElementById('factory' + i).innerHTML += variavelzinha;
     }
+    buttons = document.querySelectorAll(".tilesImage");
+  }
+}
+
+function coletarTiles() {
+
+}
+
+function eventos() {
+  for(i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function() {
+      let pid = this.parentNode.id;
+      let factDisplayNum = pid.substr(-1, 1);
+      let nid = this.id;
+      let factDisplayColor = nid.replace(/[0-9]/g, '');
+      console.log(factDisplayColor);
+      for( let i = 0; i < circuloMaster[factDisplayNum].length; i++) {
+        if(circuloMaster[factDisplayNum][i] == factDisplayColor) {
+          playerTileSel.push(circuloMaster[factDisplayNum][i]);
+          circuloMaster[factDisplayNum].splice(i, 1);
+          i--;
+        }
+      }
+      // coletarTiles();
+    });
+  }
+}
+
+function createPlayerBoards(numPlayers) {
+  let div = document.querySelector("#playerAreas");
+  for (i = 0; i < numPlayers; i++) {
+    let div2 = document.createElement("input");
+    div2.setAttribute("class", "playerBoards");
+    div2.setAttribute("type", "image")
+    div2.setAttribute("src", "assets/playerBoard.jpg")
+    div.appendChild(div2);
   }
 }
 
 // console.log(circuloMaster);
+createPlayerBoards(numPlayers);
 createBag();
-createCirculos(4);
+createCirculos(numPlayers);
 distributeTiles();
+eventos();
 // console.log(bag);
 // console.log(circuloMaster);
