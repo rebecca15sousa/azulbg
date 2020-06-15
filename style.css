@@ -1,0 +1,20 @@
+/* #mainBoardArea {
+  width: 100%;
+  height: 100%;
+} */
+
+div.factoriesDisplay {
+  display: inline;
+}
+
+img.factoriesImages {
+    height: 150px;
+}
+
+body {
+  background-color: grey;
+}
+
+.tilesImage {
+  width: 35px;
+}
