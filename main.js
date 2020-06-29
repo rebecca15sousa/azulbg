@@ -15,6 +15,8 @@ let valueB;
 let tilesSameColor;
 let tileRow;
 let playerButtons;
+let jogadorInicial = Math.floor(Math.random() * numPlayers);
+let endRound = false;
 
 //array que contem todos os tiles do jogo
 let tipoTiles = [
@@ -150,6 +152,7 @@ function moveTileSelectedMesao(){
   for(let i = 0; i < mesao.length; i++) {
     if(mesao[i] == "Firstplayer") {
       allPlayerBoards[valueA][5].push(mesao[i]);
+      jogadorInicial = valueA;
       let tileFirstPlayer = document.querySelector("#firstPlayer");
       tileFirstPlayer.remove();
       mesao.splice(i, 1);
@@ -266,7 +269,22 @@ function createPlayerBoards(numPlayers) {
         for (let l = 0; l < playerButtons.length; l++) {
             playerButtons[l].disabled = true;
         }
-        // moveNotSelectedTiles();
+
+        // Checa se a rodada ja terminou
+        endRound = checkEnd();
+
+        function checkEnd() {
+          for (let o = 0; o < circuloMaster.length; o++) {
+            if (circuloMaster[o].length > 0) {
+              return false;
+            }
+          };
+          return true;
+        }
+
+        if (mesao.length == 0 && endRound == true) {
+          console.log("ACABOU A RODADA RAPAZEWADA uWu");
+        }
 
       });
       tileRow.setAttribute("class", "playerRowsButtons");
