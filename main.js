@@ -1,7 +1,7 @@
 let bag = [];
 let circuloMaster = [];
-let mesa = [];
-let discard = [];
+let mesao;
+let tilesDiscard = [];
 let megaDiv = document.querySelector("#mainBoardArea");
 let tiles;
 let numPlayers = 2;
@@ -13,6 +13,8 @@ let allPlayerBoards = [];
 let valueA;
 let valueB;
 let tilesSameColor;
+let tileRow;
+let playerButtons;
 
 //array que contem todos os tiles do jogo
 let tipoTiles = [
@@ -49,13 +51,28 @@ function createCirculos(numPlayers) {
   }
 }
 
+// Cria div que vai representar o mesao (factory display especial que recebe os tiles nao coletados pelo jogador da vez)
+function createMesaoFactoryDisplay() {
+  mesao = [];
+  // let factDisplay = [];
+  // circuloMaster.push(factDisplay);
+  let div = document.createElement('div');
+  div.setAttribute('id', 'mesao');
+  div.setAttribute('class', 'mesaoFactoryDisplay');
+  // let factoryImage = document.createElement('img');
+  // factoryImage.setAttribute('src', 'assets/factoryDisplay.png');
+  // factoryImage.setAttribute('class', 'factoriesImages');
+  // div.appendChild(factoryImage);
+  megaDiv.appendChild(div);
+}
+
 //Pega os tiles dentro da sacola, e distribui aleatoriamente nos factories displays
 function distributeTiles() {
   for(let i = 0; i < circuloMaster.length; i++) {
     for(let j = 0; j < 4; j++) {
       if (bag.length <= 0) {
-        bag = discard;
-        discard = [];
+        bag = tilesDiscard;
+        tilesDiscard = [];
       }
       let randomIndex = Math.floor(Math.random() * bag.length);
       circuloMaster[i].push(bag[randomIndex]);
@@ -73,7 +90,11 @@ function selectTileColor() {
     tiles[i].addEventListener("click", function() {
       for (let k = 0; k < tiles.length ; k++) {
         tiles[k].selected = false;
-        tiles[k].setAttribute("style", "border: none;");;
+        tiles[k].setAttribute("style", "border: none;");
+      }
+      playerButtons = document.querySelectorAll(".playerRowsButtons");
+      for (let l = 0; l < playerButtons.length; l++) {
+          playerButtons[l].disabled = false;
       }
       pid = this.parentNode.id;
       factDisplayNum = pid.substr(-1, 1);
@@ -84,7 +105,6 @@ function selectTileColor() {
       for (j = 0; j < tilesSameColor.length; j++) {
         tilesSameColor[j].setAttribute("style", "border: 2px solid red;");
         tilesSameColor[j].selected = true;
-        console.log(tilesSameColor[j].selected);
       };
     });
   }
@@ -92,29 +112,32 @@ function selectTileColor() {
 
 // Essa função esta responsavel por tirar os tiles da array dos factory displays e mover pra array selecionada do jogador
 function moveTileSelected(){
-for( let i = 0; i < circuloMaster[factDisplayNum].length; i++) {
-  // esse if seleciona todas os tiles com a mesma cor do tile clicado
-  if(circuloMaster[factDisplayNum][i] == factDisplayColor) {
-    // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
-    if (allPlayerBoards[valueA][valueB].length == 0) {
-    allPlayerBoards[valueA][valueB].push(factDisplayColor);
-  }
-    else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
-    allPlayerBoards[valueA][valueB].push(factDisplayColor);
-    // console.log("Atual conteudo do loop atual eh: " + allPlayerBoards[valueA][valueB][0]);
-  }
-
-  else {
-    if (allPlayerBoards[valueA][5].length < 7) {
-      console.log("PERDEU PONTO PQ TA LOTADO OU DA MESMA COR, SEU TROUXA OTARIO!!");
-      allPlayerBoards[valueA][5].push(factDisplayColor);
+  for( let i = 0; i < circuloMaster[factDisplayNum].length; i++) {
+    // Seleciona todas os tiles com a mesma cor do tile clicado
+    if(circuloMaster[factDisplayNum][i] == factDisplayColor) {
+      // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
+      if (allPlayerBoards[valueA][valueB].length == 0) {
+        allPlayerBoards[valueA][valueB].push(factDisplayColor);
+    } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
+        allPlayerBoards[valueA][valueB].push(factDisplayColor);
+    } else {
+        // Envia o excesso dos tiles para a linha de pontos negativos do jogador
+        if (allPlayerBoards[valueA][5].length < 7) {
+          allPlayerBoards[valueA][5].push(factDisplayColor);
+        // Se a linha de pontos negativos do jogador ja estiver lotada, envia o excesso de tiles que iria para lá direto para o descarte.
+        } else {
+          tilesDiscard.push(factDisplayColor);
+        }
+      }
+      // Deleta o tile da cor movida do factory display
+      circuloMaster[factDisplayNum].splice(i, 1);
+      i--;
+    } else {
+        mesao.push(circuloMaster[factDisplayNum][i]);
+        circuloMaster[factDisplayNum].splice(i, 1);
+        i--;
     }
   }
-    // Deleta o tile da cor movida do factory display
-    circuloMaster[factDisplayNum].splice(i, 1);
-    i--;
-  }
-}
 }
 
 //Essa função está sendo responsavel por desenhar nas fileiras do tabuleiro do jogador os tiles que foram adicionados para a fileira.
@@ -126,7 +149,7 @@ function drawTileSelected() {
       //let variavelzinha2 = "<img src='assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg' class='tilesImage'>";
       document.getElementById('fileira' + valueA + valueB).appendChild(variavelzinha2);
     }
-    else if (document.getElementById("fileira" + valueA + valueB).childElementCount < valueB + 1) {
+    else if (document.getElementById("fileira" + valueA + valueB).childElementCount < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
       let variavelzinha2 = document.createElement("img");
       variavelzinha2.setAttribute("src", "assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg");
       //let variavelzinha2 = "<img src='assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg' class='tilesImage'>";
@@ -153,21 +176,28 @@ function createPlayerBoards(numPlayers) {
     allPlayerBoards[i] = [];
     //cria 5 fileiras pra cada board de jogador
     for (let j = 0; j < 5; j++) {
-      let tileRow = document.createElement("button");
+      tileRow = document.createElement("button");
+      tileRow.disabled = true;
       tileRow.addEventListener("click", function() {
         valueA = i;
         valueB = j;
         moveTileSelected();
-        // Remove azulejos selecionados dos factory displays
-        for (l = 0; l < tilesSameColor.length; l++) {
-          tilesSameColor[l].remove();
+        // Remove todos os azulejos selecionados dos factory displays
+        let allTilesInThisFactDisplay = document.querySelectorAll("#" + pid + ">.tilesImage");
+        for (l = 0; l < allTilesInThisFactDisplay.length; l++) {
+          allTilesInThisFactDisplay[l].remove();
         }
         // Adiciona os azulejos selecionados ao player board do jogador
         drawTileSelected();
+        // Desativa todos os botões novamente
+        playerButtons = document.querySelectorAll(".playerRowsButtons");
+        for (let l = 0; l < playerButtons.length; l++) {
+            playerButtons[l].disabled = true;
+        }
         // moveNotSelectedTiles();
 
       });
-      tileRow.setAttribute("class", "tileButton" + j);
+      tileRow.setAttribute("class", "playerRowsButtons");
       tileRow.textContent = "butao";
       div2.appendChild(tileRow);
     }
@@ -191,6 +221,7 @@ function createPlayerBoards(numPlayers) {
 createPlayerBoards(numPlayers);
 createBag();
 createCirculos(numPlayers);
+createMesaoFactoryDisplay();
 distributeTiles();
 selectTileColor();
 // console.log(bag);
