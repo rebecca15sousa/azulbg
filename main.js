@@ -134,15 +134,42 @@ function moveTileSelected(){
       i--;
     } else {
         mesao.push(circuloMaster[factDisplayNum][i]);
+        let corAtual = circuloMaster[factDisplayNum][i];
+        drawMesao(corAtual);
         circuloMaster[factDisplayNum].splice(i, 1);
         i--;
     }
   }
 }
 
+function moveTileSelectedMesao(){
+  for(let i = 0; i < mesao.length; i++) {
+    // Seleciona todas os tiles com a mesma cor do tile clicado
+    if(mesao[i] == factDisplayColor) {
+      // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
+      if (allPlayerBoards[valueA][valueB].length == 0) {
+        allPlayerBoards[valueA][valueB].push(factDisplayColor);
+    } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
+        allPlayerBoards[valueA][valueB].push(factDisplayColor);
+    } else {
+        // Envia o excesso dos tiles para a linha de pontos negativos do jogador
+        if (allPlayerBoards[valueA][5].length < 7) {
+          allPlayerBoards[valueA][5].push(factDisplayColor);
+        // Se a linha de pontos negativos do jogador ja estiver lotada, envia o excesso de tiles que iria para lá direto para o descarte.
+        } else {
+          tilesDiscard.push(factDisplayColor);
+        }
+      }
+      // Deleta o tile da cor movida do factory display
+      mesao.splice(i, 1);
+      i--;
+    }
+  }
+}
+
 //Essa função está sendo responsavel por desenhar nas fileiras do tabuleiro do jogador os tiles que foram adicionados para a fileira.
 function drawTileSelected() {
-  for(m = 0; m < tilesSameColor.length; m++) {
+  for(let m = 0; m < tilesSameColor.length; m++) {
     if (document.getElementById('fileira' + valueA + valueB).childElementCount == 0) {
       let variavelzinha2 = document.createElement("img");
       variavelzinha2.setAttribute("src", "assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg");
@@ -158,9 +185,30 @@ function drawTileSelected() {
   }
 }
 
-// function moveTileSelected() {
-  // deleteTileSelected();
-// }
+function drawMesao(corAtual) {
+    let div = document.querySelector("#mesao");
+    let drawTile = document.createElement("input");
+    drawTile.setAttribute("type", "image");
+    drawTile.setAttribute("src", "assets/" + corAtual + ".jpg");
+    drawTile.setAttribute("class", "tilesImage " + corAtual);
+    // drawTile.setAttribute("id", corAtual + );
+    drawTile.addEventListener("click", function() {
+      tiles = document.querySelectorAll(".tilesImage");
+      factDisplayColor = corAtual;
+      for (let k = 0; k < tiles.length ; k++) {
+        tiles[k].setAttribute("style", "border: none;");
+      }
+      playerButtons = document.querySelectorAll(".playerRowsButtons");
+      for (let l = 0; l < playerButtons.length; l++) {
+          playerButtons[l].disabled = false;
+      }
+      tilesSameColor = document.querySelectorAll("#mesao>." + corAtual);
+      for (j = 0; j < tilesSameColor.length; j++) {
+        tilesSameColor[j].setAttribute("style", "border: 2px solid red;");
+      };
+    });
+    div.appendChild(drawTile);
+}
 
 function moveNotSelectedTiles() {
   // Essa função move os tiles que NAO foram selecionados do factory display para o meio da mesa, que eh um tipo de factory display especial;
@@ -181,12 +229,25 @@ function createPlayerBoards(numPlayers) {
       tileRow.addEventListener("click", function() {
         valueA = i;
         valueB = j;
-        moveTileSelected();
-        // Remove todos os azulejos selecionados dos factory displays
-        let allTilesInThisFactDisplay = document.querySelectorAll("#" + pid + ">.tilesImage");
-        for (l = 0; l < allTilesInThisFactDisplay.length; l++) {
-          allTilesInThisFactDisplay[l].remove();
-        }
+          if (tilesSameColor[0].parentNode.id == "mesao") {
+            console.log(factDisplayColor);
+            console.log("deu certo!");
+            moveTileSelectedMesao();
+            let tilesInMesaoOfSameColor = document.querySelectorAll("#mesao>." + factDisplayColor + "");
+            console.log(tilesInMesaoOfSameColor);
+            for (let n = 0; n < tilesInMesaoOfSameColor.length; n++) {
+              console.log("deleetooou");
+              tilesInMesaoOfSameColor[n].remove();
+            }
+          } else {
+            moveTileSelected();
+            // Remove todos os azulejos selecionados dos factory displays
+            let allTilesInThisFactDisplay = document.querySelectorAll("#" + pid + ">.tilesImage");
+            for (l = 0; l < allTilesInThisFactDisplay.length; l++) {
+              allTilesInThisFactDisplay[l].remove();
+            }
+          }
+
         // Adiciona os azulejos selecionados ao player board do jogador
         drawTileSelected();
         // Desativa todos os botões novamente
