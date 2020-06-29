@@ -53,7 +53,7 @@ function createCirculos(numPlayers) {
 
 // Cria div que vai representar o mesao (factory display especial que recebe os tiles nao coletados pelo jogador da vez)
 function createMesaoFactoryDisplay() {
-  mesao = [];
+  mesao = ["Firstplayer"];
   // let factDisplay = [];
   // circuloMaster.push(factDisplay);
   let div = document.createElement('div');
@@ -63,6 +63,10 @@ function createMesaoFactoryDisplay() {
   // factoryImage.setAttribute('src', 'assets/factoryDisplay.png');
   // factoryImage.setAttribute('class', 'factoriesImages');
   // div.appendChild(factoryImage);
+  let drawTile = document.createElement("img");
+  drawTile.setAttribute("src", "assets/FirstPlayer.jpg");
+  drawTile.setAttribute("id", "firstPlayer");
+  div.appendChild(drawTile);
   megaDiv.appendChild(div);
 }
 
@@ -144,6 +148,13 @@ function moveTileSelected(){
 
 function moveTileSelectedMesao(){
   for(let i = 0; i < mesao.length; i++) {
+    if(mesao[i] == "Firstplayer") {
+      allPlayerBoards[valueA][5].push(mesao[i]);
+      let tileFirstPlayer = document.querySelector("#firstPlayer");
+      tileFirstPlayer.remove();
+      mesao.splice(i, 1);
+      i--;
+    }
     // Seleciona todas os tiles com a mesma cor do tile clicado
     if(mesao[i] == factDisplayColor) {
       // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
