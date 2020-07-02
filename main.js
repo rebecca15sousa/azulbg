@@ -10,6 +10,8 @@ let nid
 let factDisplayNum;
 let factDisplayColor;
 let allPlayerBoards = [];
+let allPlayerPointsBoards = [];
+let playerPoints = [];
 let valueA;
 let valueB;
 let tilesSameColor;
@@ -17,6 +19,16 @@ let tileRow;
 let playerButtons;
 let jogadorInicial = Math.floor(Math.random() * numPlayers);
 let endRound = false;
+let endGame = false;
+let endGameCounter = 0;
+let placement = 0;
+let fileiraCompletada = 0;
+let colunaCompletada = 0;
+let quantAzul = 0;
+let quantVermelho = 0;
+let quantAmarelo = 0;
+let quantPreto = 0;
+let quantBranco = 0;
 
 //array que contem todos os tiles do jogo
 let tipoTiles = [
@@ -122,9 +134,9 @@ function moveTileSelected(){
     // Seleciona todas os tiles com a mesma cor do tile clicado
     if(circuloMaster[factDisplayNum][i] == factDisplayColor) {
       // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
-      if (allPlayerBoards[valueA][valueB].length == 0) {
+      if (allPlayerBoards[valueA][valueB].length == 0 && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
         allPlayerBoards[valueA][valueB].push(factDisplayColor);
-    } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
+    } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor) && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
         allPlayerBoards[valueA][valueB].push(factDisplayColor);
     } else {
         // Envia o excesso dos tiles para a linha de pontos negativos do jogador
@@ -161,9 +173,9 @@ function moveTileSelectedMesao(){
     // Seleciona todas os tiles com a mesma cor do tile clicado
     if(mesao[i] == factDisplayColor) {
       // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
-      if (allPlayerBoards[valueA][valueB].length == 0) {
+      if (allPlayerBoards[valueA][valueB].length == 0 && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
         allPlayerBoards[valueA][valueB].push(factDisplayColor);
-    } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
+    } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor) && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
         allPlayerBoards[valueA][valueB].push(factDisplayColor);
     } else {
         // Envia o excesso dos tiles para a linha de pontos negativos do jogador
@@ -224,10 +236,6 @@ function drawMesao(corAtual) {
     div.appendChild(drawTile);
 }
 
-function moveNotSelectedTiles() {
-  // Essa função move os tiles que NAO foram selecionados do factory display para o meio da mesa, que eh um tipo de factory display especial;
-}
-
 // cria cada board dos jogadores com 5 fileiras em cada um
 function createPlayerBoards(numPlayers) {
   let div = document.querySelector("#playerAreas");
@@ -235,9 +243,18 @@ function createPlayerBoards(numPlayers) {
   for (let i = 0; i < numPlayers; i++) {
     let div2 = document.createElement("div");
     div2.setAttribute("id", "playerBoard" + i);
+    let div4 = document.createElement("div");
+    div4.setAttribute("id", "playerPointsBoards" + i);
     allPlayerBoards[i] = [];
-    //cria 5 fileiras pra cada board de jogador
+    allPlayerPointsBoards[i] = [];
+    playerPoints[i] = [0];
     for (let j = 0; j < 5; j++) {
+      // Cria fileiras de pontuação e arrays dessas fileiras
+      let div5 = document.createElement("div");
+      div5.setAttribute("id", "pointsRow" + i + j);
+      div4.appendChild(div5);
+      allPlayerPointsBoards[i][j] = [, , , , ,];
+      // Resto
       tileRow = document.createElement("button");
       tileRow.disabled = true;
       tileRow.addEventListener("click", function() {
@@ -283,7 +300,7 @@ function createPlayerBoards(numPlayers) {
         }
 
         if (mesao.length == 0 && endRound == true) {
-          console.log("ACABOU A RODADA RAPAZEWADA uWu");
+          fimDaRodada();
         }
 
       });
@@ -291,7 +308,7 @@ function createPlayerBoards(numPlayers) {
       tileRow.textContent = "butao";
       div2.appendChild(tileRow);
     }
-    //cria 5 fileiras em cada playerboard presente dentro do allPlayerBoards
+    //cria 6 fileiras em cada playerboard presente dentro do allPlayerBoards
       for (let k = 0; k < 6; k++) {
         let div3 = document.createElement("div");
         div3.setAttribute("id", "fileira" + i + k);
@@ -307,12 +324,242 @@ function createPlayerBoards(numPlayers) {
   }
 }
 
+function fimDaRodada() {
+  // Hora de escorar as fileiras de cada jogador que já tiver completa
+  for (let i = 0; i < allPlayerBoards.length; i++) {
+    for (let j = 0; j < allPlayerBoards[i].length; j++) {
+      if(allPlayerBoards[i][j].length == j + 1) {
+        // Primeiro, descarta todos os tiles em excesso
+        for (let k = 0; k < allPlayerBoards[i][j].length - 1; k++) {
+          tilesDiscard.push(allPlayerBoards[i][j][k]);
+          allPlayerBoards[i][j].splice(k, 1);
+        }
+
+        // Depois, move o tile que sobrou para pontuar
+        if (allPlayerBoards[i][j][0] == "Azul") {
+          placement = j;
+          if (placement > 4) {
+            placement = placement - 5;
+          }
+          console.log("placement value is:  " + placement);
+        }
+
+        else if (allPlayerBoards[i][j][0] == "Amarelo") {
+          placement = j + 1;
+          if (placement > 4) {
+            placement = placement - 5;
+          }
+          console.log("placement value is:  " + placement);
+        }
+
+        else if (allPlayerBoards[i][j][0] == "Vermelho") {
+          placement = j + 2;
+          if (placement > 4) {
+            placement = placement - 5;
+          }
+          console.log("placement value is:  " + placement);
+        }
+
+        else if (allPlayerBoards[i][j][0] == "Preto") {
+          placement = j + 3;
+          if (placement > 4) {
+            placement = placement - 5;
+          }
+          console.log("placement value is:  " + placement);
+        }
+
+        else if (allPlayerBoards[i][j][0] == "Branco") {
+          placement = j + 4;
+          if (placement > 4) {
+            placement = placement - 5;
+          }
+          console.log("placement value of white is:  " + placement);
+        }
+
+        allPlayerPointsBoards[i][j][placement] = allPlayerBoards[i][j][0];
+        playerPoints[i]++;
+        allPlayerBoards[i][j].splice(0, 1);
+        if (placement > 0 ) {
+          while (allPlayerPointsBoards[i][j][placement - 1]) {
+            playerPoints[i]++;
+            placement--;
+          }
+      }
+        if (placement < 4) {
+          while (allPlayerPointsBoards[i][j][placement + 1]) {
+            playerPoints[i]++;
+            placement++;
+        }
+      }
+        if (j > 0) {
+
+        while (allPlayerPointsBoards[i][j - 1][placement]) {
+          playerPoints[i]++;
+          j--;
+        }
+      }
+        if (j < 4) {
+            while (allPlayerPointsBoards[i][j + 1][placement]) {
+            playerPoints[i]++;
+            j++;
+        }
+      }
+      }
+    }
+    let negativeRowSize = allPlayerBoards[i][5].length;
+    console.log("a length de negativeRowSize eh: " + negativeRowSize);
+    console.log("sua quantidade de pontos atual antes de perder pontos eh: " + playerPoints[i]);
+    switch (negativeRowSize) {
+      case 1:
+        playerPoints[i]--;
+        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        break;
+      case 2:
+        playerPoints[i] = playerPoints[i] - 2;
+        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        break;
+      case 3:
+        playerPoints[i] = playerPoints[i] - 4;
+        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        break;
+      case 4:
+        playerPoints[i] = playerPoints[i] - 6;
+        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        break;
+      case 5:
+        playerPoints[i] = playerPoints[i] - 8;
+        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        break;
+      case 6:
+        playerPoints[i] = playerPoints[i] - 11;
+        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        break;
+      case 7:
+        playerPoints[i] = playerPoints[i] - 14;
+        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        break;
+      default:
+        console.log("Nao perdeu ponto, parabens meu filho");
+    }
+
+    for (let l = 0; l < allPlayerBoards[i][5].length; l++) {
+      if (allPlayerBoards[i][5][l] == "Firstplayer") {
+        jogadorInicial = i;
+        allPlayerBoards[i][5].splice(l, 1);
+        l--;
+      } else {
+        tilesDiscard.push(allPlayerBoards[i][5][l]);
+        allPlayerBoards[i][5].splice(l, 1);
+        l--;
+      }
+    }
+  }
+  // Vai fazer o check de se o jogo ja acabou
+  for (let i = 0; i < allPlayerPointsBoards.length; i++) {
+    for (let j = 0; j < allPlayerPointsBoards[i].length; j++) {
+      endGameCounter = 0;
+      for (let k = 0; k < allPlayerPointsBoards[i][j].length; k++) {
+        if (allPlayerPointsBoards[i][j][k] != null) {
+          endGameCounter++;
+          console.log("tem peçaaaaaaaaaaa");
+          console.log(endGameCounter);
+        }
+      }
+      if (endGameCounter == 5) {
+        endGame = true;
+        console.log("É TETRA!");
+      }
+    }
+  }
+  if (endGame == true) {
+    fimDoJogo();
+  } else {
+    inicioDaRodada();
+  }
+}
+
+function fimDoJogo() {
+  for (let i = 0; i < allPlayerPointsBoards.length; i++) {
+    for (let j = 0; j < allPlayerPointsBoards[i].length; j++) {
+      fileiraCompletada = 0;
+      for (let k = 0; k < allPlayerPointsBoards[i][j].length; k++) {
+        switch (allPlayerPointsBoards[i][j][k]) {
+          case "Azul":
+            quantAzul++;
+            fileiraCompletada++;
+            break;
+          case "Vermelho":
+          quantVermelho++;
+          fileiraCompletada++;
+            break;
+          case "Amarelo":
+          quantAmarelo++;
+          fileiraCompletada++;
+            break;
+          case "Preto":
+          quantPreto++;
+          fileiraCompletada++;
+            break;
+          case "Branco":
+          quantBranco++;
+          fileiraCompletada++;
+            break;
+          default:
+            break;
+        }
+      }
+      if (fileiraCompletada == 5) {
+        playerPoints[i] += 2;
+      }
+    }
+    if (quantAzul == 5) {
+      playerPoints[i] += 10;
+    }
+    if (quantVermelho == 5) {
+      playerPoints[i] += 10;
+    }
+    if (quantAmarelo == 5) {
+      playerPoints[i] += 10;
+    }
+    if (quantPreto == 5) {
+      playerPoints[i] += 10;
+    }
+    if (quantBranco == 5) {
+      playerPoints[i] += 10;
+    }
+    quantAzul = 0;
+    quantVermelho = 0;
+    quantAmarelo = 0;
+    quantPreto = 0;
+    quantBranco = 0;
+    for (let l = 0; l < allPlayerPointsBoards[i].length; l++) {
+      for (let m = 0; m < allPlayerPointsBoards[i][l].length; m++) {
+        colunaCompletada = 0;
+        if (allPlayerPointsBoards[i][l][m] != null) {
+          colunaCompletada++;
+          console.log("tem objeto nessa coluna");
+        }
+        if (colunaCompletada == 5) {
+          playerPoints[i] += 7;
+        }
+      }
+  }
+
+  }
+  console.log("Pontos do jogador 1: " + playerPoints[0]);
+  console.log("Pontos do jogador 2: " + playerPoints[1]);
+}
+
 // console.log(circuloMaster);
 createPlayerBoards(numPlayers);
-createBag();
 createCirculos(numPlayers);
-createMesaoFactoryDisplay();
-distributeTiles();
-selectTileColor();
-// console.log(bag);
-// console.log(circuloMaster);
+
+function inicioDaRodada() {
+
+  createBag();
+  createMesaoFactoryDisplay();
+  distributeTiles();
+  selectTileColor();
+}
+
+inicioDaRodada();
