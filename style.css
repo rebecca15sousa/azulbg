@@ -1,14 +1,74 @@
-/* #mainBoardArea {
+#screenContent {
+  display: flex;
+}
+
+#mainBoardArea {
   width: 100%;
   height: 100%;
-} */
+  flex: 1;
+}
+
+#playerAreas {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+}
+
+#factory0 {
+  display: grid;
+  grid-template-columns: repeat(2, 35px);
+  grid-template-rows: repeat(2, 35px);
+  text-align: center;
+}
+
+#factory1, #factory3, #factory5, #factory7 {
+  display: grid;
+  grid-template-columns: repeat(2, 35px);
+  grid-template-rows: repeat(2, 35px);
+  float: left;
+}
+
+#factory2, #factory4, #factory6, #factory8 {
+  display: grid;
+  grid-template-columns: repeat(2, 35px);
+  grid-template-rows: repeat(2, 35px);
+  float: right;
+}
+
+#factoryDisplayImage0 {
+  display: block;
+  text-align: center;
+  z-index: -1;
+}
+
+#factoryDisplayImage1, #factoryDisplayImage3, #factoryDisplayImage5, #factoryDisplayImage7 {
+  display: block;
+  float: left;
+  z-index: -1;
+}
+
+#factoryDisplayImage2, #factoryDisplayImage4, #factoryDisplayImage6, #factoryDisplayImage8 {
+  display: block;
+  float: right;
+  z-index: -1;
+}
 
 div.factoriesDisplay {
-  display: inline;
+  /*display: inline;*/
+  /*position: relative;
+  z-index: -1;*/
 }
 
 img.factoriesImages {
-    height: 150px;
+  height: 150px;
+  width: 150px;
+  z-index: -1;
+}
+
+.mesaoFactoryDisplay {
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(3, 35px);
 }
 
 body {
@@ -19,6 +79,129 @@ body {
   width: 35px;
 }
 
-. {
+.boards {
+  position: relative;
+  z-index: -1;
+}
 
+#playerButtons0, #playerButtons1, #playerButtons2, #playerButtons3 {
+  display: inline;
+}
+
+.playerRowsButtons {
+  display: block;
+  background: transparent;
+  border: none;
+}
+
+#playerBoard0, #playerBoard1, #playerBoard2, #playerBoard3 {
+  display: inline-grid;
+  grid-template-columns: repeat(5, 35px);
+  grid-template-rows: repeat(5, 35px);
+}
+
+.fileira0 {
+  display: grid;
+  grid-column-start: 5;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-template-columns: 35px;
+  grid-template-rows: subgrid;
+}
+
+.fileira1 {
+  display: grid;
+  grid-column-start: 4;
+  grid-column-end: 6;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-template-columns: repeat(2, 35px);
+  grid-template-rows: subgrid;
+}
+
+.fileira2 {
+  display: grid;
+  grid-column-start: 3;
+  grid-column-end: 6;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  grid-template-columns: repeat(3, 35px);
+  grid-template-rows: subgrid;
+}
+
+.fileira3 {
+  display: grid;
+  grid-column-start: 2;
+  grid-column-end: 6;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  grid-template-columns: repeat(4, 35px);
+  grid-template-rows: subgrid;
+}
+
+.fileira4 {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 5;
+  grid-row-end: 6;
+  grid-template-columns: repeat(5, 35px);
+  grid-template-rows: subgrid;
+}
+
+#playerPointsBoards0, #playerPointsBoards1, #playerPointsBoards2, #playerPointsBoards3 {
+  display: inline-grid;
+  grid-template-columns: repeat(5, 35px);
+  grid-template-rows: repeat(5, 35px);
+}
+
+.pointsRow0 {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-template-columns: repeat(5, 35px);
+  grid-template-rows: subgrid;
+}
+
+.pointsRow1 {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-template-columns: repeat(5, 35px);
+  grid-template-rows: subgrid;
+}
+
+.pointsRow2 {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  grid-template-columns: repeat(5, 35px);
+  grid-template-rows: subgrid;
+}
+
+.pointsRow3 {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  grid-template-columns: repeat(5, 35px);
+  grid-template-rows: subgrid;
+}
+
+.pointsRow4 {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 5;
+  grid-row-end: 6;
+  grid-template-columns: repeat(5, 35px);
+  grid-template-rows: subgrid;
 }

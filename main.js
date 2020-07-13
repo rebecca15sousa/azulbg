@@ -57,10 +57,13 @@ function createCirculos(numPlayers) {
     let div = document.createElement('div');
     div.setAttribute('id', 'factory' + i);
     div.setAttribute('class', 'factoriesDisplay');
+    let div2 = document.createElement("div");
+    div2.setAttribute("id", "factoryDisplayImage" + i);
     let factoryImage = document.createElement('img');
     factoryImage.setAttribute('src', 'assets/factoryDisplay.png');
     factoryImage.setAttribute('class', 'factoriesImages');
-    div.appendChild(factoryImage);
+    div2.appendChild(factoryImage);
+    megaDiv.appendChild(div2);
     megaDiv.appendChild(div);
   }
 }
@@ -199,12 +202,14 @@ function drawTileSelected() {
     if (document.getElementById('fileira' + valueA + valueB).childElementCount == 0) {
       let variavelzinha2 = document.createElement("img");
       variavelzinha2.setAttribute("src", "assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg");
+      variavelzinha2.setAttribute("class", "tilesImage");
       //let variavelzinha2 = "<img src='assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg' class='tilesImage'>";
       document.getElementById('fileira' + valueA + valueB).appendChild(variavelzinha2);
     }
     else if (document.getElementById("fileira" + valueA + valueB).childElementCount < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
       let variavelzinha2 = document.createElement("img");
       variavelzinha2.setAttribute("src", "assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg");
+      variavelzinha2.setAttribute("class", "tilesImage");
       //let variavelzinha2 = "<img src='assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg' class='tilesImage'>";
       document.getElementById('fileira' + valueA + valueB).appendChild(variavelzinha2);
     }
@@ -243,6 +248,8 @@ function createPlayerBoards(numPlayers) {
   for (let i = 0; i < numPlayers; i++) {
     let div2 = document.createElement("div");
     div2.setAttribute("id", "playerBoard" + i);
+    let div6 = document.createElement("div");
+    div6.setAttribute("id", "playerButtons" + i);
     let div4 = document.createElement("div");
     div4.setAttribute("id", "playerPointsBoards" + i);
     allPlayerBoards[i] = [];
@@ -252,6 +259,7 @@ function createPlayerBoards(numPlayers) {
       // Cria fileiras de pontuação e arrays dessas fileiras
       let div5 = document.createElement("div");
       div5.setAttribute("id", "pointsRow" + i + j);
+      div5.setAttribute("class", "pointsRow" + j);
       div4.appendChild(div5);
       allPlayerPointsBoards[i][j] = [, , , , ,];
       // Resto
@@ -306,12 +314,13 @@ function createPlayerBoards(numPlayers) {
       });
       tileRow.setAttribute("class", "playerRowsButtons");
       tileRow.textContent = "butao";
-      div2.appendChild(tileRow);
+      div6.appendChild(tileRow);
     }
     //cria 6 fileiras em cada playerboard presente dentro do allPlayerBoards
       for (let k = 0; k < 6; k++) {
         let div3 = document.createElement("div");
         div3.setAttribute("id", "fileira" + i + k);
+        div3.setAttribute("class", "fileira" + k);
         div2.appendChild(div3);
         allPlayerBoards[i][k] = [];
     }
@@ -321,6 +330,8 @@ function createPlayerBoards(numPlayers) {
     playerImage.setAttribute("src", "assets/playerBoard.jpg")
     div2.appendChild(playerImage);
     div.appendChild(div2);
+    div.appendChild(div4);
+    div.appendChild(div6);
   }
 }
 
