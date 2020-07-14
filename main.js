@@ -31,6 +31,7 @@ let quantPreto = 0;
 let quantBranco = 0;
 
 //array que contem todos os tiles do jogo
+//array that contains all the tiles from the game
 let tipoTiles = [
   { cor: "Azul", quantidadeTiles: 20, status: false },
   { cor: "Vermelho", quantidadeTiles: 20, status: false },
@@ -40,6 +41,7 @@ let tipoTiles = [
 ];
 
 //coloca todos os tiles dentro da array da sacola
+//puts all tiles inside the bag's array
 function createBag() {
   for(let i = 0; i < tipoTiles.length; i++) {
     for(let j = 0; j < tipoTiles[i].quantidadeTiles; j++) {
@@ -49,6 +51,7 @@ function createBag() {
 }
 
 //cria factories displays de acordo com a quantidade de jogadores
+//creates factories displays according to the number of players
 function createCirculos(numPlayers) {
   let numCirculos = (numPlayers * 2) + 1;
   for(let i = 0; i < numCirculos; i++) {
@@ -59,16 +62,17 @@ function createCirculos(numPlayers) {
     div.setAttribute('class', 'factoriesDisplay');
     let div2 = document.createElement("div");
     div2.setAttribute("id", "factoryDisplayImage" + i);
-    let factoryImage = document.createElement('img');
+    /*let factoryImage = document.createElement('img');
     factoryImage.setAttribute('src', 'assets/factoryDisplay.png');
     factoryImage.setAttribute('class', 'factoriesImages');
-    div2.appendChild(factoryImage);
+    div2.appendChild(factoryImage);*/
+    div2.appendChild(div);
     megaDiv.appendChild(div2);
-    megaDiv.appendChild(div);
   }
 }
 
 // Cria div que vai representar o mesao (factory display especial que recebe os tiles nao coletados pelo jogador da vez)
+//creates div for the big table (special factory display that receives the tiles not collected by the turn's player)
 function createMesaoFactoryDisplay() {
   mesao = ["Firstplayer"];
   // let factDisplay = [];
@@ -88,6 +92,7 @@ function createMesaoFactoryDisplay() {
 }
 
 //Pega os tiles dentro da sacola, e distribui aleatoriamente nos factories displays
+//Randomly distributes the tiles from the bag on the factories displays
 function distributeTiles() {
   for(let i = 0; i < circuloMaster.length; i++) {
     for(let j = 0; j < 4; j++) {
@@ -106,6 +111,7 @@ function distributeTiles() {
 }
 
 //Essa função retorna a cor do tile selecionado.
+//returns the selected tile's colour
 function selectTileColor() {
   for(i = 0; i < tiles.length; i++) {
     tiles[i].addEventListener("click", function() {
@@ -132,6 +138,7 @@ function selectTileColor() {
 }
 
 // Essa função esta responsavel por tirar os tiles da array dos factory displays e mover pra array selecionada do jogador
+// takes the selected tiles out of the factory display array and puts them into the player's selected array
 function moveTileSelected(){
   for( let i = 0; i < circuloMaster[factDisplayNum].length; i++) {
     // Seleciona todas os tiles com a mesma cor do tile clicado
