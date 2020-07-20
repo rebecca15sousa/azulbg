@@ -14,6 +14,8 @@ let allPlayerPointsBoards = [];
 let playerPoints = [];
 let valueA;
 let valueB;
+let valueC;
+let valueD;
 let tilesSameColor;
 let tileRow;
 let playerButtons;
@@ -213,13 +215,17 @@ function drawTileSelected() {
       variavelzinha2.setAttribute("class", "tilesImage");
       //let variavelzinha2 = "<img src='assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg' class='tilesImage'>";
       document.getElementById('fileira' + valueA + valueB).appendChild(variavelzinha2);
-    }
-    else if (document.getElementById("fileira" + valueA + valueB).childElementCount < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
+    } else if (document.getElementById("fileira" + valueA + valueB).childElementCount < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
       let variavelzinha2 = document.createElement("img");
       variavelzinha2.setAttribute("src", "assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg");
       variavelzinha2.setAttribute("class", "tilesImage");
       //let variavelzinha2 = "<img src='assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg' class='tilesImage'>";
       document.getElementById('fileira' + valueA + valueB).appendChild(variavelzinha2);
+    } else if (allPlayerBoards[valueA][5].length < 7) {
+      let variavelzinha2 = document.createElement("img");
+      variavelzinha2.setAttribute("src", "assets/" + factDisplayColor + ".jpg");
+      variavelzinha2.setAttribute("class", "tilesImage");
+      document.getElementById("playerNegativePoints" + valueA).appendChild(variavelzinha2);
     }
   }
 }
@@ -249,6 +255,14 @@ function drawMesao(corAtual) {
     div.appendChild(drawTile);
 }
 
+// desenha os tiles que vão para o board de pontos
+function drawTilePointsBoard() {
+  let variavelzinha3 = document.createElement("img");
+  variavelzinha3.setAttribute("src", "assets/" + allPlayerBoards[valueC][valueD][0] + ".jpg");
+  variavelzinha3.setAttribute("class", "tilesImage");
+  document.getElementById("pointsRow" + valueC + valueD + placement).appendChild(variavelzinha3);
+}
+
 // cria cada board dos jogadores com 5 fileiras em cada um
 function createPlayerBoards(numPlayers) {
   let div = document.querySelector("#playerAreas");
@@ -269,10 +283,12 @@ function createPlayerBoards(numPlayers) {
     playerPoints[i] = [0];
     for (let j = 0; j < 5; j++) {
       // Cria fileiras de pontuação e arrays dessas fileiras
-      let div5 = document.createElement("div");
-      div5.setAttribute("id", "pointsRow" + i + j);
-      div5.setAttribute("class", "pointsRow" + j);
-      div4.appendChild(div5);
+      for (let k = 0; k < 5; k++) {
+        let div5 = document.createElement("div");
+        div5.setAttribute("id", "pointsRow" + i + j + k);
+        div5.setAttribute("class", "pointsRow" + j);
+        div4.appendChild(div5);
+      }
       allPlayerPointsBoards[i][j] = [, , , , ,];
       // Resto
       tileRow = document.createElement("button");
@@ -355,7 +371,7 @@ function createPlayerBoards(numPlayers) {
 }
 
 function fimDaRodada() {
-  // Hora de escorar as fileiras de cada jogador que já tiver completa
+  // Hora de escorar as fileiras de cada jogador que já estiverem completas
   for (let i = 0; i < allPlayerBoards.length; i++) {
     for (let j = 0; j < allPlayerBoards[i].length; j++) {
       if(allPlayerBoards[i][j].length == j + 1) {
@@ -365,12 +381,16 @@ function fimDaRodada() {
           allPlayerBoards[i][j].splice(k, 1);
         }
 
+        valueC = i;
+        valueD = j;
+
         // Depois, move o tile que sobrou para pontuar
         if (allPlayerBoards[i][j][0] == "Azul") {
           placement = j;
           if (placement > 4) {
             placement = placement - 5;
           }
+          drawTilePointsBoard();
           console.log("placement value is:  " + placement);
         }
 
@@ -379,6 +399,7 @@ function fimDaRodada() {
           if (placement > 4) {
             placement = placement - 5;
           }
+          drawTilePointsBoard();
           console.log("placement value is:  " + placement);
         }
 
@@ -387,6 +408,7 @@ function fimDaRodada() {
           if (placement > 4) {
             placement = placement - 5;
           }
+          drawTilePointsBoard();
           console.log("placement value is:  " + placement);
         }
 
@@ -395,6 +417,7 @@ function fimDaRodada() {
           if (placement > 4) {
             placement = placement - 5;
           }
+          drawTilePointsBoard();
           console.log("placement value is:  " + placement);
         }
 
@@ -403,6 +426,7 @@ function fimDaRodada() {
           if (placement > 4) {
             placement = placement - 5;
           }
+          drawTilePointsBoard();
           console.log("placement value of white is:  " + placement);
         }
 
