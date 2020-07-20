@@ -122,6 +122,7 @@ function selectTileColor() {
       playerButtons = document.querySelectorAll(".playerRowsButtons");
       for (let l = 0; l < playerButtons.length; l++) {
           playerButtons[l].disabled = false;
+          playerButtons[l].setAttribute("style", "border: 2px solid red;");
       }
       pid = this.parentNode.id;
       factDisplayNum = pid.substr(-1, 1);
@@ -253,10 +254,14 @@ function createPlayerBoards(numPlayers) {
   let div = document.querySelector("#playerAreas");
   //cria uma div pra cada board de jogador
   for (let i = 0; i < numPlayers; i++) {
+    let div8 = document.createElement("div");
+    div8.setAttribute("id", "player" + i);
     let div2 = document.createElement("div");
     div2.setAttribute("id", "playerBoard" + i);
     let div6 = document.createElement("div");
     div6.setAttribute("id", "playerButtons" + i);
+    let div7 = document.createElement("div");
+    div7.setAttribute("id", "playerNegativePoints" + i);
     let div4 = document.createElement("div");
     div4.setAttribute("id", "playerPointsBoards" + i);
     allPlayerBoards[i] = [];
@@ -300,6 +305,7 @@ function createPlayerBoards(numPlayers) {
         playerButtons = document.querySelectorAll(".playerRowsButtons");
         for (let l = 0; l < playerButtons.length; l++) {
             playerButtons[l].disabled = true;
+            playerButtons[l].setAttribute("style", "border: none;");
         }
 
         // Checa se a rodada ja terminou
@@ -319,26 +325,32 @@ function createPlayerBoards(numPlayers) {
         }
 
       });
-      tileRow.setAttribute("class", "playerRowsButtons");
+      tileRow.setAttribute("class", "playerRowsButtons rowButtons" + j);
       tileRow.textContent = "butao";
       div6.appendChild(tileRow);
     }
     //cria 6 fileiras em cada playerboard presente dentro do allPlayerBoards
       for (let k = 0; k < 6; k++) {
         let div3 = document.createElement("div");
-        div3.setAttribute("id", "fileira" + i + k);
-        div3.setAttribute("class", "fileira" + k);
-        div2.appendChild(div3);
+        if (k == 5) {
+          div7.appendChild(div3);
+        } else {
+          div3.setAttribute("id", "fileira" + i + k);
+          div3.setAttribute("class", "fileira" + k);
+          div2.appendChild(div3);
+        }
         allPlayerBoards[i][k] = [];
     }
     //coloca a img de cada board de jogador
-    let playerImage = document.createElement("img");
+    /*let playerImage = document.createElement("img");
     playerImage.setAttribute("class", "boards");
     playerImage.setAttribute("src", "assets/playerBoard.jpg")
-    div2.appendChild(playerImage);
-    div.appendChild(div2);
-    div.appendChild(div4);
-    div.appendChild(div6);
+    div2.appendChild(playerImage);*/
+    div8.appendChild(div2);
+    div8.appendChild(div4);
+    div8.appendChild(div6);
+    div8.appendChild(div7);
+    div.appendChild(div8);
   }
 }
 
