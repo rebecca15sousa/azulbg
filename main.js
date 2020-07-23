@@ -209,6 +209,7 @@ function moveTileSelectedMesao(){
 //Essa função está sendo responsavel por desenhar nas fileiras do tabuleiro do jogador os tiles que foram adicionados para a fileira.
 function drawTileSelected() {
   for(let m = 0; m < tilesSameColor.length; m++) {
+    console.log(allPlayerBoards[valueA][5].length);
     if (document.getElementById('fileira' + valueA + valueB).childElementCount == 0) {
       let variavelzinha2 = document.createElement("img");
       variavelzinha2.setAttribute("src", "assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg");
@@ -226,6 +227,8 @@ function drawTileSelected() {
       variavelzinha2.setAttribute("src", "assets/" + factDisplayColor + ".jpg");
       variavelzinha2.setAttribute("class", "tilesImage");
       document.getElementById("playerNegativePoints" + valueA).appendChild(variavelzinha2);
+      console.log("perdendo pontosssss");
+      
     }
   }
 }
@@ -274,8 +277,8 @@ function createPlayerBoards(numPlayers) {
     div2.setAttribute("id", "playerBoard" + i);
     let div6 = document.createElement("div");
     div6.setAttribute("id", "playerButtons" + i);
-    let div7 = document.createElement("div");
-    div7.setAttribute("id", "playerNegativePoints" + i);
+    /*let div7 = document.createElement("div");
+    div7.setAttribute("id", "playerNegativePointsContainer" + i);*/
     let div4 = document.createElement("div");
     div4.setAttribute("id", "playerPointsBoards" + i);
     allPlayerBoards[i] = [];
@@ -349,7 +352,9 @@ function createPlayerBoards(numPlayers) {
       for (let k = 0; k < 6; k++) {
         let div3 = document.createElement("div");
         if (k == 5) {
-          div7.appendChild(div3);
+          div3.setAttribute("id", "playerNegativePoints" + i);
+          //div7.appendChild(div3);
+          div8.appendChild(div3);
         } else {
           div3.setAttribute("id", "fileira" + i + k);
           div3.setAttribute("class", "fileira" + k);
@@ -365,9 +370,16 @@ function createPlayerBoards(numPlayers) {
     div8.appendChild(div2);
     div8.appendChild(div4);
     div8.appendChild(div6);
-    div8.appendChild(div7);
+    //div8.appendChild(div7);
     div.appendChild(div8);
   }
+}
+
+//deleta os tiles do board do jogador no final de cada rodada
+function erasePlayerBoard() {
+    document.getElementById("fileira" + valueC + valueD).textContent = "";
+    document.getElementById("playerNegativePoints" + valueC).textContent = "";
+    console.log("apagou as coisa");
 }
 
 function fimDaRodada() {
@@ -383,6 +395,7 @@ function fimDaRodada() {
 
         valueC = i;
         valueD = j;
+        erasePlayerBoard();
 
         // Depois, move o tile que sobrou para pontuar
         if (allPlayerBoards[i][j][0] == "Azul") {

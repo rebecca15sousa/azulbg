@@ -116,6 +116,7 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 35px);
   grid-template-rows: repeat(5, 35px);
+  gap: 5px;
   /*grid-column: 1 / 2;
   grid-row: 2 / 3;*/
   grid-area: b;
