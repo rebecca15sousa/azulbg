@@ -177,6 +177,10 @@ function moveTileSelectedMesao(){
   for(let i = 0; i < mesao.length; i++) {
     if(mesao[i] == "Firstplayer") {
       allPlayerBoards[valueA][5].push(mesao[i]);
+      let variavelzinha2 = document.createElement("img");
+      variavelzinha2.setAttribute("src", "assets/FirstPlayer.jpg");
+      variavelzinha2.setAttribute("class", "tilesImage");
+      document.getElementById("playerNegativePoints" + valueA).appendChild(variavelzinha2);
       jogadorInicial = valueA;
       let tileFirstPlayer = document.querySelector("#firstPlayer");
       tileFirstPlayer.remove();
@@ -222,13 +226,14 @@ function drawTileSelected() {
       variavelzinha2.setAttribute("class", "tilesImage");
       //let variavelzinha2 = "<img src='assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg' class='tilesImage'>";
       document.getElementById('fileira' + valueA + valueB).appendChild(variavelzinha2);
-    } else if (allPlayerBoards[valueA][5].length < 7) {
+    }
+    else if (document.getElementById("playerNegativePoints" + valueA).childElementCount < 7) {
       let variavelzinha2 = document.createElement("img");
       variavelzinha2.setAttribute("src", "assets/" + factDisplayColor + ".jpg");
       variavelzinha2.setAttribute("class", "tilesImage");
       document.getElementById("playerNegativePoints" + valueA).appendChild(variavelzinha2);
       console.log("perdendo pontosssss");
-      
+
     }
   }
 }
