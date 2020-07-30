@@ -115,14 +115,14 @@ body {
 
 #playerButtons0, #playerButtons1, #playerButtons2, #playerButtons3 {
   display: grid;
-  grid-template-columns: repeat(5, 30px);
-  grid-template-rows: repeat(5, 30px);
+  grid-template-columns: repeat(5, 32px);
+  grid-template-rows: repeat(5, 32px);
   gap: 2px;
   /*grid-column: 1 / 2;
   grid-row: 2 / 3;*/
   grid-area: b;
   z-index: 2;
-  padding: 5%;
+  padding: 2% 5%;
   justify-self: end;
 }
 
@@ -156,11 +156,11 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 30px);
   grid-template-rows: repeat(5, 30px);
-  gap: 2px;
+  gap: 3px;
   /*grid-column: 1 / 2;
   grid-row: 2 / 3;*/
   grid-area: b;
-  padding: 5%;
+  padding: 3% 5%;
   justify-self: end;
 }
 
@@ -178,7 +178,9 @@ body {
   grid-row: 2 / 3;
   grid-template-columns: repeat(2, 30px);
   grid-template-rows: 30px;
-  gap: 2px;
+  gap: 4px;
+  padding-top: 1%;
+  justify-self: end;
 }
 
 .fileira2 {
@@ -187,7 +189,9 @@ body {
   grid-row: 3 / 4;
   grid-template-columns: repeat(3, 30px);
   grid-template-rows: 30px;
-  gap: 2px;
+  gap: 4px;
+  padding-top: 1%;
+  justify-self: end;
 }
 
 .fileira3 {
@@ -196,7 +200,9 @@ body {
   grid-row: 4 / 5;
   grid-template-columns: repeat(4, 30px);
   grid-template-rows: 30px;
-  gap: 2px;
+  gap: 4px;
+  padding-top: 2%;
+  justify-self: end;
 }
 
 .fileira4 {
@@ -205,18 +211,20 @@ body {
   grid-row: 5 / 6;
   grid-template-columns: repeat(5, 30px);
   grid-template-rows: 30px;
-  gap: 2px;
+  gap: 4px;
+  padding-top: 2%;
+  justify-self: end;
 }
 
 #playerPointsBoards0, #playerPointsBoards1, #playerPointsBoards2, #playerPointsBoards3 {
   display: grid;
   grid-template-columns: repeat(5, 30px);
   grid-template-rows: repeat(5, 30px);
-  gap: 2px;
+  gap: 4px;
   grid-column: 2 / 3;
   grid-row: 2 / 3;
   grid-area: c;
-  padding: 4%;
+  padding: 3% 5%;
 }
 
 /*.pointsRow0 {
@@ -271,11 +279,11 @@ body {
 
 #playerNegativePoints0, #playerNegativePoints1, #playerNegativePoints2, #playerNegativePoints3 {
   display: grid;
-  grid-template-columns: repeat(7, 35px);
-  grid-template-rows: 35px;
-  gap: 5px;
+  grid-template-columns: repeat(7, 30px);
+  grid-template-rows: 30px;
+  gap: 7px;
   /*grid-column: 1 / 3;
   grid-row: 3 / 4;*/
   grid-area: d;
-  padding-left: 5%;
+  padding: 1% 6%;
 }
