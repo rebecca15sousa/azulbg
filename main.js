@@ -4,9 +4,9 @@ let mesao;
 let tilesDiscard = [];
 let megaDiv = document.querySelector("#mainBoardArea");
 let tiles;
-let numPlayers = 2;
+let numPlayers = 0; //Number(prompt("How many players?"));
 let pid;
-let nid
+let nid;
 let factDisplayNum;
 let factDisplayColor;
 let allPlayerBoards = [];
@@ -31,6 +31,47 @@ let quantVermelho = 0;
 let quantAmarelo = 0;
 let quantPreto = 0;
 let quantBranco = 0;
+let modal = document.getElementById("modalPlayers");
+let modalBtn2 = document.getElementById("modalBtn2");
+let modalBtn3 = document.getElementById("modalBtn3");
+let modalBtn4 = document.getElementById("modalBtn4");
+let modalBtnOK = document.getElementById("modalBtnOK");
+
+modalBtn2.onclick = function() {
+  numPlayers = 2;
+  modalBtn2.setAttribute("style", "border: 5px solid red;");
+  modalBtn3.setAttribute("style", "border: none;");
+  modalBtn4.setAttribute("style", "border: none;");
+}
+
+modalBtn3.onclick = function() {
+  numPlayers = 3;
+  modalBtn3.setAttribute("style", "border: 5px solid red;");
+  modalBtn2.setAttribute("style", "border: none;");
+  modalBtn4.setAttribute("style", "border: none;");
+}
+
+modalBtn4.onclick = function() {
+  numPlayers = 4;
+  modalBtn4.setAttribute("style", "border: 5px solid red;");
+  modalBtn2.setAttribute("style", "border: none;");
+  modalBtn3.setAttribute("style", "border: none;");
+}
+
+modalBtnOK.onclick = function() {
+  if (numPlayers != 0) {
+    createPlayerBoards(numPlayers);
+    createCirculos(numPlayers);
+    inicioDaRodada();
+    modal.style.display = "none";
+  }
+}
+
+/*function checkPlayers(numPlayers) {
+  if (numPlayers > 4) {
+    numPlayers = Number(prompt("How many players?"));
+  }
+}*/
 
 //array que contem todos os tiles do jogo
 //array that contains all the tiles from the game
@@ -623,8 +664,8 @@ function fimDoJogo() {
 }
 
 // console.log(circuloMaster);
-createPlayerBoards(numPlayers);
-createCirculos(numPlayers);
+//createPlayerBoards(numPlayers);
+//createCirculos(numPlayers);
 
 function inicioDaRodada() {
 
@@ -634,4 +675,4 @@ function inicioDaRodada() {
   selectTileColor();
 }
 
-inicioDaRodada();
+//inicioDaRodada();
