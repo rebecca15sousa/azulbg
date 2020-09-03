@@ -8,7 +8,7 @@
   </head>
   <body>
     <div id="modalPlayers" class="modal">
-      <div class="modal-content">
+      <div class="modalContentPlayers">
         <p id="modalText">How many players?</p>
         <button type="button" id="modalBtn2" class="modalNumbers">2</button>
         <button type="button" id="modalBtn3" class="modalNumbers">3</button>
@@ -16,6 +16,27 @@
         <button type="button" id="modalBtnOK">OK</button>
       </div>
     </div>
+
+    <div id="modalRoundOver" class="modal">
+      <div id="modalOverFade" class="modalContentRounds">
+        <p class="roundOverStart">Round Over!</p>
+      </div>
+    </div>
+
+    <div id="modalRoundSummary" class="modal">
+      <div class="modalContentSummary">
+        <p id="roundSummary">Round summary</p>
+        <button type="button" id="modalBtnSummary">OK</button>
+      </div>
+    </div>
+
+    <div id="modalRoundStart" class="modal">
+      <div class="modalContentRounds">
+        <p class="roundOverStart">Round Start!</p>
+        <button type="button" id="modalBtnStart">OK</button>
+      </div>
+    </div>
+
     <div id="screenContent">
       <div id="mainBoardArea"></div>
       <div id="playerAreas"></div>

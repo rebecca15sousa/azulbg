@@ -4,7 +4,7 @@ let mesao;
 let tilesDiscard = [];
 let megaDiv = document.querySelector("#mainBoardArea");
 let tiles;
-let numPlayers = 0; //Number(prompt("How many players?"));
+let numPlayers = 0;
 let pid;
 let nid;
 let factDisplayNum;
@@ -36,6 +36,8 @@ let modalBtn2 = document.getElementById("modalBtn2");
 let modalBtn3 = document.getElementById("modalBtn3");
 let modalBtn4 = document.getElementById("modalBtn4");
 let modalBtnOK = document.getElementById("modalBtnOK");
+let modalRoundOver = document.getElementById("modalRoundOver");
+let modalOverFade = document.getElementById("modalOverFade");
 
 modalBtn2.onclick = function() {
   numPlayers = 2;
@@ -66,12 +68,6 @@ modalBtnOK.onclick = function() {
     modal.style.display = "none";
   }
 }
-
-/*function checkPlayers(numPlayers) {
-  if (numPlayers > 4) {
-    numPlayers = Number(prompt("How many players?"));
-  }
-}*/
 
 //array que contem todos os tiles do jogo
 //array that contains all the tiles from the game
@@ -386,7 +382,10 @@ function createPlayerBoards(numPlayers) {
         }
 
         if (mesao.length == 0 && endRound == true) {
+          modalRoundOver.style.display = "block";
+          modalRoundOver.classList.toggle("fadeInOut");
           fimDaRodada();
+
         }
 
       });
