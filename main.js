@@ -12,6 +12,8 @@ let factDisplayColor;
 let allPlayerBoards = [];
 let allPlayerPointsBoards = [];
 let playerPoints = [];
+let plusPoints = [];
+let minusPoints = [];
 let valueA;
 let valueB;
 let valueC;
@@ -37,8 +39,34 @@ let modalBtn3 = document.getElementById("modalBtn3");
 let modalBtn4 = document.getElementById("modalBtn4");
 let modalBtnOK = document.getElementById("modalBtnOK");
 let modalRoundOver = document.getElementById("modalRoundOver");
-let modalOverFade = document.getElementById("modalOverFade");
+let modalRoundSummary = document.getElementById("modalRoundSummary");
+let pointsTable = document.getElementById("pointsTable");
+let modalRoundStart = document.getElementById("modalRoundStart");
 
+//inputs players data in the summary table
+function makeRows(rows) {
+  pointsTable.style.setProperty('--grid-rows', (rows + 1));
+  for (let i = 0; i < rows; i++) {
+    let cellPlayer = document.createElement("div");
+    cellPlayer.textContent = "P";
+    cellPlayer.classList.add("summaryRows");
+    pointsTable.appendChild(cellPlayer);
+    let cellPointsWon = document.createElement("div");
+    cellPointsWon.textContent = plusPoints[i];
+    cellPointsWon.classList.add("cell");
+    pointsTable.appendChild(cellPointsWon);
+    let cellPointsLost = document.createElement("div");
+    cellPointsLost.textContent = minusPoints[i];
+    cellPointsLost.classList.add("cell");
+    pointsTable.appendChild(cellPointsLost);
+    let cellPointsTotal = document.createElement("div");
+    cellPointsTotal.textContent = playerPoints[i];
+    cellPointsTotal.classList.add("cell");
+    pointsTable.appendChild(cellPointsTotal);
+  }
+}
+
+//buttons functions for starter modal
 modalBtn2.onclick = function() {
   numPlayers = 2;
   modalBtn2.setAttribute("style", "border: 5px solid red;");
@@ -326,6 +354,8 @@ function createPlayerBoards(numPlayers) {
     allPlayerBoards[i] = [];
     allPlayerPointsBoards[i] = [];
     playerPoints[i] = [0];
+    plusPoints[i] = 0;
+    minusPoints[i] = 0;
     for (let j = 0; j < 5; j++) {
       // Cria fileiras de pontuação e arrays dessas fileiras
       for (let k = 0; k < 5; k++) {
@@ -383,9 +413,17 @@ function createPlayerBoards(numPlayers) {
 
         if (mesao.length == 0 && endRound == true) {
           modalRoundOver.style.display = "block";
-          modalRoundOver.classList.toggle("fadeInOut");
+          modalRoundOver.classList.add("fadeInOut");
+          modalRoundOver.classList.remove("fadeInOut");
+
           fimDaRodada();
 
+          
+
+          makeRows(numPlayers);
+          modalRoundSummary.style.display = "block";
+
+          modalRoundStart.style.display = "block";
         }
 
       });
@@ -490,16 +528,19 @@ function fimDaRodada() {
 
         allPlayerPointsBoards[i][j][placement] = allPlayerBoards[i][j][0];
         playerPoints[i]++;
+        plusPoints[i]++;
         allPlayerBoards[i][j].splice(0, 1);
         if (placement > 0 ) {
           while (allPlayerPointsBoards[i][j][placement - 1]) {
             playerPoints[i]++;
+            plusPoints[i]++;
             placement--;
           }
       }
         if (placement < 4) {
           while (allPlayerPointsBoards[i][j][placement + 1]) {
             playerPoints[i]++;
+            plusPoints[i]++;
             placement++;
         }
       }
@@ -507,12 +548,14 @@ function fimDaRodada() {
 
         while (allPlayerPointsBoards[i][j - 1][placement]) {
           playerPoints[i]++;
+          plusPoints[i]++;
           j--;
         }
       }
         if (j < 4) {
             while (allPlayerPointsBoards[i][j + 1][placement]) {
             playerPoints[i]++;
+            plusPoints[i]++;
             j++;
         }
       }
@@ -523,36 +566,39 @@ function fimDaRodada() {
     console.log("sua quantidade de pontos atual antes de perder pontos eh: " + playerPoints[i]);
     switch (negativeRowSize) {
       case 1:
-        playerPoints[i]--;
-        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        minusPoints[i]++;
+        //console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
         break;
       case 2:
-        playerPoints[i] = playerPoints[i] - 2;
-        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        minusPoints[i] = 2;
+        //console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
         break;
       case 3:
-        playerPoints[i] = playerPoints[i] - 4;
-        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        minusPoints[i] = 4;
+        //console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
         break;
       case 4:
-        playerPoints[i] = playerPoints[i] - 6;
-        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        minusPoints[i] = 6;
+        //console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
         break;
       case 5:
-        playerPoints[i] = playerPoints[i] - 8;
-        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        minusPoints[i] = 8;
+        //console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
         break;
       case 6:
-        playerPoints[i] = playerPoints[i] - 11;
-        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        minusPoints[i] = 11;
+        //console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
         break;
       case 7:
-        playerPoints[i] = playerPoints[i] - 14;
-        console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+        minusPoints[i] = 14;
+        //console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
         break;
       default:
         console.log("Nao perdeu ponto, parabens meu filho");
     }
+
+    playerPoints[i] = playerPoints[i] - minusPoints[i];
+    console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
 
     for (let l = 0; l < allPlayerBoards[i][5].length; l++) {
       if (allPlayerBoards[i][5][l] == "Firstplayer") {
