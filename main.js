@@ -41,14 +41,17 @@ let modalBtnOK = document.getElementById("modalBtnOK");
 let modalRoundOver = document.getElementById("modalRoundOver");
 let modalRoundSummary = document.getElementById("modalRoundSummary");
 let pointsTable = document.getElementById("pointsTable");
+let modalBtnSummary = document.getElementById("modalBtnSummary");
 let modalRoundStart = document.getElementById("modalRoundStart");
+let firstPlayerText = document.getElementById("firstPlayerText");
+let modalBtnStart = document.getElementById("modalBtnStart");
 
 //inputs players data in the summary table
 function makeRows(rows) {
   pointsTable.style.setProperty('--grid-rows', (rows + 1));
   for (let i = 0; i < rows; i++) {
     let cellPlayer = document.createElement("div");
-    cellPlayer.textContent = "P";
+    cellPlayer.textContent = "P" + (i + 1);
     cellPlayer.classList.add("summaryRows");
     pointsTable.appendChild(cellPlayer);
     let cellPointsWon = document.createElement("div");
@@ -95,6 +98,23 @@ modalBtnOK.onclick = function() {
     inicioDaRodada();
     modal.style.display = "none";
   }
+}
+
+function showsSummary() {
+  makeRows(numPlayers);
+  modalRoundOver.classList.remove("fadeInOut");
+  modalRoundOver.style.display = "none";
+  modalRoundSummary.style.display = "block";
+}
+
+modalBtnSummary.onclick = function() {
+  modalRoundSummary.style.display = "none";
+  firstPlayerText.textContent = "First player: " + "P" + (jogadorInicial + 1);
+  modalRoundStart.style.display = "block";
+}
+
+modalBtnStart.onclick = function() {
+  modalRoundStart.style.display = "none";
 }
 
 //array que contem todos os tiles do jogo
@@ -414,16 +434,10 @@ function createPlayerBoards(numPlayers) {
         if (mesao.length == 0 && endRound == true) {
           modalRoundOver.style.display = "block";
           modalRoundOver.classList.add("fadeInOut");
-          modalRoundOver.classList.remove("fadeInOut");
 
           fimDaRodada();
 
-          
-
-          makeRows(numPlayers);
-          modalRoundSummary.style.display = "block";
-
-          modalRoundStart.style.display = "block";
+          setTimeout(showsSummary, 4000)
         }
 
       });

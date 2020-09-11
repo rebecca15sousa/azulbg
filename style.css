@@ -58,7 +58,7 @@
 
 #modalRoundOver {
   display: none;
-  opacity: 1;
+  opacity: 0;
 }
 
 #modalRoundOver.fadeInOut {
@@ -95,10 +95,10 @@
 
 .modalContentSummary {
   background-color: #fefefe;
-  margin: 10% auto;
+  margin: 15% auto;
   padding: 20px;
   width: 50%;
-  height: 50%;
+  /*height: 50%;*/
   text-align: center;
   border-radius: 8px;
 }
@@ -110,8 +110,7 @@
 
 #modalBtnSummary {
   display: block;
-  margin: 15px auto;
-  /*margin: 25px auto 5px;*/
+  margin: auto;
   background-color: lightgrey;
   border: none;
   border-radius: 8px;
@@ -129,14 +128,34 @@
 
 #pointsWonText {
   grid-column: 2 / 3;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 #pointsLostText {
   grid-column: 3 / 4;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 #totalPointsText {
   grid-column: 4 / 5;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.summaryRows {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.cell {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
 }
 
 #modalRoundStart {
@@ -149,7 +168,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.firstPlayerText {
+#firstPlayerText {
   font-size: 30px;
   padding: 10px;
   font-family: Arial, Helvetica, sans-serif;
