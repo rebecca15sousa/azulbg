@@ -499,6 +499,8 @@ function fimDaRodada() {
 
         valueC = i;
         valueD = j;
+        let dTiles = j;
+        let sTiles = j;
         erasePlayerBoard();
 
         // Depois, move o tile que sobrou para pontuar
@@ -551,13 +553,15 @@ function fimDaRodada() {
         playerPoints[i]++;
         plusPoints[i]++;
         allPlayerBoards[i][j].splice(0, 1);
+
         if (placement > 0 ) {
           while (allPlayerPointsBoards[i][j][placement - 1]) {
             playerPoints[i]++;
             plusPoints[i]++;
             placement--;
-          }
+        }
       }
+
         if (placement < 4) {
           while (allPlayerPointsBoards[i][j][placement + 1]) {
             playerPoints[i]++;
@@ -565,21 +569,23 @@ function fimDaRodada() {
             placement++;
         }
       }
-        if (j > 0) {
 
-        while (allPlayerPointsBoards[i][j - 1][placement]) {
-          playerPoints[i]++;
-          plusPoints[i]++;
-          j--;
-        }
-      }
-        if (j < 4) {
-            while (allPlayerPointsBoards[i][j + 1][placement]) {
+        if (dTiles > 0) {
+          while (dTiles > 0 && allPlayerPointsBoards[i][dTiles - 1][placement]) {
             playerPoints[i]++;
             plusPoints[i]++;
-            j++;
+            dTiles--;
         }
       }
+
+        if (sTiles < 4) {
+            while (sTiles < 4 && allPlayerPointsBoards[i][sTiles + 1][placement]) {
+            playerPoints[i]++;
+            plusPoints[i]++;
+            sTiles++;
+          }
+        }
+
       }
     }
     let negativeRowSize = allPlayerBoards[i][5].length;
