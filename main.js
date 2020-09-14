@@ -100,6 +100,13 @@ modalBtnOK.onclick = function() {
   }
 }
 
+//shows round over modal at end of round
+function showsRoundOver() {
+  modalRoundOver.style.display = "block";
+  modalRoundOver.classList.add("fadeInOut");
+}
+
+//hides round over modal and shows round summary modal
 function showsSummary() {
   makeRows(numPlayers);
   modalRoundOver.classList.remove("fadeInOut");
@@ -107,12 +114,14 @@ function showsSummary() {
   modalRoundSummary.style.display = "block";
 }
 
+//hides round summary modal and shows round start modal
 modalBtnSummary.onclick = function() {
   modalRoundSummary.style.display = "none";
   firstPlayerText.textContent = "First player: " + "P" + (jogadorInicial + 1);
   modalRoundStart.style.display = "block";
 }
 
+//hides round start modal
 modalBtnStart.onclick = function() {
   modalRoundStart.style.display = "none";
 }
@@ -432,12 +441,9 @@ function createPlayerBoards(numPlayers) {
         }
 
         if (mesao.length == 0 && endRound == true) {
-          modalRoundOver.style.display = "block";
-          modalRoundOver.classList.add("fadeInOut");
-
           fimDaRodada();
 
-          setTimeout(showsSummary, 4000)
+          //setTimeout(showsSummary, 4000)
         }
 
       });
@@ -613,6 +619,9 @@ function fimDaRodada() {
 
     playerPoints[i] = playerPoints[i] - minusPoints[i];
     console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+
+    showsRoundOver();
+    setTimeout(showsSummary, 4000);
 
     for (let l = 0; l < allPlayerBoards[i][5].length; l++) {
       if (allPlayerBoards[i][5][l] == "Firstplayer") {
