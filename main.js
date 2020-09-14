@@ -499,8 +499,6 @@ function fimDaRodada() {
 
         valueC = i;
         valueD = j;
-        let sTiles = j;
-        let dTiles = j;
         erasePlayerBoard();
 
         // Depois, move o tile que sobrou para pontuar
@@ -567,20 +565,21 @@ function fimDaRodada() {
             placement++;
         }
       }
-        while (dTiles > 0) {
-        if (allPlayerPointsBoards[i][dTiles - 1][placement] != undefined) {
+        if (j > 0) {
+
+        while (allPlayerPointsBoards[i][j - 1][placement]) {
           playerPoints[i]++;
           plusPoints[i]++;
-          }
-        dTiles--;
+          j--;
+        }
       }
-        while (sTiles < 4) {
-        if (allPlayerPointsBoards[i][sTiles + 1][placement] != undefined) {
+        if (j < 4) {
+            while (allPlayerPointsBoards[i][j + 1][placement]) {
             playerPoints[i]++;
             plusPoints[i]++;
-          }
-        sTiles++;
+            j++;
         }
+      }
       }
     }
     let negativeRowSize = allPlayerBoards[i][5].length;
