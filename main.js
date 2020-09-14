@@ -431,15 +431,6 @@ function createPlayerBoards(numPlayers) {
         // Checa se a rodada ja terminou
         endRound = checkEnd();
 
-        function checkEnd() {
-          for (let o = 0; o < circuloMaster.length; o++) {
-            if (circuloMaster[o].length > 0) {
-              return false;
-            }
-          };
-          return true;
-        }
-
         if (mesao.length == 0 && endRound == true) {
           fimDaRodada();
 
@@ -483,6 +474,16 @@ function erasePlayerBoard() {
     document.getElementById("fileira" + valueC + valueD).textContent = "";
     document.getElementById("playerNegativePoints" + valueC).textContent = "";
     console.log("apagou as coisa");
+}
+
+//Checa se a rodada ja terminou
+function checkEnd() {
+  for (let o = 0; o < circuloMaster.length; o++) {
+    if (circuloMaster[o].length > 0) {
+      return false;
+    }
+  };
+  return true;
 }
 
 function fimDaRodada() {
@@ -620,9 +621,6 @@ function fimDaRodada() {
     playerPoints[i] = playerPoints[i] - minusPoints[i];
     console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
 
-    showsRoundOver();
-    setTimeout(showsSummary, 4000);
-
     for (let l = 0; l < allPlayerBoards[i][5].length; l++) {
       if (allPlayerBoards[i][5][l] == "Firstplayer") {
         jogadorInicial = i;
@@ -635,6 +633,8 @@ function fimDaRodada() {
       }
     }
   }
+  showsRoundOver();
+  setTimeout(showsSummary, 4000);
   // Vai fazer o check de se o jogo ja acabou
   for (let i = 0; i < allPlayerPointsBoards.length; i++) {
     for (let j = 0; j < allPlayerPointsBoards[i].length; j++) {
