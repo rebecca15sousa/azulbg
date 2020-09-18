@@ -17,6 +17,16 @@
       </div>
     </div>
 
+    <div id="modalSettings" class="modal">
+      <div class="modalContentSettings">
+        <p id="playerSettingsText">Players</p>
+        <form onsubmit="startGame();return false">
+          <div id="playerSettings"></div>
+          <input type="submit" value="OK" id="modalBtnSettings">
+        </form>
+      </div>
+    </div>
+
     <div id="modalRoundOver" class="modal">
       <div id="modalOverFade" class="modalContentRounds">
         <p class="roundOverText">Round Over!</p>

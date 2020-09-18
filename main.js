@@ -45,6 +45,32 @@ let modalBtnSummary = document.getElementById("modalBtnSummary");
 let modalRoundStart = document.getElementById("modalRoundStart");
 let firstPlayerText = document.getElementById("firstPlayerText");
 let modalBtnStart = document.getElementById("modalBtnStart");
+let modalSettings = document.getElementById("modalSettings");
+let playerSettings = document.getElementById("playerSettings");
+let modalBtnSettings = document.getElementById("modalBtnSettings");
+let names = [];
+
+//creates settings options based on player quantity
+function makeSettings(numPlayers) {
+  for (let i = 0; i < numPlayers; i++) {
+    let colourAndName = document.createElement("div");
+    colourAndName.classList.add("colourAndName");
+    /*let colourBtn = document.createElement("input");
+    colourBtn.setAttribute("type", "color");
+    colourBtn.classList.add("colourBtn");
+    colourBtn.setAttribute("id", "playerColour" + i);
+    colourAndName.appendChild(colourBtn);*/
+    let playerName = document.createElement("input");
+    playerName.setAttribute("type", "text");
+    playerName.classList.add("playerName");
+    playerName.setAttribute("id", "playerName" + i);
+    //playerName.setAttribute("name", "playerName");
+    playerName.required = true;
+    //colourAndName.appendChild(playerName);
+    //playerSettings.appendChild(colourAndName);
+    playerSettings.appendChild(playerName);
+  }
+}
 
 //inputs players data in the summary table
 function makeRows(rows) {
@@ -93,12 +119,31 @@ modalBtn4.onclick = function() {
 
 modalBtnOK.onclick = function() {
   if (numPlayers != 0) {
-    createPlayerBoards(numPlayers);
+    /*createPlayerBoards(numPlayers);
     createCirculos(numPlayers);
-    inicioDaRodada();
+    inicioDaRodada();*/
     modal.style.display = "none";
+    makeSettings(numPlayers);
+    modalSettings.style.display = "block";
   }
 }
+
+function startGame() {
+  createPlayerBoards(numPlayers);
+  createCirculos(numPlayers);
+  inicioDaRodada();
+  modalSettings.style.display = "none";
+  for (let i = 0; i < numPlayers; i++) {
+    names.push(document.getElementById("playerName" + i).value);
+  }
+}
+
+/*modalBtnSettings.onclick = function() {
+  createPlayerBoards(numPlayers);
+  createCirculos(numPlayers);
+  inicioDaRodada();
+  modalSettings.style.display = "none";
+}*/
 
 //shows round over modal at end of round
 function showsRoundOver() {
@@ -383,8 +428,8 @@ function createPlayerBoards(numPlayers) {
     allPlayerBoards[i] = [];
     allPlayerPointsBoards[i] = [];
     playerPoints[i] = [0];
-    plusPoints[i] = 0;
-    minusPoints[i] = 0;
+    //plusPoints[i] = [0];
+    //minusPoints[i] = [0];
     for (let j = 0; j < 5; j++) {
       // Cria fileiras de pontuação e arrays dessas fileiras
       for (let k = 0; k < 5; k++) {
@@ -641,6 +686,7 @@ function fimDaRodada() {
   }
   showsRoundOver();
   setTimeout(showsSummary, 4000);
+
   // Vai fazer o check de se o jogo ja acabou
   for (let i = 0; i < allPlayerPointsBoards.length; i++) {
     for (let j = 0; j < allPlayerPointsBoards[i].length; j++) {
@@ -742,11 +788,15 @@ function fimDoJogo() {
 //createCirculos(numPlayers);
 
 function inicioDaRodada() {
-
+  
   createBag();
   createMesaoFactoryDisplay();
   distributeTiles();
   selectTileColor();
+
+  //tentar ajeitar esses valores aqui
+  /*plusPoints[i] = [0];
+  minusPoints[i] = [0];*/
 }
 
 //inicioDaRodada();
