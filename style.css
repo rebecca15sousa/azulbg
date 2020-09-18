@@ -121,37 +121,43 @@
 
 #pointsTable {
   display: grid;
-  grid-template-columns: repeat(4, 25%);
+  grid-template-columns: repeat(5, 20%);
   grid-template-rows: repeat(var(--grid-rows), 1fr);
   margin: 20px auto;
 }
 
-#pointsWonText {
-  grid-column: 2 / 3;
+.summaryColumns {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   font-weight: bold;
 }
 
-#pointsLostText {
+/*#pointsWonText {
   grid-column: 3 / 4;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   font-weight: bold;
 }
 
-#totalPointsText {
+#pointsLostText {
   grid-column: 4 / 5;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   font-weight: bold;
 }
 
-.summaryRows {
+#totalPointsText {
+  grid-column: 5 / 6;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   font-weight: bold;
-}
+}*/
+
+/*.summaryRows {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}*/
 
 .cell {
   font-family: Arial, Helvetica, sans-serif;
@@ -169,9 +175,16 @@
 }
 
 #firstPlayerText {
+  display: inline-block;
   font-size: 30px;
   padding: 10px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+#firstPlayerColour {
+  display: inline-block;
+  width: 3%;
+  height: 30px;
 }
 
 #modalBtnStart {
@@ -214,15 +227,17 @@
   width: 15%;
 }
 
+#playerSettings {
+  margin: 10px;
+}
+
 .colourAndName {
   display: block;
-  margin: 15px;
-  height: 50px;
+  margin: 10px;
 }
 
 .colourBtn {
-  height: 40px;
-  margin: 10px;
+  margin: 0px 10px;
 }
 
 .playerName {

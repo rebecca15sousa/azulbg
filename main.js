@@ -44,6 +44,7 @@ let pointsTable = document.getElementById("pointsTable");
 let modalBtnSummary = document.getElementById("modalBtnSummary");
 let modalRoundStart = document.getElementById("modalRoundStart");
 let firstPlayerText = document.getElementById("firstPlayerText");
+let firstPlayerColour = document.getElementById("firstPlayerColour");
 let modalBtnStart = document.getElementById("modalBtnStart");
 let modalSettings = document.getElementById("modalSettings");
 let playerSettings = document.getElementById("playerSettings");
@@ -77,9 +78,12 @@ function makeSettings(numPlayers) {
 function makeRows(rows) {
   pointsTable.style.setProperty('--grid-rows', (rows + 1));
   for (let i = 0; i < rows; i++) {
+    let cellColour = document.createElement("div");
+    cellColour.style.backgroundColor = colours[i];
+    pointsTable.appendChild(cellColour);
     let cellPlayer = document.createElement("div");
     cellPlayer.textContent = names[i];
-    cellPlayer.classList.add("summaryRows");
+    cellPlayer.classList.add("cell");
     pointsTable.appendChild(cellPlayer);
     let cellPointsWon = document.createElement("div");
     cellPointsWon.textContent = plusPoints[i];
@@ -165,6 +169,7 @@ function showsSummary() {
 modalBtnSummary.onclick = function() {
   modalRoundSummary.style.display = "none";
   firstPlayerText.textContent = "First player: " + names[jogadorInicial];
+  firstPlayerColour.style.backgroundColor = colours[jogadorInicial];
   modalRoundStart.style.display = "block";
 }
 
