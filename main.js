@@ -49,26 +49,27 @@ let modalSettings = document.getElementById("modalSettings");
 let playerSettings = document.getElementById("playerSettings");
 let modalBtnSettings = document.getElementById("modalBtnSettings");
 let names = [];
+let colours = [];
 
 //creates settings options based on player quantity
 function makeSettings(numPlayers) {
   for (let i = 0; i < numPlayers; i++) {
     let colourAndName = document.createElement("div");
     colourAndName.classList.add("colourAndName");
-    /*let colourBtn = document.createElement("input");
+    let colourBtn = document.createElement("input");
     colourBtn.setAttribute("type", "color");
     colourBtn.classList.add("colourBtn");
     colourBtn.setAttribute("id", "playerColour" + i);
-    colourAndName.appendChild(colourBtn);*/
+    colourAndName.appendChild(colourBtn);
     let playerName = document.createElement("input");
     playerName.setAttribute("type", "text");
     playerName.classList.add("playerName");
     playerName.setAttribute("id", "playerName" + i);
     //playerName.setAttribute("name", "playerName");
     playerName.required = true;
-    //colourAndName.appendChild(playerName);
-    //playerSettings.appendChild(colourAndName);
-    playerSettings.appendChild(playerName);
+    colourAndName.appendChild(playerName);
+    playerSettings.appendChild(colourAndName);
+    //playerSettings.appendChild(playerName);
   }
 }
 
@@ -135,6 +136,7 @@ function startGame() {
   modalSettings.style.display = "none";
   for (let i = 0; i < numPlayers; i++) {
     names.push(document.getElementById("playerName" + i).value);
+    colours.push(document.getElementById("playerColour" + i).value);
   }
 }
 
