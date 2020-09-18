@@ -77,7 +77,7 @@ function makeRows(rows) {
   pointsTable.style.setProperty('--grid-rows', (rows + 1));
   for (let i = 0; i < rows; i++) {
     let cellPlayer = document.createElement("div");
-    cellPlayer.textContent = "P" + (i + 1);
+    cellPlayer.textContent = names[i];
     cellPlayer.classList.add("summaryRows");
     pointsTable.appendChild(cellPlayer);
     let cellPointsWon = document.createElement("div");
@@ -162,7 +162,7 @@ function showsSummary() {
 //hides round summary modal and shows round start modal
 modalBtnSummary.onclick = function() {
   modalRoundSummary.style.display = "none";
-  firstPlayerText.textContent = "First player: " + "P" + (jogadorInicial + 1);
+  firstPlayerText.textContent = "First player: " + names[jogadorInicial];
   modalRoundStart.style.display = "block";
 }
 
