@@ -52,6 +52,13 @@ let modalBtnSettings = document.getElementById("modalBtnSettings");
 let names = [];
 let colours = [];
 
+function resetPoints(numPlayers) {
+  for (let i = 0; i < numPlayers; i++) {
+    plusPoints[i] = 0;
+    minusPoints[i] = 0;
+  }
+}
+
 //creates settings options based on player quantity
 function makeSettings(numPlayers) {
   for (let i = 0; i < numPlayers; i++) {
@@ -66,11 +73,9 @@ function makeSettings(numPlayers) {
     playerName.setAttribute("type", "text");
     playerName.classList.add("playerName");
     playerName.setAttribute("id", "playerName" + i);
-    //playerName.setAttribute("name", "playerName");
     playerName.required = true;
     colourAndName.appendChild(playerName);
     playerSettings.appendChild(colourAndName);
-    //playerSettings.appendChild(playerName);
   }
 }
 
@@ -163,6 +168,7 @@ function showsSummary() {
   modalRoundOver.classList.remove("fadeInOut");
   modalRoundOver.style.display = "none";
   modalRoundSummary.style.display = "block";
+  resetPoints(numPlayers);
 }
 
 //hides round summary modal and shows round start modal
@@ -435,8 +441,8 @@ function createPlayerBoards(numPlayers) {
     allPlayerBoards[i] = [];
     allPlayerPointsBoards[i] = [];
     playerPoints[i] = [0];
-    //plusPoints[i] = [0];
-    //minusPoints[i] = [0];
+    plusPoints[i] = 0;
+    minusPoints[i] = 0;
     for (let j = 0; j < 5; j++) {
       // Cria fileiras de pontuação e arrays dessas fileiras
       for (let k = 0; k < 5; k++) {
@@ -637,7 +643,6 @@ function fimDaRodada() {
             sTiles++;
           }
         }
-
       }
     }
     let negativeRowSize = allPlayerBoards[i][5].length;
@@ -693,6 +698,11 @@ function fimDaRodada() {
   }
   showsRoundOver();
   setTimeout(showsSummary, 4000);
+
+  /*for (let i = 0; i < allPlayerBoards.length; i++) {
+    plusPoints[i] = 0;
+    minusPoints[i] = 0;
+  }*/
 
   // Vai fazer o check de se o jogo ja acabou
   for (let i = 0; i < allPlayerPointsBoards.length; i++) {
@@ -795,15 +805,9 @@ function fimDoJogo() {
 //createCirculos(numPlayers);
 
 function inicioDaRodada() {
-  
   createBag();
   createMesaoFactoryDisplay();
   distributeTiles();
   selectTileColor();
-
-  //tentar ajeitar esses valores aqui
-  /*plusPoints[i] = [0];
-  minusPoints[i] = [0];*/
 }
-
 //inicioDaRodada();
