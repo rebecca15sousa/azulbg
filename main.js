@@ -52,6 +52,7 @@ let modalBtnSettings = document.getElementById("modalBtnSettings");
 let names = [];
 let colours = [];
 
+//resets points won and points lost values every round
 function resetPoints(numPlayers) {
   for (let i = 0; i < numPlayers; i++) {
     plusPoints[i] = 0;
@@ -79,29 +80,45 @@ function makeSettings(numPlayers) {
   }
 }
 
-//inputs players data in the summary table
-function makeRows(rows) {
-  pointsTable.style.setProperty('--grid-rows', (rows + 1));
-  for (let i = 0; i < rows; i++) {
+//creates cells for summary points table
+function createSummaryTable(numPlayers) {
+  for (let i = 0; i < numPlayers; i++) {
     let cellColour = document.createElement("div");
-    cellColour.style.backgroundColor = colours[i];
+    cellColour.setAttribute("id", "cellColour" + i);
     pointsTable.appendChild(cellColour);
     let cellPlayer = document.createElement("div");
-    cellPlayer.textContent = names[i];
+    cellPlayer.setAttribute("id", "cellPlayer" + i);
     cellPlayer.classList.add("cell");
     pointsTable.appendChild(cellPlayer);
     let cellPointsWon = document.createElement("div");
-    cellPointsWon.textContent = plusPoints[i];
+    cellPointsWon.setAttribute("id", "cellPointsWon" + i);
     cellPointsWon.classList.add("cell");
     pointsTable.appendChild(cellPointsWon);
     let cellPointsLost = document.createElement("div");
-    cellPointsLost.textContent = minusPoints[i];
+    cellPointsLost.setAttribute("id", "cellPointsLost" + i);
     cellPointsLost.classList.add("cell");
     pointsTable.appendChild(cellPointsLost);
     let cellPointsTotal = document.createElement("div");
-    cellPointsTotal.textContent = playerPoints[i];
+    cellPointsTotal.setAttribute("id", "cellPointsTotal" + i);
     cellPointsTotal.classList.add("cell");
     pointsTable.appendChild(cellPointsTotal);
+  }
+}
+
+//inputs players data in the summary points table
+function createSummaryRows(rows) {
+  pointsTable.style.setProperty('--grid-rows', (rows + 1));
+  for (let i = 0; i < rows; i++) {
+    let cellColour = document.getElementById("cellColour" + i);
+    cellColour.style.backgroundColor = colours[i];
+    let cellPlayer = document.getElementById("cellPlayer" + i);
+    cellPlayer.textContent = names[i];
+    let cellPointsWon = document.getElementById("cellPointsWon" + i);
+    cellPointsWon.textContent = plusPoints[i];
+    let cellPointsLost = document.getElementById("cellPointsLost" + i);
+    cellPointsLost.textContent = minusPoints[i];
+    let cellPointsTotal = document.getElementById("cellPointsTotal" + i);
+    cellPointsTotal.textContent = playerPoints[i];
   }
 }
 
@@ -129,18 +146,17 @@ modalBtn4.onclick = function() {
 
 modalBtnOK.onclick = function() {
   if (numPlayers != 0) {
-    /*createPlayerBoards(numPlayers);
-    createCirculos(numPlayers);
-    inicioDaRodada();*/
     modal.style.display = "none";
     makeSettings(numPlayers);
     modalSettings.style.display = "block";
   }
 }
 
+//calls functions for initial game setup
 function startGame() {
   createPlayerBoards(numPlayers);
   createCirculos(numPlayers);
+  createSummaryTable(numPlayers);
   inicioDaRodada();
   modalSettings.style.display = "none";
   for (let i = 0; i < numPlayers; i++) {
@@ -148,13 +164,6 @@ function startGame() {
     colours.push(document.getElementById("playerColour" + i).value);
   }
 }
-
-/*modalBtnSettings.onclick = function() {
-  createPlayerBoards(numPlayers);
-  createCirculos(numPlayers);
-  inicioDaRodada();
-  modalSettings.style.display = "none";
-}*/
 
 //shows round over modal at end of round
 function showsRoundOver() {
@@ -164,7 +173,7 @@ function showsRoundOver() {
 
 //hides round over modal and shows round summary modal
 function showsSummary() {
-  makeRows(numPlayers);
+  createSummaryRows(numPlayers);
   modalRoundOver.classList.remove("fadeInOut");
   modalRoundOver.style.display = "none";
   modalRoundSummary.style.display = "block";
