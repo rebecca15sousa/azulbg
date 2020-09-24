@@ -439,6 +439,9 @@ function createPlayerBoards(numPlayers) {
   for (let i = 0; i < numPlayers; i++) {
     let div8 = document.createElement("div");
     div8.setAttribute("id", "player" + i);
+    let div9 = document.createElement("div");
+    div9.setAttribute("id", "playerPointsCounter" + i);
+    div9.classList.add("pointsCounter");
     let div2 = document.createElement("div");
     div2.setAttribute("id", "playerBoard" + i);
     let div6 = document.createElement("div");
@@ -452,6 +455,7 @@ function createPlayerBoards(numPlayers) {
     playerPoints[i] = [0];
     plusPoints[i] = 0;
     minusPoints[i] = 0;
+    div9.textContent = playerPoints[i];
     for (let j = 0; j < 5; j++) {
       // Cria fileiras de pontuação e arrays dessas fileiras
       for (let k = 0; k < 5; k++) {
@@ -500,8 +504,6 @@ function createPlayerBoards(numPlayers) {
 
         if (mesao.length == 0 && endRound == true) {
           fimDaRodada();
-
-          //setTimeout(showsSummary, 4000)
         }
 
       });
@@ -531,6 +533,7 @@ function createPlayerBoards(numPlayers) {
     div8.appendChild(div2);
     div8.appendChild(div4);
     div8.appendChild(div6);
+    div8.appendChild(div9);
     //div8.appendChild(div7);
     div.appendChild(div8);
   }
@@ -692,6 +695,9 @@ function fimDaRodada() {
 
     playerPoints[i] = playerPoints[i] - minusPoints[i];
     console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+
+    let currentPoints = document.getElementById("playerPointsCounter" + i);
+    currentPoints.textContent = playerPoints[i];
 
     for (let l = 0; l < allPlayerBoards[i][5].length; l++) {
       if (allPlayerBoards[i][5][l] == "Firstplayer") {

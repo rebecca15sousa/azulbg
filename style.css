@@ -132,33 +132,6 @@
   font-weight: bold;
 }
 
-/*#pointsWonText {
-  grid-column: 3 / 4;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-#pointsLostText {
-  grid-column: 4 / 5;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-#totalPointsText {
-  grid-column: 5 / 6;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-}*/
-
-/*.summaryRows {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-}*/
-
 .cell {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
@@ -244,6 +217,10 @@
   width: 70%;
   height: 40px;
 }
+
+/*#turnPlayer {
+  
+}*/
 
 #screenContent {
   display: flex;
@@ -360,6 +337,12 @@ body {
   z-index: -1;*/
 }
 
+.pointsCounter {
+  font-size: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fefefe;
+}
+
 #playerButtons0, #playerButtons1, #playerButtons2, #playerButtons3 {
   display: grid;
   grid-template-columns: repeat(5, 32px);
@@ -473,56 +456,6 @@ body {
   grid-area: c;
   padding: 3% 5%;
 }
-
-/*.pointsRow0 {
-  display: grid;
-  grid-column-start: 1;
-  grid-column-end: 6;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  grid-template-columns: repeat(5, 35px);
-  grid-template-rows: subgrid;
-}
-
-.pointsRow1 {
-  display: grid;
-  grid-column-start: 1;
-  grid-column-end: 6;
-  grid-row-start: 2;
-  grid-row-end: 3;
-  grid-template-columns: repeat(5, 35px);
-  grid-template-rows: subgrid;
-}
-
-.pointsRow2 {
-  display: grid;
-  grid-column-start: 1;
-  grid-column-end: 6;
-  grid-row-start: 3;
-  grid-row-end: 4;
-  grid-template-columns: repeat(5, 35px);
-  grid-template-rows: subgrid;
-}
-
-.pointsRow3 {
-  display: grid;
-  grid-column-start: 1;
-  grid-column-end: 6;
-  grid-row-start: 4;
-  grid-row-end: 5;
-  grid-template-columns: repeat(5, 35px);
-  grid-template-rows: subgrid;
-}
-
-.pointsRow4 {
-  display: grid;
-  grid-column-start: 1;
-  grid-column-end: 6;
-  grid-row-start: 5;
-  grid-row-end: 6;
-  grid-template-columns: repeat(5, 35px);
-  grid-template-rows: subgrid;
-}*/
 
 #playerNegativePoints0, #playerNegativePoints1, #playerNegativePoints2, #playerNegativePoints3 {
   display: grid;
