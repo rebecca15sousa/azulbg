@@ -5,6 +5,7 @@ let tilesDiscard = [];
 let megaDiv = document.querySelector("#mainBoardArea");
 let tiles;
 let numPlayers = 0;
+let numPlayersArray = [];
 let pid;
 let nid;
 let factDisplayNum;
@@ -22,6 +23,7 @@ let tilesSameColor;
 let tileRow;
 let playerButtons;
 let jogadorInicial = Math.floor(Math.random() * numPlayers);
+let turnPlayer = jogadorInicial;
 let endRound = false;
 let endGame = false;
 let endGameCounter = 0;
@@ -125,6 +127,7 @@ function createSummaryRows(rows) {
 //buttons functions for starter modal
 modalBtn2.onclick = function() {
   numPlayers = 2;
+  numPlayersArray = [0, 1];
   modalBtn2.setAttribute("style", "border: 5px solid red;");
   modalBtn3.setAttribute("style", "border: none;");
   modalBtn4.setAttribute("style", "border: none;");
@@ -132,6 +135,7 @@ modalBtn2.onclick = function() {
 
 modalBtn3.onclick = function() {
   numPlayers = 3;
+  numPlayersArray = [0, 1, 2];
   modalBtn3.setAttribute("style", "border: 5px solid red;");
   modalBtn2.setAttribute("style", "border: none;");
   modalBtn4.setAttribute("style", "border: none;");
@@ -139,6 +143,7 @@ modalBtn3.onclick = function() {
 
 modalBtn4.onclick = function() {
   numPlayers = 4;
+  numPlayersArray = [0, 1, 2, 3];
   modalBtn4.setAttribute("style", "border: 5px solid red;");
   modalBtn2.setAttribute("style", "border: none;");
   modalBtn3.setAttribute("style", "border: none;");
@@ -191,6 +196,15 @@ modalBtnSummary.onclick = function() {
 //hides round start modal
 modalBtnStart.onclick = function() {
   modalRoundStart.style.display = "none";
+}
+
+function changeTurnPlayer() {
+  if (turnPlayer == numPlayersArray[numPlayersArray.length - 1]) {
+    turnPlayer = numPlayersArray[0];
+  } else {
+    let index = numPlayersArray.indexOf(turnPlayer) + 1;
+    turnPlayer = numPlayersArray[index];
+  }
 }
 
 //array que contem todos os tiles do jogo
@@ -475,6 +489,7 @@ function createPlayerBoards(numPlayers) {
             console.log(factDisplayColor);
             console.log("deu certo!");
             moveTileSelectedMesao();
+            changeTurnPlayer();
             let tilesInMesaoOfSameColor = document.querySelectorAll("#mesao>." + factDisplayColor + "");
             console.log(tilesInMesaoOfSameColor);
             for (let n = 0; n < tilesInMesaoOfSameColor.length; n++) {
@@ -483,6 +498,7 @@ function createPlayerBoards(numPlayers) {
             }
           } else {
             moveTileSelected();
+            changeTurnPlayer();
             // Remove todos os azulejos selecionados dos factory displays
             let allTilesInThisFactDisplay = document.querySelectorAll("#" + pid + ">.tilesImage");
             for (l = 0; l < allTilesInThisFactDisplay.length; l++) {
