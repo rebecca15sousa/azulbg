@@ -53,6 +53,7 @@ let playerSettings = document.getElementById("playerSettings");
 let modalBtnSettings = document.getElementById("modalBtnSettings");
 let names = [];
 let colours = [];
+let turnPlayerDiv = document.getElementById("turnPlayer");
 
 //resets points won and points lost values every round
 function resetPoints(numPlayers) {
@@ -162,6 +163,8 @@ function startGame() {
   createPlayerBoards(numPlayers);
   createCirculos(numPlayers);
   createSummaryTable(numPlayers);
+  createTurnPlayerDiv();
+  writeTurnPlayer();
   inicioDaRodada();
   modalSettings.style.display = "none";
   for (let i = 0; i < numPlayers; i++) {
@@ -198,6 +201,7 @@ modalBtnStart.onclick = function() {
   modalRoundStart.style.display = "none";
 }
 
+//changes turn player value
 function changeTurnPlayer() {
   if (turnPlayer == numPlayersArray[numPlayersArray.length - 1]) {
     turnPlayer = numPlayersArray[0];
@@ -205,6 +209,21 @@ function changeTurnPlayer() {
     let index = numPlayersArray.indexOf(turnPlayer) + 1;
     turnPlayer = numPlayersArray[index];
   }
+}
+
+//creates div to hold turn player's name and colour info
+function createTurnPlayerDiv() {
+  let turnPlayerName = document.createElement("div");
+  turnPlayerName.setAttribute("id", "nameDiv");
+  turnPlayerName.classList.add("nameDiv");
+  turnPlayerDiv.appendChild(turnPlayerName);
+}
+
+//writes turn player's name and colour on top of screen
+function writeTurnPlayer() {
+  let turnPlayerName = document.getElementById("nameDiv");
+  turnPlayerName.textContent = names[turnPlayer];
+  turnPlayerDiv.style.backgroundColor = colours[turnPlayer];
 }
 
 //array que contem todos os tiles do jogo
@@ -490,6 +509,7 @@ function createPlayerBoards(numPlayers) {
             console.log("deu certo!");
             moveTileSelectedMesao();
             changeTurnPlayer();
+            writeTurnPlayer();
             let tilesInMesaoOfSameColor = document.querySelectorAll("#mesao>." + factDisplayColor + "");
             console.log(tilesInMesaoOfSameColor);
             for (let n = 0; n < tilesInMesaoOfSameColor.length; n++) {
@@ -499,6 +519,7 @@ function createPlayerBoards(numPlayers) {
           } else {
             moveTileSelected();
             changeTurnPlayer();
+            writeTurnPlayer();
             // Remove todos os azulejos selecionados dos factory displays
             let allTilesInThisFactDisplay = document.querySelectorAll("#" + pid + ">.tilesImage");
             for (l = 0; l < allTilesInThisFactDisplay.length; l++) {
