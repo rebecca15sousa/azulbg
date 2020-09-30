@@ -315,10 +315,10 @@ function selectTileColor() {
         tiles[k].selected = false;
         tiles[k].setAttribute("style", "border: none;");
       }
-      playerButtons = document.querySelectorAll(".playerRowsButtons");
+      playerButtons = document.querySelectorAll("#playerButtons" + turnPlayer + ">.playerRowsButtons");
       for (let l = 0; l < playerButtons.length; l++) {
-          playerButtons[l].disabled = false;
-          playerButtons[l].setAttribute("style", "border: 2px solid red;");
+        playerButtons[l].disabled = false;
+        playerButtons[l].setAttribute("style", "border: 2px solid red;");
       }
       pid = this.parentNode.id;
       factDisplayNum = pid.substr(-1, 1);
@@ -445,9 +445,10 @@ function drawMesao(corAtual) {
       for (let k = 0; k < tiles.length ; k++) {
         tiles[k].setAttribute("style", "border: none;");
       }
-      playerButtons = document.querySelectorAll(".playerRowsButtons");
+      playerButtons = document.querySelectorAll("#playerButtons" + turnPlayer + ">.playerRowsButtons");
       for (let l = 0; l < playerButtons.length; l++) {
           playerButtons[l].disabled = false;
+          playerButtons[l].setAttribute("style", "border: 2px solid red;");
       }
       tilesSameColor = document.querySelectorAll("#mesao>." + corAtual);
       for (j = 0; j < tilesSameColor.length; j++) {
