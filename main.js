@@ -164,7 +164,7 @@ function startGame() {
   createCirculos(numPlayers);
   createSummaryTable(numPlayers);
   createTurnPlayerDiv();
-  writeTurnPlayer();
+  //writeTurnPlayer();
   inicioDaRodada();
   modalSettings.style.display = "none";
   for (let i = 0; i < numPlayers; i++) {
@@ -345,7 +345,9 @@ function moveTileSelected(){
         allPlayerBoards[valueA][valueB].push(factDisplayColor);
     } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor) && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
         allPlayerBoards[valueA][valueB].push(factDisplayColor);
-    } else {
+    } /*else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && !allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
+
+    }*/ else {
         // Envia o excesso dos tiles para a linha de pontos negativos do jogador
         if (allPlayerBoards[valueA][5].length < 7) {
           allPlayerBoards[valueA][5].push(factDisplayColor);
@@ -740,6 +742,7 @@ function fimDaRodada() {
     for (let l = 0; l < allPlayerBoards[i][5].length; l++) {
       if (allPlayerBoards[i][5][l] == "Firstplayer") {
         jogadorInicial = i;
+        turnPlayer = jogadorInicial;
         allPlayerBoards[i][5].splice(l, 1);
         l--;
       } else {
@@ -751,11 +754,6 @@ function fimDaRodada() {
   }
   showsRoundOver();
   setTimeout(showsSummary, 4000);
-
-  /*for (let i = 0; i < allPlayerBoards.length; i++) {
-    plusPoints[i] = 0;
-    minusPoints[i] = 0;
-  }*/
 
   // Vai fazer o check de se o jogo ja acabou
   for (let i = 0; i < allPlayerPointsBoards.length; i++) {
@@ -862,5 +860,6 @@ function inicioDaRodada() {
   createMesaoFactoryDisplay();
   distributeTiles();
   selectTileColor();
+  writeTurnPlayer();
 }
 //inicioDaRodada();
