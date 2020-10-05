@@ -319,6 +319,7 @@ div.factoriesDisplay {
 }*/
 
 body {
+  background-image: url(assets/Background.jpg);
   background-color: grey;
 }
 
