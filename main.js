@@ -35,6 +35,8 @@ let quantVermelho = 0;
 let quantAmarelo = 0;
 let quantPreto = 0;
 let quantBranco = 0;
+let modalHome = document.getElementById("modalHome");
+let modalBtnPlay = document.getElementById("modalBtnPlay");
 let modal = document.getElementById("modalPlayers");
 let modalBtn2 = document.getElementById("modalBtn2");
 let modalBtn3 = document.getElementById("modalBtn3");
@@ -54,6 +56,12 @@ let modalBtnSettings = document.getElementById("modalBtnSettings");
 let names = [];
 let colours = [];
 let turnPlayerDiv = document.getElementById("turnPlayer");
+
+//play button function
+modalBtnPlay.onclick = function() {
+  modalHome.style.display = "none";
+  modal.style.display = "block";
+}
 
 //resets points won and points lost values every round
 function resetPoints(numPlayers) {
@@ -125,7 +133,7 @@ function createSummaryRows(rows) {
   }
 }
 
-//buttons functions for starter modal
+//buttons functions for modal that selects number of players
 modalBtn2.onclick = function() {
   numPlayers = 2;
   numPlayersArray = [0, 1];
