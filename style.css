@@ -270,6 +270,7 @@
   flex: 1;
   display: grid;
   grid-template-columns: repeat(3, 33%);
+  gap: 5px;
 }
 
 #playerAreas {
@@ -282,22 +283,22 @@
 
 #factory0 {
   display: grid;
-  grid-template-columns: repeat(2, 30px);
-  grid-template-rows: repeat(2, 30px);
+  grid-template-columns: repeat(2, 34px);
+  grid-template-rows: repeat(2, 34px);
   gap: 5px;
 }
 
 #factory1, #factory3, #factory5, #factory7 {
   display: grid;
-  grid-template-columns: repeat(2, 30px);
-  grid-template-rows: repeat(2, 30px);
+  grid-template-columns: repeat(2, 34px);
+  grid-template-rows: repeat(2, 34px);
   gap: 5px;
 }
 
 #factory2, #factory4, #factory6, #factory8 {
   display: grid;
-  grid-template-columns: repeat(2, 30px);
-  grid-template-rows: repeat(2, 30px);
+  grid-template-columns: repeat(2, 34px);
+  grid-template-rows: repeat(2, 34px);
   gap: 5px;
 }
 
@@ -305,7 +306,7 @@
   /*display: block;
   margin: auto;*/
   grid-column: 2 / 3;
-  background-image: url(assets/factoryDisplayMaior.png);
+  background-image: url(assets/factoryDisplayNew.png);
   height: 150px;
   width: 150px;
 }
@@ -314,7 +315,7 @@
   /*display: block;
   float: left;*/
   grid-column: 1 / 2;
-  background-image: url(assets/factoryDisplayMaior.png);
+  background-image: url(assets/factoryDisplayNew.png);
   height: 150px;
   width: 150px;
 }
@@ -323,7 +324,7 @@
   /*display: block;
   float: right;*/
   grid-column: 3 / 4;
-  background-image: url(assets/factoryDisplayMaior.png);
+  background-image: url(assets/factoryDisplayNew.png);
   height: 150px;
   width: 150px;
 }
@@ -334,12 +335,12 @@
   grid-row: 2 / 3;
   padding: 10%;
   display: grid;
-  grid-template-columns: repeat(3, 30px);
+  grid-template-columns: repeat(3, 34px);
   gap: 5px;
 }
 
 div.factoriesDisplay {
-  padding: 28%;
+  padding: 26%;
   /*position: relative;
   z-index: -1;*/
 }
@@ -356,18 +357,18 @@ body {
 }
 
 .tilesImage, #firstPlayer {
-  width: 30px;
+  width: 34px;
 }
 
 #player0, #player1, #player2, #player3 {
   display: grid;
+  width: 400px;
   grid-template-columns: repeat(2, 200px);
-  grid-template-rows: 140px 195px 65px;
+  grid-template-rows: 219px 45px;
   grid-template-areas: 
-    "a a"
-    "b c"
-    "d d";
-  background-image: url(assets/playerBoard1.jpg);
+    "a b"
+    "c c";
+  background-image: url(assets/playerBoardNew.jpg);
   margin: 2%;
 }
 
@@ -376,22 +377,20 @@ body {
   z-index: -1;*/
 }
 
-.pointsCounter {
+/*.pointsCounter {
   font-size: 40px;
   font-family: Arial, Helvetica, sans-serif;
   color: #fefefe;
-}
+}*/
 
 #playerButtons0, #playerButtons1, #playerButtons2, #playerButtons3 {
   display: grid;
-  grid-template-columns: repeat(5, 32px);
-  grid-template-rows: repeat(5, 32px);
+  grid-template-columns: repeat(5, 35px);
+  grid-template-rows: repeat(5, 35px);
   gap: 2px;
-  /*grid-column: 1 / 2;
-  grid-row: 2 / 3;*/
-  grid-area: b;
+  grid-area: a;
   z-index: 1;
-  padding: 2% 5%;
+  padding: 6% 5% 6% 2%;
   justify-self: end;
 }
 
@@ -423,13 +422,11 @@ body {
 
 #playerBoard0, #playerBoard1, #playerBoard2, #playerBoard3 {
   display: grid;
-  grid-template-columns: repeat(5, 30px);
-  grid-template-rows: repeat(5, 30px);
+  grid-template-columns: repeat(5, 34px);
+  grid-template-rows: repeat(5, 34px);
   gap: 3px;
-  /*grid-column: 1 / 2;
-  grid-row: 2 / 3;*/
-  grid-area: b;
-  padding: 3% 5%;
+  grid-area: a;
+  padding: 6% 5% 6% 2%;
   justify-self: end;
 }
 
@@ -437,18 +434,17 @@ body {
   display: grid;
   grid-column: 5 / 6;
   grid-row: 1 / 2;
-  grid-template-columns: 30px;
-  grid-template-rows: 30px;
+  grid-template-columns: 34px;
+  grid-template-rows: 34px;
 }
 
 .fileira1 {
   display: grid;
   grid-column: 4 / 6;
   grid-row: 2 / 3;
-  grid-template-columns: repeat(2, 30px);
-  grid-template-rows: 30px;
-  gap: 4px;
-  padding-top: 1%;
+  grid-template-columns: repeat(2, 34px);
+  grid-template-rows: 34px;
+  gap: 3px;
   justify-self: end;
 }
 
@@ -456,10 +452,9 @@ body {
   display: grid;
   grid-column: 3 / 6;
   grid-row: 3 / 4;
-  grid-template-columns: repeat(3, 30px);
-  grid-template-rows: 30px;
-  gap: 4px;
-  padding-top: 1%;
+  grid-template-columns: repeat(3, 34px);
+  grid-template-rows: 34px;
+  gap: 3px;
   justify-self: end;
 }
 
@@ -467,10 +462,9 @@ body {
   display: grid;
   grid-column: 2 / 6;
   grid-row: 4 / 5;
-  grid-template-columns: repeat(4, 30px);
-  grid-template-rows: 30px;
-  gap: 4px;
-  padding-top: 2%;
+  grid-template-columns: repeat(4, 34px);
+  grid-template-rows: 34px;
+  gap: 3px;
   justify-self: end;
 }
 
@@ -478,31 +472,26 @@ body {
   display: grid;
   grid-column: 1 / 6;
   grid-row: 5 / 6;
-  grid-template-columns: repeat(5, 30px);
-  grid-template-rows: 30px;
-  gap: 4px;
-  padding-top: 2%;
+  grid-template-columns: repeat(5, 34px);
+  grid-template-rows: 34px;
+  gap: 3px;
   justify-self: end;
 }
 
 #playerPointsBoards0, #playerPointsBoards1, #playerPointsBoards2, #playerPointsBoards3 {
   display: grid;
-  grid-template-columns: repeat(5, 30px);
-  grid-template-rows: repeat(5, 30px);
-  gap: 4px;
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-  grid-area: c;
-  padding: 3% 5%;
+  grid-template-columns: repeat(5, 34px);
+  grid-template-rows: repeat(5, 34px);
+  gap: 3px;
+  grid-area: b;
+  padding: 6% 2% 6% 5%;
 }
 
 #playerNegativePoints0, #playerNegativePoints1, #playerNegativePoints2, #playerNegativePoints3 {
   display: grid;
-  grid-template-columns: repeat(7, 30px);
-  grid-template-rows: 30px;
-  gap: 7px;
-  /*grid-column: 1 / 3;
-  grid-row: 3 / 4;*/
-  grid-area: d;
-  padding: 1% 6%;
+  grid-template-columns: repeat(7, 34px);
+  grid-template-rows: 34px;
+  gap: 6px;
+  grid-area: c;
+  padding: 1% 2%;
 }
