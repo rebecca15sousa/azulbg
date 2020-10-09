@@ -55,7 +55,7 @@ let playerSettings = document.getElementById("playerSettings");
 let modalBtnSettings = document.getElementById("modalBtnSettings");
 let names = [];
 let colours = [];
-let turnPlayerDiv = document.getElementById("turnPlayer");
+//let turnPlayerDiv = document.getElementById("turnPlayer");
 
 //play button function
 modalBtnPlay.onclick = function() {
@@ -171,7 +171,7 @@ function startGame() {
   createPlayerBoards(numPlayers);
   createCirculos(numPlayers);
   createSummaryTable(numPlayers);
-  createTurnPlayerDiv();
+  //createTurnPlayerDiv();
   //writeTurnPlayer();
   inicioDaRodada();
   modalSettings.style.display = "none";
@@ -554,7 +554,7 @@ function createPlayerBoards(numPlayers) {
             console.log("deu certo!");
             moveTileSelectedMesao();
             changeTurnPlayer();
-            writeTurnPlayer();
+            //writeTurnPlayer();
             /*let tilesInMesaoOfSameColor = document.querySelectorAll("#mesao>." + factDisplayColor + "");
             console.log(tilesInMesaoOfSameColor);
             for (let n = 0; n < tilesInMesaoOfSameColor.length; n++) {
@@ -564,7 +564,7 @@ function createPlayerBoards(numPlayers) {
           } else {
             moveTileSelected();
             changeTurnPlayer();
-            writeTurnPlayer();
+            //writeTurnPlayer();
             // Remove todos os azulejos selecionados dos factory displays
             /*let allTilesInThisFactDisplay = document.querySelectorAll("#" + pid + ">.tilesImage");
             for (l = 0; l < allTilesInThisFactDisplay.length; l++) {
@@ -590,7 +590,7 @@ function createPlayerBoards(numPlayers) {
 
       });
       tileRow.setAttribute("class", "playerRowsButtons rowButtons" + j);
-      tileRow.textContent = "butao";
+      //tileRow.textContent = "butao";
       div6.appendChild(tileRow);
     }
     //cria 6 fileiras em cada playerboard presente dentro do allPlayerBoards
@@ -778,8 +778,8 @@ function fimDaRodada() {
     playerPoints[i] = playerPoints[i] - minusPoints[i];
     console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
 
-    let currentPoints = document.getElementById("playerPointsCounter" + i);
-    currentPoints.textContent = playerPoints[i];
+    /*let currentPoints = document.getElementById("playerPointsCounter" + i);
+    currentPoints.textContent = playerPoints[i];*/
 
     for (let l = 0; l < allPlayerBoards[i][5].length; l++) {
       if (allPlayerBoards[i][5][l] == "Firstplayer") {
@@ -902,6 +902,6 @@ function inicioDaRodada() {
   createMesaoFactoryDisplay();
   distributeTiles();
   selectTileColor();
-  writeTurnPlayer();
+  //writeTurnPlayer();
 }
 //inicioDaRodada();
