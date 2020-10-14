@@ -264,6 +264,55 @@
   display: flex;
 }
 
+.info {
+  display: flex;
+  align-items: center;
+  width: 70%;
+  height: 25%;
+  padding: 3%;
+}
+
+.colourCircle {
+  display: inline-flex;
+  align-items: center;
+  height: 65px;
+  width: 65px;
+  border-radius: 50%;
+  background-color: #fefefe;
+}
+
+.playerInfoBG {
+  width: 80%;
+  height: 65%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  vertical-align: top;
+  background-color: antiquewhite;
+  font-size: 2vw;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.playerNameDiv {
+
+}
+
+.playerPointsDiv {
+
+}
+
+.fa-star {
+  color: goldenrod;
+}
+
+.fa-star:before {
+  content: none;
+}
+
+.fa-star:after {
+  content: "\f005";
+}
+
 #mainBoardArea {
   width: 100%;
   height: 100%;

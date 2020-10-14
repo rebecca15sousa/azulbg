@@ -168,6 +168,10 @@ modalBtnOK.onclick = function() {
 
 //calls functions for initial game setup
 function startGame() {
+  for (let i = 0; i < numPlayers; i++) {
+    names.push(document.getElementById("playerName" + i).value);
+    colours.push(document.getElementById("playerColour" + i).value);
+  }
   createPlayerBoards(numPlayers);
   createCirculos(numPlayers);
   createSummaryTable(numPlayers);
@@ -175,10 +179,6 @@ function startGame() {
   //writeTurnPlayer();
   inicioDaRodada();
   modalSettings.style.display = "none";
-  for (let i = 0; i < numPlayers; i++) {
-    names.push(document.getElementById("playerName" + i).value);
-    colours.push(document.getElementById("playerColour" + i).value);
-  }
 }
 
 //shows round over modal at end of round
@@ -216,6 +216,23 @@ function changeTurnPlayer() {
   } else {
     let index = numPlayersArray.indexOf(turnPlayer) + 1;
     turnPlayer = numPlayersArray[index];
+  }
+}
+
+//writes players names next to their boards
+function writePlayerName() {
+  for(let i = 0; i < numPlayers; i++) {
+    let name = document.getElementById("playerNameDiv" + i);
+    name.textContent = names[i];
+    console.log("WRITEPLAYERNAME");
+  }
+}
+
+//writes players points next to their boards
+function writePlayerPoints() {
+  for(let i = 0; i < numPlayers; i++) {
+    let currentPoints = document.getElementById("playerPointsDiv" + i);
+    currentPoints.textContent = playerPoints[i];
   }
 }
 
@@ -517,9 +534,22 @@ function createPlayerBoards(numPlayers) {
   for (let i = 0; i < numPlayers; i++) {
     let div8 = document.createElement("div");
     div8.setAttribute("id", "player" + i);
-    let div9 = document.createElement("div");
-    div9.setAttribute("id", "playerPointsCounter" + i);
-    div9.classList.add("pointsCounter");
+    let playerInfo = document.createElement("div");
+    playerInfo.setAttribute("id", "playerInfo" + i);
+    playerInfo.classList.add("info");
+    let playerColourDiv = document.createElement("div");
+    playerColourDiv.setAttribute("id", "playerColourDiv" + i);
+    playerColourDiv.classList.add("colourCircle");
+    let playerInfoBG = document.createElement("div");
+    playerInfoBG.setAttribute("id", "playerInfoBG" + i);
+    playerInfoBG.classList.add("playerInfoBG");
+    let playerNameDiv = document.createElement("span");
+    playerNameDiv.setAttribute("id", "playerNameDiv" + i);
+    playerNameDiv.classList.add("playerNameDiv");
+    let playerPointsDiv = document.createElement("span");
+    playerPointsDiv.setAttribute("id", "playerPointsDiv" + i);
+    playerPointsDiv.classList.add("playerPointsDiv");
+    playerPointsDiv.classList.add("fa", "fa-star");
     let div2 = document.createElement("div");
     div2.setAttribute("id", "playerBoard" + i);
     let div6 = document.createElement("div");
@@ -533,7 +563,6 @@ function createPlayerBoards(numPlayers) {
     playerPoints[i] = [0];
     plusPoints[i] = 0;
     minusPoints[i] = 0;
-    div9.textContent = playerPoints[i];
     for (let j = 0; j < 5; j++) {
       // Cria fileiras de pontuação e arrays dessas fileiras
       for (let k = 0; k < 5; k++) {
@@ -612,13 +641,19 @@ function createPlayerBoards(numPlayers) {
     playerImage.setAttribute("class", "boards");
     playerImage.setAttribute("src", "assets/playerBoard.jpg")
     div2.appendChild(playerImage);*/
+    playerInfoBG.appendChild(playerNameDiv);
+    playerInfoBG.appendChild(playerPointsDiv);
+    playerInfo.appendChild(playerColourDiv);
+    playerInfo.appendChild(playerInfoBG);
     div8.appendChild(div2);
     div8.appendChild(div4);
     div8.appendChild(div6);
-    div8.appendChild(div9);
     //div8.appendChild(div7);
     div.appendChild(div8);
+    div.appendChild(playerInfo);
   }
+  writePlayerName();
+  writePlayerPoints();
 }
 
 //deleta os tiles do board do jogador no final de cada rodada
@@ -778,7 +813,7 @@ function fimDaRodada() {
     playerPoints[i] = playerPoints[i] - minusPoints[i];
     console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
 
-    /*let currentPoints = document.getElementById("playerPointsCounter" + i);
+    /*let currentPoints = document.getElementById("playerPointsDiv" + i);
     currentPoints.textContent = playerPoints[i];*/
 
     for (let l = 0; l < allPlayerBoards[i][5].length; l++) {
