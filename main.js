@@ -3,6 +3,7 @@ let circuloMaster = [];
 let mesao;
 let tilesDiscard = [];
 let megaDiv = document.querySelector("#mainBoardArea");
+let tilesArea = document.querySelector("#tilesArea");
 let tiles;
 let numPlayers = 0;
 let numPlayersArray = [];
@@ -283,6 +284,7 @@ function createCirculos(numPlayers) {
     div.setAttribute('class', 'factoriesDisplay');
     let div2 = document.createElement("div");
     div2.setAttribute("id", "factoryDisplayImage" + i);
+    div2.setAttribute('class', 'factoriesDisplayImage');
     /*let factoryImage = document.createElement('img');
     factoryImage.setAttribute('src', 'assets/factoryDisplay.png');
     factoryImage.setAttribute('class', 'factoriesImages');
@@ -309,7 +311,7 @@ function createMesaoFactoryDisplay() {
   drawTile.setAttribute("src", "assets/FirstPlayer.jpg");
   drawTile.setAttribute("id", "firstPlayer");
   div.appendChild(drawTile);
-  megaDiv.appendChild(div);
+  tilesArea.appendChild(div);
 }
 
 //Pega os tiles dentro da sacola, e distribui aleatoriamente nos factories displays
@@ -529,7 +531,8 @@ function drawTilePointsBoard() {
 
 // cria cada board dos jogadores com 5 fileiras em cada um
 function createPlayerBoards(numPlayers) {
-  let div = document.querySelector("#playerAreas");
+  let div = document.querySelector("#playerArea1");
+  let playerArea2 = document.querySelector("#playerArea2");
   //cria uma div pra cada board de jogador
   for (let i = 0; i < numPlayers; i++) {
     let div8 = document.createElement("div");
@@ -649,8 +652,13 @@ function createPlayerBoards(numPlayers) {
     div8.appendChild(div4);
     div8.appendChild(div6);
     //div8.appendChild(div7);
-    div.appendChild(div8);
-    div.appendChild(playerInfo);
+    if (i % 2 == 0) {
+      div.appendChild(div8);
+      div.appendChild(playerInfo);
+    } else {
+      playerArea2.appendChild(div8);
+      playerArea2.appendChild(playerInfo);
+    }
   }
   writePlayerName();
   writePlayerPoints();
