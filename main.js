@@ -543,6 +543,7 @@ function createPlayerBoards(numPlayers) {
     let playerColourDiv = document.createElement("div");
     playerColourDiv.setAttribute("id", "playerColourDiv" + i);
     playerColourDiv.classList.add("colourCircle");
+    playerColourDiv.style.backgroundColor = colours[i];
     let playerInfoBG = document.createElement("div");
     playerInfoBG.setAttribute("id", "playerInfoBG" + i);
     playerInfoBG.classList.add("playerInfoBG");
@@ -646,18 +647,45 @@ function createPlayerBoards(numPlayers) {
     div2.appendChild(playerImage);*/
     playerInfoBG.appendChild(playerNameDiv);
     playerInfoBG.appendChild(playerPointsDiv);
-    playerInfo.appendChild(playerColourDiv);
-    playerInfo.appendChild(playerInfoBG);
     div8.appendChild(div2);
     div8.appendChild(div4);
     div8.appendChild(div6);
     //div8.appendChild(div7);
-    if (i % 2 == 0) {
+    /*if (i % 2 == 0) {
+      playerInfo.appendChild(playerColourDiv);
+      playerInfo.appendChild(playerInfoBG);
       div.appendChild(div8);
       div.appendChild(playerInfo);
     } else {
+      playerInfo.appendChild(playerInfoBG);
+      playerInfo.appendChild(playerColourDiv);
       playerArea2.appendChild(div8);
       playerArea2.appendChild(playerInfo);
+    }*/
+    switch (i) {
+      case 0:
+        playerInfo.appendChild(playerColourDiv);
+        playerInfo.appendChild(playerInfoBG);
+        div.appendChild(playerInfo);
+        div.appendChild(div8);
+        break;
+      case 1:
+        playerInfo.appendChild(playerInfoBG);
+        playerInfo.appendChild(playerColourDiv);
+        playerArea2.appendChild(playerInfo);
+        playerArea2.appendChild(div8);
+        break;
+      case 2:
+        playerInfo.appendChild(playerColourDiv);
+        playerInfo.appendChild(playerInfoBG);
+        div.appendChild(div8);
+        div.appendChild(playerInfo);
+        break;
+      case 3:
+        playerInfo.appendChild(playerInfoBG);
+        playerInfo.appendChild(playerColourDiv);
+        playerArea2.appendChild(div8);
+        playerArea2.appendChild(playerInfo);
     }
   }
   writePlayerName();
