@@ -220,6 +220,12 @@ function changeTurnPlayer() {
   }
 }
 
+//identifies who is the turn player with visual changes
+function highlightTurnPlayerBoard() {
+  let board = document.getElementById("player" + turnPlayer);
+  board.setAttribute("style", "border: 5px solid red;");
+}
+
 //writes players names next to their boards
 function writePlayerName() {
   for(let i = 0; i < numPlayers; i++) {
@@ -237,6 +243,7 @@ function writePlayerPoints() {
   }
 }
 
+//nao é mais usado
 //creates div to hold turn player's name and colour info
 function createTurnPlayerDiv() {
   let turnPlayerName = document.createElement("div");
@@ -245,6 +252,7 @@ function createTurnPlayerDiv() {
   turnPlayerDiv.appendChild(turnPlayerName);
 }
 
+//nao é mais usado
 //writes turn player's name and colour on top of screen
 function writeTurnPlayer() {
   let turnPlayerName = document.getElementById("nameDiv");
@@ -587,6 +595,7 @@ function createPlayerBoards(numPlayers) {
             console.log("deu certo!");
             moveTileSelectedMesao();
             changeTurnPlayer();
+            highlightTurnPlayerBoard();
             //writeTurnPlayer();
             /*let tilesInMesaoOfSameColor = document.querySelectorAll("#mesao>." + factDisplayColor + "");
             console.log(tilesInMesaoOfSameColor);
@@ -597,6 +606,7 @@ function createPlayerBoards(numPlayers) {
           } else {
             moveTileSelected();
             changeTurnPlayer();
+            highlightTurnPlayerBoard();
             //writeTurnPlayer();
             // Remove todos os azulejos selecionados dos factory displays
             /*let allTilesInThisFactDisplay = document.querySelectorAll("#" + pid + ">.tilesImage");
