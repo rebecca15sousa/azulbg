@@ -291,8 +291,14 @@ function changeTurnPlayer() {
 
 //identifies who is the turn player with visual changes
 function highlightTurnPlayerBoard() {
+  let allBoards = document.getElementsByClassName("playerBoards");
+  for (let i = 0; i < allBoards.length; i++) {
+    allBoards[i].setAttribute("style", "border: none;");
+  }
   let board = document.getElementById("player" + turnPlayer);
-  board.setAttribute("style", "border: 5px solid red;");
+  board.setAttribute("style", "border: 5px solid " + colours[turnPlayer]);
+}
+
 }
 
 //writes players names next to their boards
@@ -614,6 +620,7 @@ function createPlayerBoards(numPlayers) {
   for (let i = 0; i < numPlayers; i++) {
     let div8 = document.createElement("div");
     div8.setAttribute("id", "player" + i);
+    div8.classList.add("playerBoards");
     let playerInfo = document.createElement("div");
     playerInfo.setAttribute("id", "playerInfo" + i);
     playerInfo.classList.add("info");
