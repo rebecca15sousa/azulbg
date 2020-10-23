@@ -72,16 +72,85 @@ function resetPoints(numPlayers) {
   }
 }
 
+//opens window for colour selection, creates buttons for all colours and selects colour for player
+function openColourWindow(window, colourBtn) {
+  window.textContent = "";
+  window.style.display = "block";
+  let redBtn = document.createElement("button");
+  redBtn.setAttribute("type", "button");
+  redBtn.classList.add("swatches");
+  redBtn.style.backgroundColor = "#cc0000";
+  window.appendChild(redBtn);
+  let orangeBtn = document.createElement("button");
+  orangeBtn.setAttribute("type", "button");
+  orangeBtn.classList.add("swatches");
+  orangeBtn.style.backgroundColor = "#ff6600";
+  window.appendChild(orangeBtn);
+  let yellowBtn = document.createElement("button");
+  yellowBtn.setAttribute("type", "button");
+  yellowBtn.classList.add("swatches");
+  yellowBtn.style.backgroundColor = "#ffcc00";
+  window.appendChild(yellowBtn);
+  let darkGreenBtn = document.createElement("button");
+  darkGreenBtn.setAttribute("type", "button");
+  darkGreenBtn.classList.add("swatches");
+  darkGreenBtn.style.backgroundColor = "#009933";
+  window.appendChild(darkGreenBtn);
+  let lightGreenBtn = document.createElement("button");
+  lightGreenBtn.setAttribute("type", "button");
+  lightGreenBtn.classList.add("swatches");
+  lightGreenBtn.style.backgroundColor = "#79ff4d";
+  window.appendChild(lightGreenBtn);
+  let darkBlueBtn = document.createElement("button");
+  darkBlueBtn.setAttribute("type", "button");
+  darkBlueBtn.classList.add("swatches");
+  darkBlueBtn.style.backgroundColor = "#0000cc";
+  window.appendChild(darkBlueBtn);
+  let lightBlueBtn = document.createElement("button");
+  lightBlueBtn.setAttribute("type", "button");
+  lightBlueBtn.classList.add("swatches");
+  lightBlueBtn.style.backgroundColor = "#00ccff";
+  window.appendChild(lightBlueBtn);
+  let purpleBtn = document.createElement("button");
+  purpleBtn.setAttribute("type", "button");
+  purpleBtn.classList.add("swatches");
+  purpleBtn.style.backgroundColor = "#6600cc";
+  window.appendChild(purpleBtn);
+  let pinkBtn = document.createElement("button");
+  pinkBtn.setAttribute("type", "button");
+  pinkBtn.classList.add("swatches");
+  pinkBtn.style.backgroundColor = "#ff66ff";
+  window.appendChild(pinkBtn);
+  let aquaBtn = document.createElement("button");
+  aquaBtn.setAttribute("type", "button");
+  aquaBtn.classList.add("swatches");
+  aquaBtn.style.backgroundColor = "#4dffb8";
+  window.appendChild(aquaBtn);
+  let swatches = document.getElementsByClassName("swatches");
+  for (let i = 0; i < swatches.length; i++) {
+    swatches[i].addEventListener("click", function() {
+      window.style.display = "none";
+      colourBtn.style.backgroundColor = this.style.backgroundColor;
+    });
+  }
+}
+
 //creates settings options based on player quantity
 function makeSettings(numPlayers) {
   for (let i = 0; i < numPlayers; i++) {
     let colourAndName = document.createElement("div");
     colourAndName.classList.add("colourAndName");
-    let colourBtn = document.createElement("input");
-    colourBtn.setAttribute("type", "color");
+    let colourBtn = document.createElement("button");
+    colourBtn.setAttribute("type", "button");
     colourBtn.classList.add("colourBtn");
     colourBtn.setAttribute("id", "playerColour" + i);
     colourAndName.appendChild(colourBtn);
+    let window = document.createElement("div");
+    window.style.display = "none";
+    colourAndName.appendChild(window);
+    colourBtn.addEventListener("click", function() {
+      openColourWindow(window, colourBtn);
+    });
     let playerName = document.createElement("input");
     playerName.setAttribute("type", "text");
     playerName.classList.add("playerName");
@@ -171,7 +240,7 @@ modalBtnOK.onclick = function() {
 function startGame() {
   for (let i = 0; i < numPlayers; i++) {
     names.push(document.getElementById("playerName" + i).value);
-    colours.push(document.getElementById("playerColour" + i).value);
+    colours.push(document.getElementById("playerColour" + i).style.backgroundColor);
   }
   createPlayerBoards(numPlayers);
   createCirculos(numPlayers);
