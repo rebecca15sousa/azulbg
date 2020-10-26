@@ -75,7 +75,7 @@ function resetPoints(numPlayers) {
 //opens window for colour selection, creates buttons for all colours and selects colour for player
 function openColourWindow(window, colourBtn) {
   window.textContent = "";
-  window.style.display = "block";
+  window.style.display = "inline-block";
   let redBtn = document.createElement("button");
   redBtn.setAttribute("type", "button");
   redBtn.classList.add("swatches");
@@ -146,6 +146,7 @@ function makeSettings(numPlayers) {
     colourBtn.setAttribute("id", "playerColour" + i);
     colourAndName.appendChild(colourBtn);
     let window = document.createElement("div");
+    window.classList.add("colourWindow");
     window.style.display = "none";
     colourAndName.appendChild(window);
     colourBtn.addEventListener("click", function() {
