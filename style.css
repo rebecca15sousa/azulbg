@@ -69,12 +69,23 @@
 }
 
 .modalNumbers {
-  background-color: lightgrey;
   font-size: 40px;
   padding: 10%;
   margin: auto 20px;
   border-radius: 8px;
   border: none;
+}
+
+#modalBtn2 {
+  background-image: url(assets/2playerButton.png);
+}
+
+#modalBtn3 {
+  background-image: url(assets/3playerButton.png);
+}
+
+#modalBtn4 {
+  background-image: url(assets/4playerButton.png);
 }
 
 #modalBtnOK {
