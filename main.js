@@ -246,6 +246,7 @@ function startGame() {
   createPlayerBoards(numPlayers);
   createCirculos(numPlayers);
   createSummaryTable(numPlayers);
+  createOverlayDiv();
   //createTurnPlayerDiv();
   //writeTurnPlayer();
   inicioDaRodada();
@@ -290,7 +291,7 @@ function changeTurnPlayer() {
   }
 }
 
-//identifies who is the turn player with visual changes
+//draws a colored border around turn player's board
 function highlightTurnPlayerBoard() {
   let allBoards = document.getElementsByClassName("playerBoards");
   for (let i = 0; i < allBoards.length; i++) {
@@ -300,6 +301,27 @@ function highlightTurnPlayerBoard() {
   board.setAttribute("style", "border: 5px solid " + colours[turnPlayer]);
 }
 
+//creates div for gray overlay
+function createOverlayDiv() {
+  for (let i = 0; i < numPlayers; i++) {
+    let overlayDiv = document.createElement("div");
+    document.getElementById("playerColourDiv" + i).appendChild(overlayDiv);
+  }
+}
+
+//creates a gray overlay effect on top of the players colored circles, except for the turn player
+function overlayPlayersColours() {
+  let allCircles = document.querySelectorAll(".colourCircle");
+  let arrayCircles = Array.from(allCircles);
+  for (let i = 0; i < arrayCircles.length; i++) {
+    for (let j = 0; j < arrayCircles[i].children.length; j++) {
+      if (arrayCircles[i] != document.getElementById("playerColourDiv" + turnPlayer)) {
+        arrayCircles[i].children[j].classList.add("overlayDiv");
+      } else {
+        arrayCircles[i].children[j].classList.remove("overlayDiv");
+      }
+    }
+  }
 }
 
 //writes players names next to their boards
@@ -673,6 +695,7 @@ function createPlayerBoards(numPlayers) {
             moveTileSelectedMesao();
             changeTurnPlayer();
             highlightTurnPlayerBoard();
+            overlayPlayersColours();
             //writeTurnPlayer();
             /*let tilesInMesaoOfSameColor = document.querySelectorAll("#mesao>." + factDisplayColor + "");
             console.log(tilesInMesaoOfSameColor);
@@ -684,6 +707,7 @@ function createPlayerBoards(numPlayers) {
             moveTileSelected();
             changeTurnPlayer();
             highlightTurnPlayerBoard();
+            overlayPlayersColours();
             //writeTurnPlayer();
             // Remove todos os azulejos selecionados dos factory displays
             /*let allTilesInThisFactDisplay = document.querySelectorAll("#" + pid + ">.tilesImage");
