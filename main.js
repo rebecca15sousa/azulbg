@@ -234,23 +234,68 @@ modalBtnOK.onclick = function() {
     modal.style.display = "none";
     makeSettings(numPlayers);
     modalSettings.style.display = "block";
+    createWarningDiv();
   }
+}
+
+//checks if there is a player colour repeated
+function isColourRepeated() {
+  for (let i = 0; i < numPlayers; i++) {
+    for (let j = 0; j < numPlayers; j++) {
+      let colourA = document.getElementById("playerColour" + i).style.backgroundColor;
+      let colourB = document.getElementById("playerColour" + j).style.backgroundColor;
+      if (i != j && colourA == colourB) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+//checks if there is a player name repeated
+function isNameRepeated() {
+  for (let i = 0; i < numPlayers; i++) {
+    for (let j = 0; j < numPlayers; j++) {
+      let nameA = document.getElementById("playerName" + i).value;
+      let nameB = document.getElementById("playerName" + j).value;
+      if (i != j && nameA == nameB) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+//creates divs for warning text about repeated names and colours
+function createWarningDiv() {
+  let colourWarning = document.createElement("div");
+  colourWarning.setAttribute("id", "colourWarningDiv");
+  document.querySelector(".modalContentSettings").appendChild(colourWarning);
+  let nameWarning = document.createElement("div");
+  nameWarning.setAttribute("id", "nameWarningDiv");
+  document.querySelector(".modalContentSettings").appendChild(nameWarning);
 }
 
 //calls functions for initial game setup
 function startGame() {
-  for (let i = 0; i < numPlayers; i++) {
-    names.push(document.getElementById("playerName" + i).value);
-    colours.push(document.getElementById("playerColour" + i).style.backgroundColor);
+  if (isColourRepeated()) {
+    let colourWarning = document.getElementById("colourWarningDiv");
+    colourWarning.textContent = "Player colours can not be repeated";
+  } else if (isNameRepeated()) {
+    let nameWarning = document.getElementById("nameWarningDiv");
+    nameWarning.textContent = "Player names can not be repeated";
+  } else {
+    for (let i = 0; i < numPlayers; i++) {
+      names.push(document.getElementById("playerName" + i).value);
+      colours.push(document.getElementById("playerColour" + i).style.backgroundColor);
+    }
+    createPlayerBoards(numPlayers);
+    createCirculos(numPlayers);
+    createSummaryTable(numPlayers);
+    createOverlayDiv();
+    inicioDaRodada();
+    modalSettings.style.display = "none";
   }
-  createPlayerBoards(numPlayers);
-  createCirculos(numPlayers);
-  createSummaryTable(numPlayers);
-  createOverlayDiv();
-  //createTurnPlayerDiv();
-  //writeTurnPlayer();
-  inicioDaRodada();
-  modalSettings.style.display = "none";
 }
 
 //shows round over modal at end of round
