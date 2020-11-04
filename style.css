@@ -303,7 +303,21 @@
   height: 40px;
 }
 
-#turnPlayer {
+#colourWarningDiv {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: red;
+  margin: 1% 0;
+}
+
+#nameWarningDiv {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: red;
+  margin: 1% 0;
+}
+
+/*#turnPlayer {
   font-size: 30px;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
@@ -311,7 +325,7 @@
 
 .nameDiv {
   display: inline;
-}
+}*/
 
 #screenContent {
   display: flex;
