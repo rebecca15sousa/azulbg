@@ -154,6 +154,7 @@ function makeSettings(numPlayers) {
     });
     let playerName = document.createElement("input");
     playerName.setAttribute("type", "text");
+    playerName.setAttribute("maxlength", "12");
     playerName.classList.add("playerName");
     playerName.setAttribute("id", "playerName" + i);
     playerName.required = true;
