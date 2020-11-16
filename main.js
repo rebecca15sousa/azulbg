@@ -16,6 +16,7 @@ let allPlayerPointsBoards = [];
 let playerPoints = [];
 let plusPoints = [];
 let minusPoints = [];
+let finalPoints = [];
 let valueA;
 let valueB;
 let valueC;
@@ -56,6 +57,10 @@ let playerSettings = document.getElementById("playerSettings");
 let modalBtnSettings = document.getElementById("modalBtnSettings");
 let names = [];
 let colours = [];
+let modalEndGame = document.getElementById("modalEndGame");
+let endGameTable = document.getElementById("endGameTable");
+let modalBtnSamePlayers = document.getElementById("modalBtnSamePlayers");
+let modalBtnDifPlayers = document.getElementById("modalBtnDifPlayers");
 //let turnPlayerDiv = document.getElementById("turnPlayer");
 
 //play button function
@@ -402,6 +407,42 @@ function writeTurnPlayer() {
   let turnPlayerName = document.getElementById("nameDiv");
   turnPlayerName.textContent = names[turnPlayer];
   turnPlayerDiv.style.backgroundColor = colours[turnPlayer];
+}
+
+function createEndTable(numPlayers) {
+  let winner = document.createElement("P");
+  winner.textContent = "Winner: ";
+  winner.classList.add("endGameText");
+  document.querySelector(".modalContentEndGame").insertBefore(winner, document.getElementById("congratText"));
+  endGameTable.style.setProperty('--grid-rows', (numPlayers + 1));
+  for(let i = 0; i < numPlayers; i++) {
+    let cellPosition = document.createElement("div");
+    cellPosition.textContent = "69";
+    cellPosition.classList.add("cell");
+    //determinar como fazer posiçao final dos jogadores
+    endGameTable.appendChild(cellPosition);
+    let cellPlayerName = document.createElement("div");
+    cellPlayerName.textContent = names[i];
+    cellPlayerName.classList.add("cell");
+    endGameTable.appendChild(cellPlayerName);
+    let cellIngameScore = document.createElement("div");
+    cellIngameScore.textContent = playerPoints[i];
+    cellIngameScore.classList.add("cell");
+    endGameTable.appendChild(cellIngameScore);
+    let cellFinalRoundScore = document.createElement("div");
+    cellFinalRoundScore.textContent = finalPoints[i];
+    cellFinalRoundScore.classList.add("cell");
+    endGameTable.appendChild(cellFinalRoundScore);
+    let cellEndGameScore = document.createElement("div");
+    cellEndGameScore.textContent = playerPoints[i] + finalPoints[i];
+    cellEndGameScore.classList.add("cell");
+    endGameTable.appendChild(cellEndGameScore);
+  }
+}
+
+function showsEndGame() {
+  createEndTable();
+  modalEndGame.style.display = "block";
 }
 
 //array que contem todos os tiles do jogo
@@ -1080,23 +1121,23 @@ function fimDoJogo() {
         }
       }
       if (fileiraCompletada == 5) {
-        playerPoints[i] += 2;
+        finalPoints[i] += 2;
       }
     }
     if (quantAzul == 5) {
-      playerPoints[i] += 10;
+      finalPoints[i] += 10;
     }
     if (quantVermelho == 5) {
-      playerPoints[i] += 10;
+      finalPoints[i] += 10;
     }
     if (quantAmarelo == 5) {
-      playerPoints[i] += 10;
+      finalPoints[i] += 10;
     }
     if (quantPreto == 5) {
-      playerPoints[i] += 10;
+      finalPoints[i] += 10;
     }
     if (quantBranco == 5) {
-      playerPoints[i] += 10;
+      finalPoints[i] += 10;
     }
     quantAzul = 0;
     quantVermelho = 0;
@@ -1111,14 +1152,14 @@ function fimDoJogo() {
           console.log("tem objeto nessa coluna");
         }
         if (colunaCompletada == 5) {
-          playerPoints[i] += 7;
+          finalPoints[i] += 7;
         }
       }
+    }
   }
-
-  }
-  console.log("Pontos do jogador 1: " + playerPoints[0]);
-  console.log("Pontos do jogador 2: " + playerPoints[1]);
+  showsEndGame();
+  console.log("Pontos do jogador 1: " + finalPoints[0]);
+  console.log("Pontos do jogador 2: " + finalPoints[1]);
 }
 
 // console.log(circuloMaster);
