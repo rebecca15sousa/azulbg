@@ -61,6 +61,13 @@ let modalEndGame = document.getElementById("modalEndGame");
 let endGameTable = document.getElementById("endGameTable");
 let modalBtnSamePlayers = document.getElementById("modalBtnSamePlayers");
 let modalBtnDifPlayers = document.getElementById("modalBtnDifPlayers");
+let modalOptions = document.getElementById("modalOptions");
+let modalBtnQuitGame = document.getElementById("modalBtnQuitGame");
+let modalBtnResume = document.getElementById("modalBtnResume");
+let modalQuitGame = document.getElementById("modalQuitGame");
+let modalBtnYes = document.getElementById("modalBtnYes");
+let modalBtnNo = document.getElementById("modalBtnNo");
+let optionsBtn = document.getElementById("optionsBtn");
 //let turnPlayerDiv = document.getElementById("turnPlayer");
 
 //play button function
@@ -75,6 +82,34 @@ function resetPoints(numPlayers) {
     plusPoints[i] = 0;
     minusPoints[i] = 0;
   }
+}
+
+//opens options modal
+optionsBtn.onclick = function() {
+  modalOptions.style.display = "block";
+}
+
+//opens modal to quit game
+modalBtnQuitGame.onclick = function() {
+  modalOptions.style.display = "none";
+  modalQuitGame.style.display = "block";
+}
+
+//closes options modal
+modalBtnResume.onclick = function() {
+  modalOptions.style.display = "none";
+}
+
+//quits current game and goes back to home modal
+modalBtnYes.onclick = function() {
+  modalQuitGame.style.display = "none";
+  modalHome.style.display = "block";
+}
+
+//cancels quit game action and goes back to options modal
+modalBtnNo.onclick = function() {
+  modalQuitGame.style.display = "none";
+  modalOptions.style.display = "block";
 }
 
 //opens window for colour selection, creates buttons for all colours and selects colour for player
@@ -380,7 +415,7 @@ function writePlayerName() {
   for(let i = 0; i < numPlayers; i++) {
     let name = document.getElementById("playerNameDiv" + i);
     name.textContent = names[i];
-    console.log("WRITEPLAYERNAME");
+    //console.log("WRITEPLAYERNAME");
   }
 }
 
@@ -409,6 +444,7 @@ function writeTurnPlayer() {
   turnPlayerDiv.style.backgroundColor = colours[turnPlayer];
 }
 
+//creates end game table with results
 function createEndTable(numPlayers) {
   let winner = document.createElement("P");
   winner.textContent = "Winner: ";
@@ -440,6 +476,7 @@ function createEndTable(numPlayers) {
   }
 }
 
+//shows end game modal
 function showsEndGame() {
   createEndTable();
   modalEndGame.style.display = "block";
