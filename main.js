@@ -482,6 +482,17 @@ function showsEndGame() {
   modalEndGame.style.display = "block";
 }
 
+//buttons functions for end game modal
+modalBtnSamePlayers.onclick = function() {
+  modalEndGame.style.display = "none";
+  modalSettings.style.display = "block";
+}
+
+modalBtnDifPlayers.onclick = function() {
+  modalEndGame.style.display = "none";
+  modal.style.display = "block";
+}
+
 //array que contem todos os tiles do jogo
 //array that contains all the tiles from the game
 let tipoTiles = [
