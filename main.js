@@ -177,6 +177,7 @@ function openColourWindow(window, colourBtn) {
 
 //creates settings options based on player quantity
 function makeSettings(numPlayers) {
+  playerSettings.textContent = "";
   for (let i = 0; i < numPlayers; i++) {
     let colourAndName = document.createElement("div");
     colourAndName.classList.add("colourAndName");
@@ -197,7 +198,7 @@ function makeSettings(numPlayers) {
     playerName.setAttribute("maxlength", "12");
     playerName.classList.add("playerName");
     playerName.setAttribute("id", "playerName" + i);
-    playerName.required = true;
+    //playerName.required = true;
     colourAndName.appendChild(playerName);
     playerSettings.appendChild(colourAndName);
   }
@@ -279,6 +280,11 @@ modalBtnOK.onclick = function() {
   }
 }
 
+//button on settings modal that calls start game function
+modalBtnSettings.onclick = function() {
+  startGame();
+}
+
 //checks if there is a player colour repeated
 function isColourRepeated() {
   for (let i = 0; i < numPlayers; i++) {
@@ -307,14 +313,32 @@ function isNameRepeated() {
   return false;
 }
 
-//creates divs for warning text about repeated names and colours
+//creates divs for warning text about repeated names and colours and empty textboxes
 function createWarningDiv() {
+  document.getElementById("warningDivs").textContent = "";
   let colourWarning = document.createElement("div");
   colourWarning.setAttribute("id", "colourWarningDiv");
-  document.querySelector(".modalContentSettings").appendChild(colourWarning);
+  colourWarning.classList.add("warnings");
+  document.getElementById("warningDivs").appendChild(colourWarning);
   let nameWarning = document.createElement("div");
   nameWarning.setAttribute("id", "nameWarningDiv");
-  document.querySelector(".modalContentSettings").appendChild(nameWarning);
+  nameWarning.classList.add("warnings");
+  document.getElementById("warningDivs").appendChild(nameWarning);
+  let textboxWarning = document.createElement("div");
+  textboxWarning.setAttribute("id", "textboxWarningDiv");
+  textboxWarning.classList.add("warnings");
+  document.getElementById("warningDivs").appendChild(textboxWarning);
+}
+
+//checks if there is an empty textbox
+function isTextboxEmpty() {
+  for (let i = 0; i < numPlayers; i++) {
+    let playerName = document.getElementById("playerName" + i).value;
+    if (playerName == "") {
+      return true;
+    }
+  }
+  return false;
 }
 
 //calls functions for initial game setup
@@ -325,6 +349,9 @@ function startGame() {
   } else if (isNameRepeated()) {
     let nameWarning = document.getElementById("nameWarningDiv");
     nameWarning.textContent = "Player names can not be repeated";
+  } else if (isTextboxEmpty()) {
+    let textboxWarning = document.getElementById("textboxWarningDiv");
+    textboxWarning.textContent = "Player names can not be empty";
   } else {
     for (let i = 0; i < numPlayers; i++) {
       names.push(document.getElementById("playerName" + i).value);
