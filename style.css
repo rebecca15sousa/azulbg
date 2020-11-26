@@ -501,7 +501,7 @@
   content: "\f005";
 }
 
-#tilesArea {
+#centerTable {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -636,7 +636,7 @@ body {
   width: 34px;
 }
 
-#player0, #player1, #player2, #player3 {
+.playerBoards {
   display: grid;
   width: 400px;
   grid-template-columns: repeat(2, 200px);

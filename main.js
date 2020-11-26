@@ -3,7 +3,8 @@ let circuloMaster = [];
 let mesao;
 let tilesDiscard = [];
 let megaDiv = document.querySelector("#mainBoardArea");
-let tilesArea = document.querySelector("#tilesArea");
+//let tilesArea = document.querySelector("#tilesArea");
+let centerTable = document.getElementById("centerTable");
 let tiles;
 let numPlayers = 0;
 let numPlayersArray = [];
@@ -74,6 +75,12 @@ let optionsBtn = document.getElementById("optionsBtn");
 modalBtnPlay.onclick = function() {
   modalHome.style.display = "none";
   modal.style.display = "block";
+}
+
+//turns bag and tilesDiscard in empty arrays
+function resetBagAndDiscard() {
+  bag = [];
+  tilesDiscard = [];
 }
 
 //resets points won and points lost values every round
@@ -283,6 +290,7 @@ modalBtnOK.onclick = function() {
 //button on settings modal that calls start game function
 modalBtnSettings.onclick = function() {
   startGame();
+  modalSettings.style.display = "none";
 }
 
 //checks if there is a player colour repeated
@@ -353,6 +361,8 @@ function startGame() {
     let textboxWarning = document.getElementById("textboxWarningDiv");
     textboxWarning.textContent = "Player names can not be empty";
   } else {
+    names = [];
+    colours = [];
     for (let i = 0; i < numPlayers; i++) {
       names.push(document.getElementById("playerName" + i).value);
       colours.push(document.getElementById("playerColour" + i).style.backgroundColor);
@@ -361,8 +371,8 @@ function startGame() {
     createCirculos(numPlayers);
     createSummaryTable(numPlayers);
     createOverlayDiv();
+    resetBagAndDiscard();
     inicioDaRodada();
-    modalSettings.style.display = "none";
   }
 }
 
@@ -456,7 +466,7 @@ function writePlayerPoints() {
 
 //nao é mais usado
 //creates div to hold turn player's name and colour info
-function createTurnPlayerDiv() {
+/*function createTurnPlayerDiv() {
   let turnPlayerName = document.createElement("div");
   turnPlayerName.setAttribute("id", "nameDiv");
   turnPlayerName.classList.add("nameDiv");
@@ -469,7 +479,7 @@ function writeTurnPlayer() {
   let turnPlayerName = document.getElementById("nameDiv");
   turnPlayerName.textContent = names[turnPlayer];
   turnPlayerDiv.style.backgroundColor = colours[turnPlayer];
-}
+}*/
 
 //creates end game table with results
 function createEndTable(numPlayers) {
@@ -543,6 +553,7 @@ function createBag() {
 //cria factories displays de acordo com a quantidade de jogadores
 //creates factories displays according to the number of players
 function createCirculos(numPlayers) {
+  megaDiv.textContent = "";
   let numCirculos = (numPlayers * 2) + 1;
   for(let i = 0; i < numCirculos; i++) {
     let factDisplay = [];
@@ -565,6 +576,7 @@ function createCirculos(numPlayers) {
 // Cria div que vai representar o mesao (factory display especial que recebe os tiles nao coletados pelo jogador da vez)
 //creates div for the big table (special factory display that receives the tiles not collected by the turn's player)
 function createMesaoFactoryDisplay() {
+  centerTable.textContent = "";
   mesao = ["Firstplayer"];
   // let factDisplay = [];
   // circuloMaster.push(factDisplay);
@@ -579,7 +591,17 @@ function createMesaoFactoryDisplay() {
   drawTile.setAttribute("src", "assets/FirstPlayer.jpg");
   drawTile.setAttribute("id", "firstPlayer");
   div.appendChild(drawTile);
-  tilesArea.appendChild(div);
+  centerTable.appendChild(div);
+}
+
+//puts all tiles on tilesDiscard array inside bag array and empties tilesDiscard array
+function refillBag() {
+  for (let k = 0; k < tilesDiscard.length; k++) {
+    //bag = tilesDiscard;
+    bag.push(tilesDiscard[k]);
+    //tilesDiscard = [];
+    tilesDiscard.splice(k, 1);
+  }
 }
 
 //Pega os tiles dentro da sacola, e distribui aleatoriamente nos factories displays
@@ -588,8 +610,7 @@ function distributeTiles() {
   for(let i = 0; i < circuloMaster.length; i++) {
     for(let j = 0; j < 4; j++) {
       if (bag.length <= 0) {
-        bag = tilesDiscard;
-        tilesDiscard = [];
+        refillBag();     
       }
       let randomIndex = Math.floor(Math.random() * bag.length);
       circuloMaster[i].push(bag[randomIndex]);
@@ -801,6 +822,8 @@ function drawTilePointsBoard() {
 function createPlayerBoards(numPlayers) {
   let div = document.querySelector("#playerArea1");
   let playerArea2 = document.querySelector("#playerArea2");
+  div.textContent = "";
+  playerArea2.textContent = "";
   //cria uma div pra cada board de jogador
   for (let i = 0; i < numPlayers; i++) {
     let div8 = document.createElement("div");
