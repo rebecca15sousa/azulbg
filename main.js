@@ -25,8 +25,8 @@ let valueD;
 let tilesSameColor;
 let tileRow;
 let playerButtons;
-let jogadorInicial = Math.floor(Math.random() * numPlayers);
-let turnPlayer = jogadorInicial;
+let jogadorInicial;
+let turnPlayer;
 let endRound = false;
 let endGame = false;
 let endGameCounter = 0;
@@ -367,6 +367,8 @@ function startGame() {
       names.push(document.getElementById("playerName" + i).value);
       colours.push(document.getElementById("playerColour" + i).style.backgroundColor);
     }
+    jogadorInicial = Math.floor(Math.random() * numPlayers);
+    turnPlayer = jogadorInicial;
     createPlayerBoards(numPlayers);
     createCirculos(numPlayers);
     createSummaryTable(numPlayers);
