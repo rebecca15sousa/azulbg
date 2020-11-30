@@ -554,6 +554,7 @@ function createBag() {
 //creates factories displays according to the number of players
 function createCirculos(numPlayers) {
   megaDiv.textContent = "";
+  circuloMaster = [];
   let numCirculos = (numPlayers * 2) + 1;
   for(let i = 0; i < numCirculos; i++) {
     let factDisplay = [];
@@ -856,9 +857,10 @@ function createPlayerBoards(numPlayers) {
     div4.setAttribute("id", "playerPointsBoards" + i);
     allPlayerBoards[i] = [];
     allPlayerPointsBoards[i] = [];
-    playerPoints[i] = [0];
+    playerPoints[i] = 0;
     plusPoints[i] = 0;
     minusPoints[i] = 0;
+    finalPoints[i] = 0;
     for (let j = 0; j < 5; j++) {
       // Cria fileiras de pontuação e arrays dessas fileiras
       for (let k = 0; k < 5; k++) {
