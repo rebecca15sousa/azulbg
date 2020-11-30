@@ -83,16 +83,8 @@ function resetBagAndDiscard() {
   tilesDiscard = [];
 }
 
-//resets all points values
-function resetAllPoints() {
-    plusPoints = [];
-    minusPoints = [];
-    playerPoints = [];
-    finalPoints = [];
-}
-
 //resets points won and points lost values every round
-function resetRoundPoints(numPlayers) {
+function resetPoints(numPlayers) {
   for (let i = 0; i < numPlayers; i++) {
     plusPoints[i] = 0;
     minusPoints[i] = 0;
@@ -380,7 +372,6 @@ function startGame() {
     createSummaryTable(numPlayers);
     createOverlayDiv();
     resetBagAndDiscard();
-    resetAllPoints();
     inicioDaRodada();
   }
 }
@@ -397,7 +388,7 @@ function showsSummary() {
   modalRoundOver.classList.remove("fadeInOut");
   modalRoundOver.style.display = "none";
   modalRoundSummary.style.display = "block";
-  resetRoundPoints(numPlayers);
+  resetPoints(numPlayers);
 }
 
 //hides round summary modal and shows round start modal
@@ -563,7 +554,6 @@ function createBag() {
 //creates factories displays according to the number of players
 function createCirculos(numPlayers) {
   megaDiv.textContent = "";
-  circuloMaster = [];
   let numCirculos = (numPlayers * 2) + 1;
   for(let i = 0; i < numCirculos; i++) {
     let factDisplay = [];
