@@ -483,20 +483,21 @@ function writeTurnPlayer() {
   turnPlayerDiv.style.backgroundColor = colours[turnPlayer];
 }*/
 
-//creates end game table with results
-function createEndTable(numPlayers) {
+//creates end game points table
+function createEndTable() {
   let winner = document.createElement("P");
   winner.textContent = "Winner: ";
   winner.classList.add("endGameText");
   document.querySelector(".modalContentEndGame").insertBefore(winner, document.getElementById("congratText"));
+  let finalScoreRows = createFinalScoreDiv();
   endGameTable.style.setProperty('--grid-rows', (numPlayers + 1));
   for(let i = 0; i < numPlayers; i++) {
     let cellPosition = document.createElement("div");
-    cellPosition.textContent = "69";
+    cellPosition.textContent = "#" + (i + 1);
     cellPosition.classList.add("cell");
-    //determinar como fazer posiçao final dos jogadores
     endGameTable.appendChild(cellPosition);
-    let cellPlayerName = document.createElement("div");
+    endGameTable.appendChild(finalScoreRows[i]);
+    /*let cellPlayerName = document.createElement("div");
     cellPlayerName.textContent = names[i];
     cellPlayerName.classList.add("cell");
     endGameTable.appendChild(cellPlayerName);
@@ -511,8 +512,40 @@ function createEndTable(numPlayers) {
     let cellEndGameScore = document.createElement("div");
     cellEndGameScore.textContent = playerPoints[i] + finalPoints[i];
     cellEndGameScore.classList.add("cell");
-    endGameTable.appendChild(cellEndGameScore);
+    endGameTable.appendChild(cellEndGameScore);*/
   }
+}
+
+//creates divs for final points
+function createFinalScoreDiv() {
+  let finalScoreRows = [];
+  for(let i = 0; i < numPlayers; i++) {
+    let finalScoreDiv = document.createElement("div");
+    finalScoreDiv.setAttribute("id", "finalScoreDiv" + i);
+    let cellPlayerName = document.createElement("div");
+    cellPlayerName.textContent = names[i];
+    cellPlayerName.classList.add("cell");
+    finalScoreDiv.appendChild(cellPlayerName);
+    let cellIngameScore = document.createElement("div");
+    cellIngameScore.textContent = playerPoints[i];
+    cellIngameScore.classList.add("cell");
+    finalScoreDiv.appendChild(cellIngameScore);
+    let cellFinalRoundScore = document.createElement("div");
+    cellFinalRoundScore.textContent = finalPoints[i];
+    cellFinalRoundScore.classList.add("cell");
+    finalScoreDiv.appendChild(cellFinalRoundScore);
+    let cellEndGameScore = document.createElement("div");
+    cellEndGameScore.textContent = playerPoints[i] + finalPoints[i];
+    cellEndGameScore.classList.add("cell", "finalScore");
+    finalScoreDiv.appendChild(cellEndGameScore);
+    finalScoreRows.push(finalScoreDiv);
+  }
+  finalScoreRows.sort(function(a, b) {
+    let scoreA = a.querySelectorAll(".finalScore")[0].textContent;
+    let scoreB = b.querySelectorAll(".finalScore")[0].textContent;
+    return scoreB - scoreA;
+  });
+  return finalScoreRows;
 }
 
 //shows end game modal
