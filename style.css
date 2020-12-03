@@ -174,11 +174,14 @@
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   font-weight: bold;
+  align-self: center;
+  padding: 2%;
 }
 
 .cell {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
+  align-self: center;
 }
 
 #modalRoundStart {
@@ -346,14 +349,16 @@
 
 #finalScoreDiv0, #finalScoreDiv1, #finalScoreDiv2, #finalScoreDiv3 {
   display: grid;
+  grid-column: 2 / 6;
   grid-template-columns: repeat(4, 25%);
-  margin: 20px auto;
 }
 
 .endGameColumns {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
   font-weight: bold;
+  align-self: center;
+  padding: 2%;
 }
 
 #modalOptions {
