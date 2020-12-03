@@ -404,6 +404,8 @@ modalBtnSummary.onclick = function() {
 //hides round start modal
 modalBtnStart.onclick = function() {
   modalRoundStart.style.display = "none";
+  highlightTurnPlayerBoard();
+  overlayPlayersColours();
 }
 
 //changes turn player value
@@ -741,7 +743,7 @@ function moveTileFirstPlayer() {
     variavelzinha2.setAttribute("src", "assets/FirstPlayer.jpg");
     variavelzinha2.setAttribute("class", "tilesImage");
     document.getElementById("playerNegativePoints" + valueA).appendChild(variavelzinha2);
-    jogadorInicial = valueA;
+    //jogadorInicial = valueA;
     let tileFirstPlayer = document.querySelector("#firstPlayer");
     tileFirstPlayer.remove();
     mesao.splice(0, 1);
