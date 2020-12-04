@@ -3,7 +3,6 @@ let circuloMaster = [];
 let mesao;
 let tilesDiscard = [];
 let megaDiv = document.querySelector("#mainBoardArea");
-//let tilesArea = document.querySelector("#tilesArea");
 let centerTable = document.getElementById("centerTable");
 let tiles;
 let numPlayers = 0;
@@ -669,54 +668,80 @@ function selectTileColor() {
         tiles[k].selected = false;
         tiles[k].setAttribute("style", "border: none;");
       }
-      playerButtons = document.querySelectorAll("#playerButtons" + turnPlayer + ">.playerRowsButtons");
-      for (let l = 0; l < playerButtons.length; l++) {
-        playerButtons[l].disabled = false;
-        playerButtons[l].setAttribute("style", "border: 2px solid red;");
-      }
       pid = this.parentNode.id;
       factDisplayNum = pid.substr(-1, 1);
       nid = this.id;
       factDisplayColor = nid.replace(/[0-9]/g, '');
-      console.log(factDisplayColor);
       tilesSameColor = document.querySelectorAll("#" + pid + ">." + factDisplayColor);
       for (j = 0; j < tilesSameColor.length; j++) {
         tilesSameColor[j].setAttribute("style", "border: 2px solid red;");
         tilesSameColor[j].selected = true;
       };
+      checkRowConditions();
     });
   }
+}
+
+
+function checkRowConditions() {
+  playerButtons = document.querySelectorAll("#playerButtons" + turnPlayer + ">.playerRowsButtons");
+    for (let l = 0; l < playerButtons.length; l++) {
+      playerButtons[l].disabled = true;
+      playerButtons[l].setAttribute("style", "border: none;");
+      //está lotada a fileira
+      if (allPlayerBoards[turnPlayer][l].length == l + 1) {
+        console.log("fileira lotada");
+        continue;
+      //a fileira não está lotada e a cor selecionada não é a mesma cor que já está na fileira
+      } else if (allPlayerBoards[turnPlayer][l].length > 0 && !allPlayerBoards[turnPlayer][l].includes(factDisplayColor)) {
+        console.log("cor errada");
+        continue;
+      //a cor já foi pontuada
+      } else if (allPlayerPointsBoards[turnPlayer][l].includes(factDisplayColor)) {
+        console.log("já foi");
+        continue;
+      //td bem
+      } else {
+        console.log("entei");
+        playerButtons[l].disabled = false;
+        playerButtons[l].setAttribute("style", "border: 2px solid red;");
+      }
+    }
 }
 
 // Essa função esta responsavel por tirar os tiles da array dos factory displays e mover pra array selecionada do jogador
 // takes the selected tiles out of the factory display array and puts them into the player's selected array
 function moveTileSelected() {
-  if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
-    return;
-  }
+  // if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
+  //   return;
+  // }
   for(let i = 0; i < circuloMaster[factDisplayNum].length; i++) {
     // Seleciona todas os tiles com a mesma cor do tile clicado
     if(circuloMaster[factDisplayNum][i] == factDisplayColor) {
       // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
-      if (allPlayerBoards[valueA][valueB].length == 0 && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
-        //a fileira está vazia e não pontuou essa cor antes
-        allPlayerBoards[valueA][valueB].push(factDisplayColor);
-    } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor) && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
-      //a fileira não está lotada, tem a mesma cor que está selecionada e não pontuou essa cor antes  
       allPlayerBoards[valueA][valueB].push(factDisplayColor);
-    } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && !allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
-      //a fileira não está lotada e a cor selecionada não é a mesma cor que já está na fileira
-      console.log("AQUIIIIIIIII");
-      break;
-    } else {
+    //   if (allPlayerBoards[valueA][valueB].length == 0 && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
+    //     //a fileira está vazia e não pontuou essa cor antes
+    //     allPlayerBoards[valueA][valueB].push(factDisplayColor);
+    // } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor) && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
+    //   //a fileira não está lotada, tem a mesma cor que está selecionada e não pontuou essa cor antes  
+    //   allPlayerBoards[valueA][valueB].push(factDisplayColor);
+    // } 
+    // else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && !allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
+    //   //a fileira não está lotada e a cor selecionada não é a mesma cor que já está na fileira
+    //   break;
+    // } 
+    //else {
         // Envia o excesso dos tiles para a linha de pontos negativos do jogador
-        if (allPlayerBoards[valueA][5].length < 7) {
-          allPlayerBoards[valueA][5].push(factDisplayColor);
-        // Se a linha de pontos negativos do jogador ja estiver lotada, envia o excesso de tiles que iria para lá direto para o descarte.
-        } else {
-          tilesDiscard.push(factDisplayColor);
+        if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
+          if (allPlayerBoards[valueA][5].length < 7) {
+            allPlayerBoards[valueA][5].push(factDisplayColor);
+          // Se a linha de pontos negativos do jogador ja estiver lotada, envia o excesso de tiles que iria para lá direto para o descarte.
+          } else {
+            tilesDiscard.push(factDisplayColor);
+          }
         }
-      }
+      //}
       // Deleta o tile da cor movida do factory display
       circuloMaster[factDisplayNum].splice(i, 1);
       i--;
@@ -760,16 +785,19 @@ function moveTileSelectedMesao() {
     // Seleciona todas os tiles com a mesma cor do tile clicado
     if(mesao[i] == factDisplayColor) {
       // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
-      if (allPlayerBoards[valueA][valueB].length == 0 && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
-        allPlayerBoards[valueA][valueB].push(factDisplayColor);
-        moveTileFirstPlayer();
-    } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor) && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
-        allPlayerBoards[valueA][valueB].push(factDisplayColor);
-        moveTileFirstPlayer();
-    } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && !allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
-      console.log("AQUIIIIIIIII");
-      break;
-    } else {
+      allPlayerBoards[valueA][valueB].push(factDisplayColor);
+      moveTileFirstPlayer();
+    //   if (allPlayerBoards[valueA][valueB].length == 0 && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
+    //     allPlayerBoards[valueA][valueB].push(factDisplayColor);
+    //     moveTileFirstPlayer();
+    // } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor) && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
+    //     allPlayerBoards[valueA][valueB].push(factDisplayColor);
+    //     moveTileFirstPlayer();
+    // } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && !allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
+    //   console.log("AQUIIIIIIIII");
+    //   break;
+    // } 
+    if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
         // Envia o excesso dos tiles para a linha de pontos negativos do jogador
         if (allPlayerBoards[valueA][5].length < 7) {
           allPlayerBoards[valueA][5].push(factDisplayColor);
@@ -784,9 +812,7 @@ function moveTileSelectedMesao() {
     }
   }
   let tilesInMesaoOfSameColor = document.querySelectorAll("#mesao>." + factDisplayColor + "");
-  console.log(tilesInMesaoOfSameColor);
   for (let n = 0; n < tilesInMesaoOfSameColor.length; n++) {
-    console.log("deleetooou");
     tilesInMesaoOfSameColor[n].remove();
   }
 }
@@ -835,15 +861,11 @@ function drawMesao(corAtual) {
       for (let k = 0; k < tiles.length ; k++) {
         tiles[k].setAttribute("style", "border: none;");
       }
-      playerButtons = document.querySelectorAll("#playerButtons" + turnPlayer + ">.playerRowsButtons");
-      for (let l = 0; l < playerButtons.length; l++) {
-          playerButtons[l].disabled = false;
-          playerButtons[l].setAttribute("style", "border: 2px solid red;");
-      }
       tilesSameColor = document.querySelectorAll("#mesao>." + corAtual);
       for (j = 0; j < tilesSameColor.length; j++) {
         tilesSameColor[j].setAttribute("style", "border: 2px solid red;");
       };
+      checkRowConditions();
     });
     div.appendChild(drawTile);
 }
