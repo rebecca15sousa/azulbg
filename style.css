@@ -124,7 +124,6 @@
   margin: 15% auto;
   padding: 20px;
   text-align: center;
-  /*height: 20%;*/
 }
 
 .roundOverText {
@@ -433,16 +432,6 @@
   cursor: pointer;
 }
 
-/*#turnPlayer {
-  font-size: 30px;
-  font-family: Arial, Helvetica, sans-serif;
-  text-align: center;
-}
-
-.nameDiv {
-  display: inline;
-}*/
-
 #screenContent {
   display: flex;
   align-items: center;
@@ -492,14 +481,6 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.playerNameDiv {
-
-}
-
-.playerPointsDiv {
-
-}
-
 .fa-star {
   color: goldenrod;
 }
@@ -517,13 +498,9 @@
   flex-direction: column;
   align-items: center;
   flex: 2;
-  /*width: 50%;*/
 }
 
 #mainBoardArea {
-  /*width: 100%;*/
-  /*height: 100%;*/
-  /*flex: 1;*/
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -532,7 +509,6 @@
 }
 
 #playerArea1 {
-  /*width: 25%;*/
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -544,64 +520,7 @@
   flex-direction: column;
   align-items: center;
   flex: 1;
-  /*width: 25%;*/
-  /*height: 100%;*/
-  /*flex: 1;*/
-  /*display: grid;
-  grid-template-columns: repeat(2, 50%);*/
 }
-
-.column {
-  /*float: left;*/
-}
-
-/*#factory0 {
-  display: grid;
-  grid-template-columns: repeat(2, 34px);
-  grid-template-rows: repeat(2, 34px);
-  gap: 5px;
-}
-
-#factory1, #factory3, #factory5, #factory7 {
-  display: grid;
-  grid-template-columns: repeat(2, 34px);
-  grid-template-rows: repeat(2, 34px);
-  gap: 5px;
-}
-
-#factory2, #factory4, #factory6, #factory8 {
-  display: grid;
-  grid-template-columns: repeat(2, 34px);
-  grid-template-rows: repeat(2, 34px);
-  gap: 5px;
-}*/
-
-/*#factoryDisplayImage0 {
-  display: block;
-  margin: auto;
-  grid-column: 2 / 3;
-  background-image: url(assets/factoryDisplayNew.png);
-  height: 150px;
-  width: 150px;
-}
-
-#factoryDisplayImage1, #factoryDisplayImage3, #factoryDisplayImage5, #factoryDisplayImage7 {
-  display: block;
-  float: left;
-  grid-column: 1 / 2;
-  background-image: url(assets/factoryDisplayNew.png);
-  height: 150px;
-  width: 150px;
-}
-
-#factoryDisplayImage2, #factoryDisplayImage4, #factoryDisplayImage6, #factoryDisplayImage8 {
-  display: block;
-  float: right;
-  grid-column: 3 / 4;
-  background-image: url(assets/factoryDisplayNew.png);
-  height: 150px;
-  width: 150px;
-}*/
 
 .factoriesDisplayImage {
   background-image: url(assets/factoryDisplayNew.png);
@@ -610,9 +529,6 @@
 }
 
 .mesaoFactoryDisplay {
-  /*text-align: center;*/
-  /*grid-column: 2 / 3;*/
-  /*grid-row: 2 / 3;*/
   margin: 3%;
   padding: 3%;
   background-color: antiquewhite;
@@ -628,15 +544,7 @@ div.factoriesDisplay {
   grid-template-columns: repeat(2, 34px);
   grid-template-rows: repeat(2, 34px);
   gap: 5px;
-  /*position: relative;
-  z-index: -1;*/
 }
-
-/*img.factoriesImages {
-  height: 150px;
-  width: 150px;
-  z-index: -1;
-}*/
 
 body {
   background-image: url(assets/Background.jpg);
@@ -659,11 +567,6 @@ body {
   margin: 2%;
 }
 
-.boards {
-  /*position: relative;
-  z-index: -1;*/
-}
-
 #playerButtons0, #playerButtons1, #playerButtons2, #playerButtons3 {
   display: grid;
   grid-template-columns: repeat(5, 35px);
@@ -676,7 +579,6 @@ body {
 }
 
 .playerRowsButtons {
-  /*display: block;*/
   background: transparent;
   border: none;
 }
