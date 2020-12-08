@@ -68,7 +68,6 @@ let modalQuitGame = document.getElementById("modalQuitGame");
 let modalBtnYes = document.getElementById("modalBtnYes");
 let modalBtnNo = document.getElementById("modalBtnNo");
 let optionsBtn = document.getElementById("optionsBtn");
-//let turnPlayerDiv = document.getElementById("turnPlayer");
 
 //play button function
 modalBtnPlay.onclick = function() {
@@ -204,7 +203,6 @@ function makeSettings(numPlayers) {
     playerName.setAttribute("maxlength", "12");
     playerName.classList.add("playerName");
     playerName.setAttribute("id", "playerName" + i);
-    //playerName.required = true;
     colourAndName.appendChild(playerName);
     playerSettings.appendChild(colourAndName);
   }
@@ -455,7 +453,6 @@ function writePlayerName() {
   for(let i = 0; i < numPlayers; i++) {
     let name = document.getElementById("playerNameDiv" + i);
     name.textContent = names[i];
-    //console.log("WRITEPLAYERNAME");
   }
 }
 
@@ -466,23 +463,6 @@ function writePlayerPoints() {
     currentPoints.textContent = playerPoints[i];
   }
 }
-
-//nao é mais usado
-//creates div to hold turn player's name and colour info
-/*function createTurnPlayerDiv() {
-  let turnPlayerName = document.createElement("div");
-  turnPlayerName.setAttribute("id", "nameDiv");
-  turnPlayerName.classList.add("nameDiv");
-  turnPlayerDiv.appendChild(turnPlayerName);
-}
-
-//nao é mais usado
-//writes turn player's name and colour on top of screen
-function writeTurnPlayer() {
-  let turnPlayerName = document.getElementById("nameDiv");
-  turnPlayerName.textContent = names[turnPlayer];
-  turnPlayerDiv.style.backgroundColor = colours[turnPlayer];
-}*/
 
 //creates end game points table
 function createEndTable() {
@@ -524,26 +504,10 @@ function createEndTable() {
     cellPosition.classList.add("cell");
     endGameTable.appendChild(cellPosition);
     endGameTable.appendChild(finalScoreRows[i]);
-    /*let cellPlayerName = document.createElement("div");
-    cellPlayerName.textContent = names[i];
-    cellPlayerName.classList.add("cell");
-    endGameTable.appendChild(cellPlayerName);
-    let cellIngameScore = document.createElement("div");
-    cellIngameScore.textContent = playerPoints[i];
-    cellIngameScore.classList.add("cell");
-    endGameTable.appendChild(cellIngameScore);
-    let cellFinalRoundScore = document.createElement("div");
-    cellFinalRoundScore.textContent = finalPoints[i];
-    cellFinalRoundScore.classList.add("cell");
-    endGameTable.appendChild(cellFinalRoundScore);
-    let cellEndGameScore = document.createElement("div");
-    cellEndGameScore.textContent = playerPoints[i] + finalPoints[i];
-    cellEndGameScore.classList.add("cell");
-    endGameTable.appendChild(cellEndGameScore);*/
   }
 }
 
-//creates divs for final points
+//creates divs for end game points table
 function createFinalScoreDivs() {
   let finalScoreRows = [];
   for(let i = 0; i < numPlayers; i++) {
@@ -578,28 +542,6 @@ function createFinalScoreDivs() {
   });
   return finalScoreRows;
 }
-
-// function writeFinalScoreDivs() {
-//   let finalScoreRows = [];
-//   for(let i = 0; i < numPlayers; i++) {
-//     let finalScoreDiv = document.getElementById("finalScoreDiv" + i);
-//     let cellPlayerName = document.getElementById("cellPlayerName" + i);
-//     cellPlayerName.textContent = names[i];
-//     let cellIngameScore = document.getElementById("cellIngameScore" + i);
-//     cellIngameScore.textContent = playerPoints[i];
-//     let cellFinalRoundScore = document.getElementById("cellFinalRoundScore" + i);
-//     cellFinalRoundScore.textContent = finalPoints[i];
-//     let cellEndGameScore = document.getElementsByClassName("cellEndGameScore" + i);
-//     cellEndGameScore.textContent = playerPoints[i] + finalPoints[i];
-//     finalScoreRows.push(finalScoreDiv);
-//   }
-//   finalScoreRows.sort(function(a, b) {
-//     let scoreA = a.querySelectorAll(".finalScore")[0].textContent;
-//     let scoreB = b.querySelectorAll(".finalScore")[0].textContent;
-//     return scoreB - scoreA;
-//   });
-//   return finalScoreRows;
-// }
 
 //shows end game modal
 function showsEndGame() {
@@ -686,9 +628,7 @@ function createMesaoFactoryDisplay() {
 //puts all tiles on tilesDiscard array inside bag array and empties tilesDiscard array
 function refillBag() {
   for (let k = 0; k < tilesDiscard.length; k++) {
-    //bag = tilesDiscard;
     bag.push(tilesDiscard[k]);
-    //tilesDiscard = [];
     tilesDiscard.splice(k, 1);
   }
 }
@@ -734,7 +674,7 @@ function selectTileColor() {
   }
 }
 
-
+//checks if row in player board is able to receive tiles and enables/disables it
 function checkRowConditions() {
   playerButtons = document.querySelectorAll("#playerButtons" + turnPlayer + ">.playerRowsButtons");
     for (let l = 0; l < playerButtons.length; l++) {
@@ -742,19 +682,15 @@ function checkRowConditions() {
       playerButtons[l].setAttribute("style", "border: none;");
       //está lotada a fileira
       if (allPlayerBoards[turnPlayer][l].length == l + 1) {
-        console.log("fileira lotada");
         continue;
       //a fileira não está lotada e a cor selecionada não é a mesma cor que já está na fileira
       } else if (allPlayerBoards[turnPlayer][l].length > 0 && !allPlayerBoards[turnPlayer][l].includes(factDisplayColor)) {
-        console.log("cor errada");
         continue;
       //a cor já foi pontuada
       } else if (allPlayerPointsBoards[turnPlayer][l].includes(factDisplayColor)) {
-        console.log("já foi");
         continue;
       //td bem
       } else {
-        console.log("entei");
         playerButtons[l].disabled = false;
         playerButtons[l].setAttribute("style", "border: 2px solid red;");
       }
@@ -764,26 +700,11 @@ function checkRowConditions() {
 // Essa função esta responsavel por tirar os tiles da array dos factory displays e mover pra array selecionada do jogador
 // takes the selected tiles out of the factory display array and puts them into the player's selected array
 function moveTileSelected() {
-  // if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
-  //   return;
-  // }
   for(let i = 0; i < circuloMaster[factDisplayNum].length; i++) {
     // Seleciona todas os tiles com a mesma cor do tile clicado
     if(circuloMaster[factDisplayNum][i] == factDisplayColor) {
       // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
       allPlayerBoards[valueA][valueB].push(factDisplayColor);
-    //   if (allPlayerBoards[valueA][valueB].length == 0 && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
-    //     //a fileira está vazia e não pontuou essa cor antes
-    //     allPlayerBoards[valueA][valueB].push(factDisplayColor);
-    // } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor) && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
-    //   //a fileira não está lotada, tem a mesma cor que está selecionada e não pontuou essa cor antes  
-    //   allPlayerBoards[valueA][valueB].push(factDisplayColor);
-    // } 
-    // else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && !allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
-    //   //a fileira não está lotada e a cor selecionada não é a mesma cor que já está na fileira
-    //   break;
-    // } 
-    //else {
         // Envia o excesso dos tiles para a linha de pontos negativos do jogador
         if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
           if (allPlayerBoards[valueA][5].length < 7) {
@@ -793,7 +714,6 @@ function moveTileSelected() {
             tilesDiscard.push(factDisplayColor);
           }
         }
-      //}
       // Deleta o tile da cor movida do factory display
       circuloMaster[factDisplayNum].splice(i, 1);
       i--;
@@ -820,7 +740,6 @@ function moveTileFirstPlayer() {
     variavelzinha2.setAttribute("src", "assets/FirstPlayer.jpg");
     variavelzinha2.setAttribute("class", "tilesImage");
     document.getElementById("playerNegativePoints" + valueA).appendChild(variavelzinha2);
-    //jogadorInicial = valueA;
     let tileFirstPlayer = document.querySelector("#firstPlayer");
     tileFirstPlayer.remove();
     mesao.splice(0, 1);
@@ -839,16 +758,6 @@ function moveTileSelectedMesao() {
       // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
       allPlayerBoards[valueA][valueB].push(factDisplayColor);
       moveTileFirstPlayer();
-    //   if (allPlayerBoards[valueA][valueB].length == 0 && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
-    //     allPlayerBoards[valueA][valueB].push(factDisplayColor);
-    //     moveTileFirstPlayer();
-    // } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && allPlayerBoards[valueA][valueB].includes(factDisplayColor) && !allPlayerPointsBoards[valueA][valueB].includes(factDisplayColor)) {
-    //     allPlayerBoards[valueA][valueB].push(factDisplayColor);
-    //     moveTileFirstPlayer();
-    // } else if (allPlayerBoards[valueA][valueB].length < valueB + 1 && !allPlayerBoards[valueA][valueB].includes(factDisplayColor)) {
-    //   console.log("AQUIIIIIIIII");
-    //   break;
-    // } 
     if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
         // Envia o excesso dos tiles para a linha de pontos negativos do jogador
         if (allPlayerBoards[valueA][5].length < 7) {
@@ -962,8 +871,6 @@ function createPlayerBoards(numPlayers) {
     div2.setAttribute("id", "playerBoard" + i);
     let div6 = document.createElement("div");
     div6.setAttribute("id", "playerButtons" + i);
-    /*let div7 = document.createElement("div");
-    div7.setAttribute("id", "playerNegativePointsContainer" + i);*/
     let div4 = document.createElement("div");
     div4.setAttribute("id", "playerPointsBoards" + i);
     allPlayerBoards[i] = [];
@@ -994,24 +901,11 @@ function createPlayerBoards(numPlayers) {
             changeTurnPlayer();
             highlightTurnPlayerBoard();
             overlayPlayersColours();
-            //writeTurnPlayer();
-            /*let tilesInMesaoOfSameColor = document.querySelectorAll("#mesao>." + factDisplayColor + "");
-            console.log(tilesInMesaoOfSameColor);
-            for (let n = 0; n < tilesInMesaoOfSameColor.length; n++) {
-              console.log("deleetooou");
-              tilesInMesaoOfSameColor[n].remove();
-            }*/
           } else {
             moveTileSelected();
             changeTurnPlayer();
             highlightTurnPlayerBoard();
             overlayPlayersColours();
-            //writeTurnPlayer();
-            // Remove todos os azulejos selecionados dos factory displays
-            /*let allTilesInThisFactDisplay = document.querySelectorAll("#" + pid + ">.tilesImage");
-            for (l = 0; l < allTilesInThisFactDisplay.length; l++) {
-              allTilesInThisFactDisplay[l].remove();
-            }*/
           }
 
         // Adiciona os azulejos selecionados ao player board do jogador
@@ -1029,10 +923,8 @@ function createPlayerBoards(numPlayers) {
         if (mesao.length == 0 && endRound == true) {
           fimDaRodada();
         }
-
       });
       tileRow.setAttribute("class", "playerRowsButtons rowButtons" + j);
-      //tileRow.textContent = "butao";
       div6.appendChild(tileRow);
     }
     //cria 6 fileiras em cada playerboard presente dentro do allPlayerBoards
@@ -1040,7 +932,6 @@ function createPlayerBoards(numPlayers) {
         let div3 = document.createElement("div");
         if (k == 5) {
           div3.setAttribute("id", "playerNegativePoints" + i);
-          //div7.appendChild(div3);
           div8.appendChild(div3);
         } else {
           div3.setAttribute("id", "fileira" + i + k);
@@ -1049,28 +940,11 @@ function createPlayerBoards(numPlayers) {
         }
         allPlayerBoards[i][k] = [];
     }
-    //coloca a img de cada board de jogador
-    /*let playerImage = document.createElement("img");
-    playerImage.setAttribute("class", "boards");
-    playerImage.setAttribute("src", "assets/playerBoard.jpg")
-    div2.appendChild(playerImage);*/
     playerInfoBG.appendChild(playerNameDiv);
     playerInfoBG.appendChild(playerPointsDiv);
     div8.appendChild(div2);
     div8.appendChild(div4);
     div8.appendChild(div6);
-    //div8.appendChild(div7);
-    /*if (i % 2 == 0) {
-      playerInfo.appendChild(playerColourDiv);
-      playerInfo.appendChild(playerInfoBG);
-      div.appendChild(div8);
-      div.appendChild(playerInfo);
-    } else {
-      playerInfo.appendChild(playerInfoBG);
-      playerInfo.appendChild(playerColourDiv);
-      playerArea2.appendChild(div8);
-      playerArea2.appendChild(playerInfo);
-    }*/
     switch (i) {
       case 0:
         playerInfo.appendChild(playerColourDiv);
@@ -1142,7 +1016,7 @@ function fimDaRodada() {
             placement = placement - 5;
           }
           drawTilePointsBoard();
-          console.log("placement value is:  " + placement);
+          //console.log("placement value is:  " + placement);
         }
 
         else if (allPlayerBoards[i][j][0] == "Amarelo") {
@@ -1151,7 +1025,7 @@ function fimDaRodada() {
             placement = placement - 5;
           }
           drawTilePointsBoard();
-          console.log("placement value is:  " + placement);
+          //console.log("placement value is:  " + placement);
         }
 
         else if (allPlayerBoards[i][j][0] == "Vermelho") {
@@ -1160,7 +1034,7 @@ function fimDaRodada() {
             placement = placement - 5;
           }
           drawTilePointsBoard();
-          console.log("placement value is:  " + placement);
+          //console.log("placement value is:  " + placement);
         }
 
         else if (allPlayerBoards[i][j][0] == "Preto") {
@@ -1169,7 +1043,7 @@ function fimDaRodada() {
             placement = placement - 5;
           }
           drawTilePointsBoard();
-          console.log("placement value is:  " + placement);
+          //console.log("placement value is:  " + placement);
         }
 
         else if (allPlayerBoards[i][j][0] == "Branco") {
@@ -1178,7 +1052,7 @@ function fimDaRodada() {
             placement = placement - 5;
           }
           drawTilePointsBoard();
-          console.log("placement value of white is:  " + placement);
+          //console.log("placement value of white is:  " + placement);
         }
 
         allPlayerPointsBoards[i][j][placement] = allPlayerBoards[i][j][0];
@@ -1220,8 +1094,8 @@ function fimDaRodada() {
       }
     }
     let negativeRowSize = allPlayerBoards[i][5].length;
-    console.log("a length de negativeRowSize eh: " + negativeRowSize);
-    console.log("sua quantidade de pontos atual antes de perder pontos eh: " + playerPoints[i]);
+    // console.log("a length de negativeRowSize eh: " + negativeRowSize);
+    // console.log("sua quantidade de pontos atual antes de perder pontos eh: " + playerPoints[i]);
     switch (negativeRowSize) {
       case 1:
         minusPoints[i]++;
@@ -1252,11 +1126,11 @@ function fimDaRodada() {
         //console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
         break;
       default:
-        console.log("Nao perdeu ponto, parabens meu filho");
+        //console.log("Nao perdeu ponto, parabens meu filho");
     }
 
     playerPoints[i] = playerPoints[i] - minusPoints[i];
-    console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
+    //console.log("sua quantidade de pontos depois de perder pontos eh: " + playerPoints[i]);
 
     /*let currentPoints = document.getElementById("playerPointsDiv" + i);
     currentPoints.textContent = playerPoints[i];*/
@@ -1284,13 +1158,13 @@ function fimDaRodada() {
       for (let k = 0; k < allPlayerPointsBoards[i][j].length; k++) {
         if (allPlayerPointsBoards[i][j][k] != null) {
           endGameCounter++;
-          console.log("tem peçaaaaaaaaaaa");
-          console.log(endGameCounter);
+          // console.log("tem peçaaaaaaaaaaa");
+          // console.log(endGameCounter);
         }
       }
       if (endGameCounter == 5) {
         endGame = true;
-        console.log("É TETRA!");
+        //console.log("É TETRA!");
       }
     }
   }
@@ -1360,7 +1234,7 @@ function fimDoJogo() {
         colunaCompletada = 0;
         if (allPlayerPointsBoards[i][l][m] != null) {
           colunaCompletada++;
-          console.log("tem objeto nessa coluna");
+          //console.log("tem objeto nessa coluna");
         }
         if (colunaCompletada == 5) {
           finalPoints[i] += 7;
@@ -1369,8 +1243,8 @@ function fimDoJogo() {
     }
   }
   showsEndGame();
-  console.log("Pontos do jogador 1: " + finalPoints[0]);
-  console.log("Pontos do jogador 2: " + finalPoints[1]);
+  // console.log("Pontos do jogador 1: " + finalPoints[0]);
+  // console.log("Pontos do jogador 2: " + finalPoints[1]);
 }
 
 // console.log(circuloMaster);
@@ -1382,6 +1256,5 @@ function inicioDaRodada() {
   createMesaoFactoryDisplay();
   distributeTiles();
   selectTileColor();
-  //writeTurnPlayer();
 }
 //inicioDaRodada();
