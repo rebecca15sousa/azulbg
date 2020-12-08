@@ -703,8 +703,6 @@ function moveTileSelected() {
   for(let i = 0; i < circuloMaster[factDisplayNum].length; i++) {
     // Seleciona todas os tiles com a mesma cor do tile clicado
     if(circuloMaster[factDisplayNum][i] == factDisplayColor) {
-      // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
-      allPlayerBoards[valueA][valueB].push(factDisplayColor);
         // Envia o excesso dos tiles para a linha de pontos negativos do jogador
         if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
           if (allPlayerBoards[valueA][5].length < 7) {
@@ -713,7 +711,10 @@ function moveTileSelected() {
           } else {
             tilesDiscard.push(factDisplayColor);
           }
+          continue;
         }
+        // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
+        allPlayerBoards[valueA][valueB].push(factDisplayColor);
       // Deleta o tile da cor movida do factory display
       circuloMaster[factDisplayNum].splice(i, 1);
       i--;
@@ -749,14 +750,12 @@ function moveTileFirstPlayer() {
 // Essa função esta responsavel por tirar os tiles da array do mesao e mover pra array selecionada do jogador
 // takes the selected tiles out of the big table array and puts them into the player's selected array
 function moveTileSelectedMesao() {
-  if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
-    return;
-  }
+  // if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
+  //   return;
+  // }
   for(let i = 0; i < mesao.length; i++) {
     // Seleciona todas os tiles com a mesma cor do tile clicado
     if(mesao[i] == factDisplayColor) {
-      // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
-      allPlayerBoards[valueA][valueB].push(factDisplayColor);
       moveTileFirstPlayer();
     if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
         // Envia o excesso dos tiles para a linha de pontos negativos do jogador
@@ -766,7 +765,10 @@ function moveTileSelectedMesao() {
         } else {
           tilesDiscard.push(factDisplayColor);
         }
+        continue;
       }
+      // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
+      allPlayerBoards[valueA][valueB].push(factDisplayColor);
       // Deleta o tile da cor movida do factory display
       mesao.splice(i, 1);
       i--;
