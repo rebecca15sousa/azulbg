@@ -981,7 +981,7 @@ function createPlayerBoards(numPlayers) {
 function erasePlayerBoard() {
     document.getElementById("fileira" + valueC + valueD).textContent = "";
     document.getElementById("playerNegativePoints" + valueC).textContent = "";
-    console.log("apagou as coisa");
+    //console.log("apagou as coisa");
 }
 
 //Checa se a rodada ja terminou
@@ -1000,9 +1000,13 @@ function fimDaRodada() {
     for (let j = 0; j < allPlayerBoards[i].length; j++) {
       if(allPlayerBoards[i][j].length == j + 1) {
         // Primeiro, descarta todos os tiles em excesso
-        for (let k = 0; k < allPlayerBoards[i][j].length - 1; k++) {
-          tilesDiscard.push(allPlayerBoards[i][j][k]);
-          allPlayerBoards[i][j].splice(k, 1);
+        for (let k = 0; k < 5; k++) {
+          if (allPlayerBoards[i][j].length > 1) {
+            tilesDiscard.push(allPlayerBoards[i][j][0]);
+            //console.log("add no descarte");
+            allPlayerBoards[i][j].splice(0, 1);
+            //console.log("tirou excesso");
+          }
         }
 
         valueC = i;
@@ -1061,6 +1065,7 @@ function fimDaRodada() {
         playerPoints[i]++;
         plusPoints[i]++;
         allPlayerBoards[i][j].splice(0, 1);
+        //console.log("tirou último tile restante");
 
         if (placement > 0 ) {
           while (allPlayerPointsBoards[i][j][placement - 1]) {
