@@ -750,30 +750,31 @@ function moveTileFirstPlayer() {
 // Essa função esta responsavel por tirar os tiles da array do mesao e mover pra array selecionada do jogador
 // takes the selected tiles out of the big table array and puts them into the player's selected array
 function moveTileSelectedMesao() {
-  // if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
-  //   return;
-  // }
-  for(let i = 0; i < mesao.length; i++) {
+  let loopLength = mesao.length;
+  moveTileFirstPlayer();
+  for(let i = 0; i < loopLength; i++) {
+    let index = mesao.indexOf(factDisplayColor);
     // Seleciona todas os tiles com a mesma cor do tile clicado
-    if(mesao[i] == factDisplayColor) {
-      moveTileFirstPlayer();
-    if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
-        // Envia o excesso dos tiles para a linha de pontos negativos do jogador
-        if (allPlayerBoards[valueA][5].length < 7) {
-          allPlayerBoards[valueA][5].push(factDisplayColor);
-        // Se a linha de pontos negativos do jogador ja estiver lotada, envia o excesso de tiles que iria para lá direto para o descarte.
-        } else {
-          tilesDiscard.push(factDisplayColor);
+    if(index > -1) {
+      if (allPlayerBoards[valueA][valueB].length == valueB + 1) {
+          // Envia o excesso dos tiles para a linha de pontos negativos do jogador
+          if (allPlayerBoards[valueA][5].length < 7) {
+            allPlayerBoards[valueA][5].push(factDisplayColor);
+          // Se a linha de pontos negativos do jogador ja estiver lotada, envia o excesso de tiles que iria para lá direto para o descarte.
+          } else {
+            tilesDiscard.push(factDisplayColor);
+          }
+      } else {
+        // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
+        allPlayerBoards[valueA][valueB].push(factDisplayColor);
+        // Deleta o tile da cor movida do mesao
+        mesao.splice(index, 1);
         }
-        continue;
+    } else {
+      break;
       }
-      // adiciona o tile da cor selecionada para a linha do tabuleiro do jogador
-      allPlayerBoards[valueA][valueB].push(factDisplayColor);
-      // Deleta o tile da cor movida do factory display
-      mesao.splice(i, 1);
-      i--;
-    }
   }
+  // Remove todos os azulejos selecionados da mesma cor do mesao
   let tilesInMesaoOfSameColor = document.querySelectorAll("#mesao>." + factDisplayColor + "");
   for (let n = 0; n < tilesInMesaoOfSameColor.length; n++) {
     tilesInMesaoOfSameColor[n].remove();
@@ -786,7 +787,7 @@ function drawTileSelected() {
     return;
   }
   for(let m = 0; m < tilesSameColor.length; m++) {
-    console.log(allPlayerBoards[valueA][5].length);
+    //console.log(allPlayerBoards[valueA][5].length);
     if (document.getElementById('fileira' + valueA + valueB).childElementCount == 0) {
       let variavelzinha2 = document.createElement("img");
       variavelzinha2.setAttribute("src", "assets/" + allPlayerBoards[valueA][valueB][m] + ".jpg");
@@ -806,7 +807,7 @@ function drawTileSelected() {
       variavelzinha2.setAttribute("src", "assets/" + factDisplayColor + ".jpg");
       variavelzinha2.setAttribute("class", "tilesImage");
       document.getElementById("playerNegativePoints" + valueA).appendChild(variavelzinha2);
-      console.log("perdendo pontosssss");
+      //console.log("perdendo pontosssss");
     }
   }
 }
@@ -897,8 +898,8 @@ function createPlayerBoards(numPlayers) {
         valueA = i;
         valueB = j;
           if (tilesSameColor[0].parentNode.id == "mesao") {
-            console.log(factDisplayColor);
-            console.log("deu certo!");
+            //console.log(factDisplayColor);
+            //console.log("deu certo!");
             moveTileSelectedMesao();
             changeTurnPlayer();
             highlightTurnPlayerBoard();
