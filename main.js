@@ -68,6 +68,9 @@ let modalQuitGame = document.getElementById("modalQuitGame");
 let modalBtnQuitYes = document.getElementById("modalBtnQuitYes");
 let modalBtnQuitNo = document.getElementById("modalBtnQuitNo");
 let optionsBtn = document.getElementById("optionsBtn");
+let modalConfirmationLosePoints = document.getElementById("modalConfirmationLosePoints");
+let modalBtnLoseYes = document.getElementById("modalBtnLoseYes");
+let modalBtnLoseNo = document.getElementById("modalBtnLoseNo");
 
 //play button function
 modalBtnPlay.onclick = function() {
@@ -560,6 +563,23 @@ modalBtnDifPlayers.onclick = function() {
   modal.style.display = "block";
 }
 
+//shows lose points confirmation modal
+function showsConfirmationLosePoints() {
+  modalConfirmationLosePoints.style.display = "block";
+}
+
+//buttons functions for lose points confirmation modal
+modalBtnLoseYes.onclick = function() {
+  modalConfirmationLosePoints.style.display = "none";
+  /*funções q executam td o processo de uma jogada estão dentro do createPlayerBoards
+  o melhor a se fazer é colocar todas elas dentro de uma função mestre e chamar o mestre
+  no createPlayerBoards e aqui*/
+}
+
+modalBtnLoseNo.onclick = function() {
+  modalConfirmationLosePoints.style.display = "none";
+}
+
 //array que contem todos os tiles do jogo
 //array that contains all the tiles from the game
 let tipoTiles = [
@@ -670,6 +690,10 @@ function selectTileColor() {
         tilesSameColor[j].selected = true;
       };
       checkRowConditions();
+      let allRowsDisabled = checkIfAllRowsDisabled();
+      if (allRowsDisabled == true) {
+        showsConfirmationLosePoints();
+      }
     });
   }
 }
@@ -830,6 +854,10 @@ function drawMesao(corAtual) {
         tilesSameColor[j].setAttribute("style", "border: 2px solid red;");
       };
       checkRowConditions();
+      let allRowsDisabled = checkIfAllRowsDisabled();
+      if (allRowsDisabled == true) {
+        showsConfirmationLosePoints();
+      }
     });
     div.appendChild(drawTile);
 }
@@ -894,6 +922,8 @@ function createPlayerBoards(numPlayers) {
       // Resto
       tileRow = document.createElement("button");
       tileRow.disabled = true;
+
+      //FUNÇÕES DO PROCESSO DE JOGADA COMEÇAM AQUI
       tileRow.addEventListener("click", function() {
         valueA = i;
         valueB = j;
@@ -927,6 +957,8 @@ function createPlayerBoards(numPlayers) {
           fimDaRodada();
         }
       });
+      //FUNÇÕES DO PROCESSO DE JOGADA TERMINAM AQUI
+
       tileRow.setAttribute("class", "playerRowsButtons rowButtons" + j);
       div6.appendChild(tileRow);
     }
