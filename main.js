@@ -701,23 +701,22 @@ function selectTileColor() {
 //checks if row in player board is able to receive tiles and enables/disables it
 function checkRowConditions() {
   playerButtons = document.querySelectorAll("#playerButtons" + turnPlayer + ">.playerRowsButtons");
-    for (let l = 0; l < playerButtons.length; l++) {
-      playerButtons[l].disabled = true;
-      playerButtons[l].setAttribute("style", "border: none;");
-      //está lotada a fileira
-      if (allPlayerBoards[turnPlayer][l].length == l + 1) {
-        continue;
-      //a fileira não está lotada e a cor selecionada não é a mesma cor que já está na fileira
-      } else if (allPlayerBoards[turnPlayer][l].length > 0 && !allPlayerBoards[turnPlayer][l].includes(factDisplayColor)) {
-        continue;
-      //a cor já foi pontuada
-      } else if (allPlayerPointsBoards[turnPlayer][l].includes(factDisplayColor)) {
-        continue;
-      //td bem
-      } else {
-        playerButtons[l].disabled = false;
-        playerButtons[l].setAttribute("style", "border: 2px solid red;");
-      }
+  for (let l = 0; l < playerButtons.length; l++) {
+    playerButtons[l].disabled = true;
+    playerButtons[l].setAttribute("style", "border: none;");
+    //está lotada a fileira
+    if (allPlayerBoards[turnPlayer][l].length == l + 1) {
+      continue;
+    //a fileira não está lotada e a cor selecionada não é a mesma cor que já está na fileira
+    } else if (allPlayerBoards[turnPlayer][l].length > 0 && !allPlayerBoards[turnPlayer][l].includes(factDisplayColor)) {
+      continue;
+    //a cor já foi pontuada
+    } else if (allPlayerPointsBoards[turnPlayer][l].includes(factDisplayColor)) {
+      continue;
+    //td bem
+    } else {
+      playerButtons[l].disabled = false;
+      playerButtons[l].setAttribute("style", "border: 2px solid red;");
     }
 }
 
