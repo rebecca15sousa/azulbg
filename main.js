@@ -718,6 +718,18 @@ function checkRowConditions() {
       playerButtons[l].disabled = false;
       playerButtons[l].setAttribute("style", "border: 2px solid red;");
     }
+  }
+}
+
+//checks if all rows in player board are disabled
+function checkIfAllRowsDisabled() {
+  playerButtons = document.querySelectorAll("#playerButtons" + turnPlayer + ">.playerRowsButtons");
+  for (let i = 0; i < playerButtons.length; i++) {
+    if (playerButtons[i].disabled == false) {
+      return false;
+    }
+  }
+  return true;
 }
 
 // Essa função esta responsavel por tirar os tiles da array dos factory displays e mover pra array selecionada do jogador
