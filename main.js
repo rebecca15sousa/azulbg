@@ -65,8 +65,8 @@ let modalOptions = document.getElementById("modalOptions");
 let modalBtnQuitGame = document.getElementById("modalBtnQuitGame");
 let modalBtnResume = document.getElementById("modalBtnResume");
 let modalQuitGame = document.getElementById("modalQuitGame");
-let modalBtnYes = document.getElementById("modalBtnYes");
-let modalBtnNo = document.getElementById("modalBtnNo");
+let modalBtnQuitYes = document.getElementById("modalBtnQuitYes");
+let modalBtnQuitNo = document.getElementById("modalBtnQuitNo");
 let optionsBtn = document.getElementById("optionsBtn");
 
 //play button function
@@ -106,13 +106,13 @@ modalBtnResume.onclick = function() {
 }
 
 //quits current game and goes back to home modal
-modalBtnYes.onclick = function() {
+modalBtnQuitYes.onclick = function() {
   modalQuitGame.style.display = "none";
   modalHome.style.display = "block";
 }
 
 //cancels quit game action and goes back to options modal
-modalBtnNo.onclick = function() {
+modalBtnQuitNo.onclick = function() {
   modalQuitGame.style.display = "none";
   modalOptions.style.display = "block";
 }
