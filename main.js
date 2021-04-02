@@ -288,10 +288,7 @@ modalBtnOK.onclick = function() {
 }
 
 //button on settings modal that calls start game function
-modalBtnSettings.onclick = function() {
-  startGame();
-  modalSettings.style.display = "none";
-}
+modalBtnSettings.onclick = startGame;
 
 //checks if there is a player colour repeated
 function isColourRepeated() {
@@ -351,16 +348,15 @@ function isTextboxEmpty() {
 
 //calls functions for initial game setup
 function startGame() {
-  if (isColourRepeated()) {
-    let colourWarning = document.getElementById("colourWarningDiv");
-    colourWarning.textContent = "Player colours can not be repeated";
-  } else if (isNameRepeated()) {
-    let nameWarning = document.getElementById("nameWarningDiv");
-    nameWarning.textContent = "Player names can not be repeated";
-  } else if (isTextboxEmpty()) {
-    let textboxWarning = document.getElementById("textboxWarningDiv");
-    textboxWarning.textContent = "Player names can not be empty";
-  } else {
+  let colourWarning = document.getElementById("colourWarningDiv");
+  colourWarning.textContent = "";
+  let textboxWarning = document.getElementById("textboxWarningDiv");
+  textboxWarning.textContent = "";
+  let nameWarning = document.getElementById("nameWarningDiv");
+  nameWarning.textContent = "";
+
+  if (!isColourRepeated() && !isTextboxEmpty() && !isNameRepeated()) {
+    modalSettings.style.display = "none";
     names = [];
     colours = [];
     for (let i = 0; i < numPlayers; i++) {
@@ -375,6 +371,16 @@ function startGame() {
     createOverlayDiv();
     resetBagAndDiscard();
     inicioDaRodada();
+  } else {
+    if (isColourRepeated()) {
+      colourWarning.textContent = "Player colours can not be repeated";
+    }
+    if (isTextboxEmpty()) {
+      textboxWarning.textContent = "Player names can not be empty";
+    }
+    if (isNameRepeated()) {
+      nameWarning.textContent = "Player names can not be repeated";
+    }
   }
 }
 
@@ -659,7 +665,7 @@ function distributeTiles() {
   for(let i = 0; i < circuloMaster.length; i++) {
     for(let j = 0; j < 4; j++) {
       if (bag.length <= 0) {
-        refillBag();     
+        refillBag();
       }
       let randomIndex = Math.floor(Math.random() * bag.length);
       circuloMaster[i].push(bag[randomIndex]);
