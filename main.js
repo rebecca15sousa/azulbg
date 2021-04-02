@@ -145,6 +145,14 @@ function openColourWindow(window, colourBtn) {
 
   let swatches = document.getElementsByClassName("swatches");
   for (let i = 0; i < swatches.length; i++) {
+    let colourBtns = document.getElementsByClassName("colourBtn");
+    for (let j = 0; j < colourBtns.length; j++) {
+      if (colourBtns[j].style.backgroundColor == swatches[i].style.backgroundColor) {
+        swatches[i].disabled = true;
+        swatches[i].style.opacity = 0.2;
+      }
+    }
+
     swatches[i].addEventListener("click", function() {
       window.style.display = "none";
       colourBtn.style.backgroundColor = this.style.backgroundColor;
@@ -161,7 +169,11 @@ function makeSettings(numPlayers) {
     let colourBtn = document.createElement("button");
     colourBtn.setAttribute("type", "button");
     colourBtn.classList.add("colourBtn");
+    colourBtn.style.backgroundColor = "lightgrey";
     colourBtn.setAttribute("id", "playerColour" + i);
+    let icon = document.createElement("i");
+    icon.classList.add("fa", "fa-paint-brush");
+    colourBtn.appendChild(icon)
     colourAndName.appendChild(colourBtn);
     let window = document.createElement("div");
     window.classList.add("colourWindow");
@@ -269,14 +281,11 @@ modalBtnOK.onclick = function() {
 modalBtnSettings.onclick = startGame;
 
 //checks if there is a player colour repeated
-function isColourRepeated() {
+function isColourUnselected() {
   for (let i = 0; i < numPlayers; i++) {
-    for (let j = 0; j < numPlayers; j++) {
-      let colourA = document.getElementById("playerColour" + i).style.backgroundColor;
-      let colourB = document.getElementById("playerColour" + j).style.backgroundColor;
-      if (i != j && colourA == colourB) {
-        return true;
-      }
+    let colour = document.getElementById("playerColour" + i).style.backgroundColor;
+    if (colour == "lightgrey") {
+      return true;
     }
   }
   return false;
@@ -333,7 +342,7 @@ function startGame() {
   let nameWarning = document.getElementById("nameWarningDiv");
   nameWarning.textContent = "";
 
-  if (!isColourRepeated() && !isTextboxEmpty() && !isNameRepeated()) {
+  if (!isColourUnselected() && !isTextboxEmpty() && !isNameRepeated()) {
     modalSettings.style.display = "none";
     optionsBtn.style.display = "block";
     names = [];
@@ -351,8 +360,8 @@ function startGame() {
     resetBagAndDiscard();
     inicioDaRodada();
   } else {
-    if (isColourRepeated()) {
-      colourWarning.textContent = "Player colours can not be repeated";
+    if (isColourUnselected()) {
+      colourWarning.textContent = "Please select a colour for each player";
     }
     if (isTextboxEmpty()) {
       textboxWarning.textContent = "Player names can not be empty";
