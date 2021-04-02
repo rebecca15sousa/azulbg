@@ -199,7 +199,16 @@ function makeSettings(numPlayers) {
     window.style.display = "none";
     colourAndName.appendChild(window);
     colourBtn.addEventListener("click", function() {
-      openColourWindow(window, colourBtn);
+      if (window.style.display == "none") {
+        let colourWindows = document.getElementsByClassName("colourWindow");
+        for (let i = 0; i < colourWindows.length; i++) {
+          colourWindows[i].style.display = "none";
+        }
+
+        openColourWindow(window, colourBtn);
+      } else {
+        window.style.display = "none";
+      }
     });
     let playerName = document.createElement("input");
     playerName.setAttribute("type", "text");
