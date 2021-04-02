@@ -34,6 +34,12 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+#modalVersion {
+  font-size: 20px;
+  margin-bottom: 3%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .modalBtnHome {
   margin: auto 2%;
   background-color: lightgrey;
