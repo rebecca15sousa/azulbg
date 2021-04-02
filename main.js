@@ -124,56 +124,25 @@ modalBtnQuitNo.onclick = function() {
 function openColourWindow(window, colourBtn) {
   window.textContent = "";
   window.style.display = "inline-block";
-  let redBtn = document.createElement("button");
-  redBtn.setAttribute("type", "button");
-  redBtn.classList.add("swatches");
-  redBtn.style.backgroundColor = "#cc0000";
-  window.appendChild(redBtn);
-  let orangeBtn = document.createElement("button");
-  orangeBtn.setAttribute("type", "button");
-  orangeBtn.classList.add("swatches");
-  orangeBtn.style.backgroundColor = "#ff6600";
-  window.appendChild(orangeBtn);
-  let yellowBtn = document.createElement("button");
-  yellowBtn.setAttribute("type", "button");
-  yellowBtn.classList.add("swatches");
-  yellowBtn.style.backgroundColor = "#ffcc00";
-  window.appendChild(yellowBtn);
-  let darkGreenBtn = document.createElement("button");
-  darkGreenBtn.setAttribute("type", "button");
-  darkGreenBtn.classList.add("swatches");
-  darkGreenBtn.style.backgroundColor = "#009933";
-  window.appendChild(darkGreenBtn);
-  let lightGreenBtn = document.createElement("button");
-  lightGreenBtn.setAttribute("type", "button");
-  lightGreenBtn.classList.add("swatches");
-  lightGreenBtn.style.backgroundColor = "#79ff4d";
-  window.appendChild(lightGreenBtn);
-  let darkBlueBtn = document.createElement("button");
-  darkBlueBtn.setAttribute("type", "button");
-  darkBlueBtn.classList.add("swatches");
-  darkBlueBtn.style.backgroundColor = "#0000cc";
-  window.appendChild(darkBlueBtn);
-  let lightBlueBtn = document.createElement("button");
-  lightBlueBtn.setAttribute("type", "button");
-  lightBlueBtn.classList.add("swatches");
-  lightBlueBtn.style.backgroundColor = "#00ccff";
-  window.appendChild(lightBlueBtn);
-  let purpleBtn = document.createElement("button");
-  purpleBtn.setAttribute("type", "button");
-  purpleBtn.classList.add("swatches");
-  purpleBtn.style.backgroundColor = "#6600cc";
-  window.appendChild(purpleBtn);
-  let pinkBtn = document.createElement("button");
-  pinkBtn.setAttribute("type", "button");
-  pinkBtn.classList.add("swatches");
-  pinkBtn.style.backgroundColor = "#ff66ff";
-  window.appendChild(pinkBtn);
-  let aquaBtn = document.createElement("button");
-  aquaBtn.setAttribute("type", "button");
-  aquaBtn.classList.add("swatches");
-  aquaBtn.style.backgroundColor = "#4dffb8";
-  window.appendChild(aquaBtn);
+
+  function createSwatch(hex) {
+    let swatch = document.createElement("button");
+    swatch.setAttribute("type", "button");
+    swatch.classList.add("swatches");
+    swatch.style.backgroundColor = hex;
+    window.appendChild(swatch);
+  }
+  createSwatch("#cc0000"); //red
+  createSwatch("#ff6600"); //orange
+  createSwatch("#ffcc00"); //yellow
+  createSwatch("#009933"); //dark green
+  createSwatch("#fff"); //white
+  createSwatch("#0000cc"); //dark blue
+  createSwatch("#00ccff"); //light blue
+  createSwatch("#6600cc"); //purple
+  createSwatch("#ff66ff"); //pink
+  createSwatch("#000"); //black
+
   let swatches = document.getElementsByClassName("swatches");
   for (let i = 0; i < swatches.length; i++) {
     swatches[i].addEventListener("click", function() {
