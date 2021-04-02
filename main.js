@@ -357,6 +357,7 @@ function startGame() {
 
   if (!isColourRepeated() && !isTextboxEmpty() && !isNameRepeated()) {
     modalSettings.style.display = "none";
+    optionsBtn.style.display = "block";
     names = [];
     colours = [];
     for (let i = 0; i < numPlayers; i++) {
